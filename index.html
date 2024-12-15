@@ -11,7 +11,7 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
     <title>GSB Reports Generator</title>
-    <img src="https://i.imgur.com/1dhxhIu.png" alt="GSB logo" />
+    <img src="https://i.imgur.com/1dhxhIu.png" alt="PD logo" />
 
     <style>
         /* Set background color for the body */
@@ -61,21 +61,23 @@
         }
     </style>
     <div class="center-top">
-        <h1>GSB Reports Generator</h1>
+        <h1>PD Divisional Generator</h1>
         <p>If you find any issues or have a suggestion, contact <b>Alphus</b> on Discord</p>
     </div>
 
 
     <!-- Navigation Buttons -->
     <div class="container mt-3 d-flex justify-content-center" id="navigationBar">
-        <button class="btn btn-success me-2" onclick="showSection('gsbEmailSection', this)">GSB Email</button>
-        <button class="btn btn-secondary me-2" onclick="showSection('dutyReportSection', this)">Duty Report</button>
-        <button class="btn btn-secondary me-2" onclick="showSection('incidentReportSection', this)">Incident
-            Report</button>
-        <button class="btn btn-secondary me-2" onclick="showSection('arrestReportSection', this)">Arrest Report</button>
-        <button class="btn btn-secondary me-2" onclick="showSection('vipTransitSection', this)">VIP Transit
-            Report</button>
-        <button class="btn btn-secondary" onclick="showSection('warrantReportSection', this)">Warrant Report</button>
+        <button class="btn btn-success me-2" onclick="showSection('VehPass', this)">Vehicle (Pass)</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('VehPract', this)">Vehicle (Practical)</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('VehFail', this)">Vehicle (Fail) </button>
+        
+        <button class="btn btn-success me-2" onclick="showSection('WeaponPass', this)">Equipement (Pass)</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('WeaponFail', this)">Equipement (Fail) </button>
+        
+        <button class="btn btn-secondary me-2" onclick="showSection('FTS', this)">FTS</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('FPS', this)">FPS</button>
+        <button class="btn btn-secondary" onclick="showSection('MockEval', this)">Mock Eval</button>
     </div>
 
 
@@ -99,177 +101,315 @@
     </head>
 
 
-    <!-- GSB Email Section -->
-    <div id="gsbEmailSection" class="container mt-3 myHideableSection">
+    <!-- Vehicle (Pass) -->
+    <div id="VehPass" class="container mt-3 myHideableSection">
         <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
             <div class="card-body">
-                <!-- GSB Email Form Fields -->
+                <!-- Equipement (Pass) -->
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Their Name:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtGSBTheirName" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtEPDRank" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Your Name:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtGSBYourName" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPDName" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Your Rank:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">On Road</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtGSBYourRank" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPDRoad" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Badge Number:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Off Duty:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtgsbBadge" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPDOFF" class="form-control" style="width: 600px" />
                     </div>
                 </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Subject:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtGSBSubject" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Email Text:</div>
-                    <div class="col-md-10">
-                        <textarea id="txtGSBEmailtxt" class="form-control" style="width: 600px" rows="5"></textarea>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Signature Image:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtgsbSigImg" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
+                                <!-- Submit Button -->
                 <div class="row mb-2">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button" id="btnCopy" onClick="createGSBEmail();" class="btn btn-success">
+                        <button type="button" id="btnSubmitVehPass" onClick="SubmitVehPass();"
+                            class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
-                        <p id="copyGSBEmailSuccess"></p>
-                        <textarea id="displayGSBEmailBB" class="form-control" style="width: 600px"
+                        <p id="copyVehPassSuccess"></p>
+                        <textarea id="displayVehPassBB" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 
-    <!-- Duty Report Section -->
+        <!-- Vehicle (Fail) -->
+    <div id="VehFail" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtEPDRankF" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDNameF" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+             <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Vehicle:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDCertF" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">On Road</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDRoadF" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Off Duty:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDOFFF" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnSubmitVehFail" onClick="SubmitVehFail();"
+                            class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyVehFailSuccess"></p>
+                        <textarea id="displayVehFailBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        
+    <!-- Vehicle (Practical) -->
+    <div id="VehPract" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtEPDRankPR" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDNamePR" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnVehPractReport" onClick="SubmitVehPract();"
+                            class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyVehPractSuccess"></p>
+                        <textarea id="displayVehPractBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Weapon (Pass) -->
+    <div id="WeaponPass" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtEPDRankW" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDNameW" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+            <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Weapon:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDCertW" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnSubmitWeaponPass" onClick="SubmitWeaponPass();"
+                            class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyWeaponPassSuccess"></p>
+                        <textarea id="displayWeaponPassBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Weapon (Fail) -->
+    <div id="WeaponFail" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtEPDRankWF" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDNameWF" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+            <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Weapon:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDCertWF" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnSubmitWeaponFail" onClick="SubmitWeaponFail();"
+                            class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyWeaponFailSuccess"></p>
+                        <textarea id="displayWeaponFailBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+        
+    
+    <!-- FTS Section -->
     <div id="dutyReportSection" class="container mt-3 myHideableSection" style="display: none;">
         <div class="card" style="background-color: #4c0606; color: white;">
             <div class="card-body">
                 <!-- Duty Report Form Fields -->
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Full Name:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtDutyFullName" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtFTSDate" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Time:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtDutyRank" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtFTSTime" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Shift Start:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">MANUAL KNOWLEDGE:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtShiftStart" class="form-control" style="width: 600px"placeholder="eg. 01/DEC/2024 15:00 (Give time in UTC)" />
+                        <input type="text" id="txtFTSMan" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Shift End:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">BEHAVIOR:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtShiftEnd" class="form-control" style="width: 600px"placeholder="eg. 01/DEC/2024 18:00 (Give time in UTC)" />
+                        <input type="text" id="txtFTSBehave" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Shift Summary:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">COMMUNICATIONS:</div>
                     <div class="col-md-10">
-                        <textarea id="txtShiftSummary" class="form-control" style="width: 600px" rows="5"></textarea>
+                        <textarea id="txtFTSComm" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">ROLEPLAY ABILITIES:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFTSRP" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Material:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFTSMat" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+               <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Any sections that would need to be reiterated:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFTSRei" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+               <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Any key mistakes that need urgent attention:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFTSAt" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Did you remind the Cadet to submit a Field Training Officer Review Survey?[:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFTSSurv" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Is your report on this session complete?:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFTSComp" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Form:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFTSForm" class="form-control" style="width: 600px" rows="5"></textarea>
                     </div>
                 </div>
 
-                <!-- Incident 1 -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident 1:</div>
-                    <div class="col-md-10">
-                        <div class="mb-2">
-                            <label for="txtIncident1Narrative" style="font-weight: bold;">Situation Narrative</label>
-                            <textarea id="txtIncident1Narrative" class="form-control" style="width: 600px"
-                                rows="3"></textarea>
-                        </div>
-                        <div class="mb-2">
-                            <label for="txtIncident1Time" style="font-weight: bold;">Time of Event</label>
-                            <input type="text" id="txtIncident1Time" class="form-control"
-                                style="width: 600px"placeholder="eg. 01/DEC/2024 16:30 (Give time in UTC)" />
-                        </div>
-                        <div class="mb-2">
-                            <label for="txtIncident1Link" style="font-weight: bold;">Link to Paperwork</label>
-                            <input type="text" id="txtIncident1Link" class="form-control" style="width: 600px" />
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Incident 2 -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident 2:</div>
-                    <div class="col-md-10">
-                        <div class="mb-2">
-                            <label for="txtIncident2Narrative" style="font-weight: bold;">Situation Narrative</label>
-                            <textarea id="txtIncident2Narrative" class="form-control" style="width: 600px"
-                                rows="3"></textarea>
-                        </div>
-                        <div class="mb-2">
-                            <label for="txtIncident2Time" style="font-weight: bold;">Time of Event</label>
-                            <input type="text" id="txtIncident2Time" class="form-control"
-                                style="width: 600px"placeholder="eg. 01/DEC/2024 17:30 (Give time in UTC)" />
-                        </div>
-                        <div class="mb-2">
-                            <label for="txtIncident2Link" style="font-weight: bold;">Link to Paperwork</label>
-                            <input type="text" id="txtIncident2Link" class="form-control" style="width: 600px" />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Incident 3 -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident 3:</div>
-                    <div class="col-md-10">
-                        <div class="mb-2">
-                            <label for="txtIncident3Narrative" style="font-weight: bold;">Situation Narrative</label>
-                            <textarea id="txtIncident3Narrative" class="form-control" style="width: 600px"
-                                rows="3"></textarea>
-                        </div>
-                        <div class="mb-2">
-                            <label for="txtIncident3Time" style="font-weight: bold;">Time of Event</label>
-                            <input type="text" id="txtIncident3Time" class="form-control"
-                                style="width: 600px"placeholder="eg. 01/DEC/2024 18:00 (Give time in UTC)" />
-                        </div>
-                        <div class="mb-2">
-                            <label for="txtIncident3Link" style="font-weight: bold;">Link to Paperwork</label>
-                            <input type="text" id="txtIncident3Link" class="form-control" style="width: 600px" />
-                        </div>
-                    </div>
-                </div>
-
+                
                 <!-- Submit Button -->
                 <div class="row mb-2">
                     <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button" id="btnSubmitDutyReport" onClick="submitDutyReport();"
+                        <button type="button" id="btnSubmitFTSReport" onClick="SubmitFTSReport();"
                             class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
-                        <p id="copyDutyReportSuccess"></p>
-                        <textarea id="displayDutyReportBB" class="form-control" style="width: 600px"
+                        <p id="copyFTSReportSuccess"></p>
+                        <textarea id="displayFTSReportBB" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
                 </div>
@@ -1271,104 +1411,142 @@ Incident Outcome: ${outcomeBB}
 
 
         // JavaScript function to generate and display the BBCode for the arrest report
-        function submitArrestReport() {
-            const suspectFullName = $('#txtArrestSuspectFullName').val();
-            const suspectPhoneNumber = $('#txtArrestSuspectPhoneNumber').val();
-            const mugshot = $('#suspectMugshot').val();
-            const arrestTime = $('#txtArrestTime').val();
-            const licenses = $('#txtLicenses').val();
-            const charges = $('#chargesList li').map(function () {
-                return $(this).text();
-            }).get().join("\n[*] ");
-            const officersInvolvedList = $('#arrestOfficersList li').map(function () {
-                return $(this).text();
-            }).get().join("\n[*] ");
-            const summary = $('#txtArrestSummary').val();
-            const illegalPossessions = $('#illegalPossessionsList li').map(function () {
-                return $(this).text();
-            }).get().join("\n[b] Exhibit [/b] ");
-            const legalPossessions = $('#legalPossessionsList li').map(function () {
-                return $(this).text();
-            }).get().join("\n[b] Exhibit [/b]");
-            const photographPossessions = $('#txtPhotographPossessions').val();
-            const proofRP = $('#txtArrestProofRP').val();
-            const bodycamFootage = $('#txtArrestBodycamFootage').val();
+        function submitFTSReport() {
+            const Date = $('#txtFTSDate').val();
+            const Time = $('#txtFTSTime').val();
+            const Manual = $('#txtFTSMan').val();
+            const Behavior = $('#txtFTSBehave').val();
+            const Communications = $('#txtFTSComm').val();
+            const Roleplay = $('#txtFTSRP').val();
+            const Material = $('#txtFTSMat').val();
+           const reiterated = $('#txtFTSRei').val();
+            const KeyMistakes = $('#txtFTSAt').val();
+            const Survey = $('#txtFTSSurv').val();
+            const Complete = $('#txtFTSComp').val();
+            const Form = $('#txtFTSForm').val();
 
 
 
 
             // Construct the BBCode
-            const arrestReportBBCode = `
-[img]https://i.imgur.com/aDC580W.png[/img]
-[divbox=#dbd3d3]
-[divbox=#4c0606][b][color=white]Suspect Details[/color][/b][/divbox]
+            const FTSReportBBCode = `
+[img]https://i.imgur.com/fSstyRv.png[/img]
+
+[lspdsubtitle]1. SESSION DETAILS[/lspdsubtitle]
+[divbox=white][list=none]
+[b]Date:[/b] ${Date}
+[b]Patrol Hours [ooc] UTC, 24h format [/ooc]:[/b] ${Time}
+[/divbox]
+
+[lspdsubtitle]2. SESSION CHECKLIST[/lspdsubtitle]
 [divbox=white]
-[float=right][fimg=200,185]${mugshot}[/fimg][/float]
+[size=85][i]Mark each box by changing [c][cb][/c] to [c][cbc][/c] if a topic or module was covered in the session, otherwise leave it unchanged.[/i][/size]
 
-[b]Full Name:[/b] ${suspectFullName}
-[b]Phone Number:[/b] ${suspectPhoneNumber}
-[b]Time of Arrest:[/b] ${arrestTime} (DD/MM/YY)
-[b]Licenses:[/b] 
-[spoiler]
-[img]${licenses}[/img]
-[/spoiler]
-
-[b]Charges:[/b]
-[i][size=85]Example: Attempted SF02 - Murder of a Government Employee[/size][/i]
-[list]
-[*] ${charges}
+[spoil]
+[b]ORIENTATION[/b]
+[list=none] 
+[*] [cb] - [b]Cadet was instructed how to start watch[/b]
+[*] [cb] - [b]Cadet was introduced to the concept of jurisdictions[/b]
+[*] [cb] - [b]Cadet was taught how to use the MDC[/b]
+[*] [cb] - [b]Cadet was introduced to our precincts and facilities[/b]
+[*] [cb] - [b]Cadet was taught how to operate the impound lot[/b]
+[*] [cb] - [b]Cadet was taught the basics of communication[/b]
+[*] [cb] - [b]Cadet has set up a Personnel Record (MUST BE CONFIRMED BY THE FTO)[/b]
 [/list]
-[/divbox]
-[divbox=#4c0606][b][color=white]Incident Details[/color][/b][/divbox]
+[hr]
+[b]BASIC POLICING[/b]
+[list=none] 
+[*] [cb] - [b]PRIORITY: Probable Cause & Arrest Procedure[/b]
+[*] [cb] - [b]PRIORITY: Use of Force[/b]
+[*] [cb] - [b]PRIORITY: Basics of Paperwork[/b]
+[*] [cb] - [b]Basics of Law[/b]
+[*] [cb] - [b]Advanced Communication[/b]
+[*] [cb] - [b]Traffic Stops[/b]
+[*] [cb] - [b]Pursuits[/b]
+[*] [cb] - [b]Scenes, Management & BLS[/b]
+[/list]
+[hr]
+[b]ADVANCED POLICING[/b]
+[list=none] 
+[*] [cb] - [b]Mask Enforcement[/b]
+[*] [cb] - [b]Robbery Response[/b]
+[*] [cb] - [b]Hostage Negotiation & Suicide Prevention[/b]
+[*] [cb] - [b]Felony Stops[/b]
+[*] [cb] - [b]Advanced Driving[/b]
+[*] [cb] - [b]Seeking Assistance[/b]
+[/list][/spoil][/divbox]
+
+[lspdsubtitle]3. SESSION REPORT[/lspdsubtitle]
 [divbox=white]
-[b]Agents/Officers Involved:[/b]
-[i][size=85]Example: Agent III John Doe[/size][/i]
-[list]
-[*] ${officersInvolvedList}
-[/list]
-[i][size=85]Explain what happened, sufficient detail must be given to justify the placed charges. Include a detailed summary of start to finish, try not to leave any details out. 
-* Be sure to keep information such as witnesses or other accomplices to the crime, this helps the prosecution have the full picture in a court of law. Accomplices should have their radio frequency logged.
-* Bodycam footage is located below, DO NOT link it in this section but DO provide timestamps as they correlate to the incident.[/size][/i]
+[size=85][i]Please answer each section with as much detail as possible. Minimum of 40 words [b]PER SECTION[/b].[/i][/size]
 
-[b]Summary:[/b] ${summary}
-[/divbox]
-[divbox=#4c0606][b][color=white]Evidence Details[/color][/b][/divbox]
-[divbox=white]
-[size=85]Document the possessions confiscated from the arrested suspect. Illegal possessions are to be documented individually, examples of documented illegal possessions are "Pistol .50" or "12 grams of Cocaine". Legal possessions that can be categorized may be grouped, eg. "Clothing" to describe all clothing items.
-* Where possible, the serial number of each firearm seized as evidence should be noted.
-* Individuals with a radio on them should have the frequency of that radio logged.
-[/size]
-[h]---- Add more exhibits where needed. ----[/h]
-[u]Illegal Possessions:[/u]
-[b] Exhibit:[/b] ${illegalPossessions}
+[spoil]
+[b]MANUAL KNOWLEDGE[/b]
+[list] Did the Cadet demonstrate they'd read the Manual, prior to the session?
+[*] How much assistance did they require with the Manual contents?
+[*] At any point during the session, did the cadet have trouble with any of the Manual contents?
+[/list][b]Please describe how they did or did not demonstrate good Manual Knowledge.[/b]
 
-[u]Legal Possessions:[/u]
-[b] Exhibit:[/b] ${legalPossessions}
-[center]
-[spoiler=Photograph of Possessions (REQUIRED)]
-[img]${photographPossessions}[/img]
-[/spoiler]
-[/center]
+${Manual}
 
-[b]Bodycam Footage:[/b]
-[size=85][i]Provide below your bodycam evidence. Remember, the less evidence here, the more evidence that should be written in the narrative. [ooc]Include Proof of RP, if you have no recordings, using screenshots that show the situation is acceptable. Screenshots should show the suspect doing the crime, being identified, etc[/ooc][/i][/size]
-[spoiler=Bodycam Footage]
-[list]
-[*] ${proofRP}
-[*] ${bodycamFootage}
-[*] ${bodycamFootage}
-[/list]
-[/spoiler]
+[hr]
+[b]BEHAVIOR[/b]
+[list] How did the Cadet behave during the session?
+[*] Did they ask their own questions, outside of what was being taught?
+[*] How would you describe how they acted during your session together?
+[/list][b]Please describe their behavior and personality.[/b]
+
+${Behavior}
+
+[hr]
+[b]COMMUNICATIONS[/b]
+[list] How do you feel the Cadet communicated during their session?
+[*] Did the Cadet speak clearly and confidently? 
+[*] Would you consider them able to remain calm and get their point across in high-stress situations?
+[/list][b]Please describe their behavior and personality.[/b]
+
+${Communications}
+
+[hr]
+[b](( ROLEPLAY ABILITIES ))[/b]
+[list] Do you believe the Police Cadet is up to par with the rest of the department in terms of roleplay abilities?
+[*]Have they demonstrated good and in-depth roleplay during your session?
+[*]Has the Police Cadet used /me and /do in his roleplay to add more depth and immersion for you?
+[/list][b]Please give a description of the Police Cadet's roleplay abilities.[/b]
+
+${Roleplay}
+
+[/spoil]
 [/divbox]
+
+[lspdsubtitle]4. ADDITIONAL NOTES[/lspdsubtitle]
+[divbox=white][list=none]
+
+[b]Did the Police Cadet display a good understanding of the session material?[/b]: [${Material}]
+
+[b]Any sections that would need to be reiterated?[/b]: [${reiterated}] 
+Specify here..
+
+[b]Any key mistakes that need urgent attention?[/b]: [${KeyMistakes}]
+Specify here..
+
+[hr]
+
+[b]Did you remind the Cadet to submit a Field Training Officer Review Survey?[/b]: [${Survey}]
+
+[b]Is your report on this session complete?[/b]: [${Complete}]
+
+[b]Have you entered this session on the [url=https://forms.gle/jCRTjTn4p2t2nvBG6]Session Submission Form[/url]?[/b]: [{Form}]
 [/divbox]
-[img]https://i.imgur.com/Fttvrwf.png[/img]`;
+
+[lspdfooter][/lspdfooter]`;
 
             // Display the BBCode in the textarea
-            document.getElementById('displayArrestReportBB').value = arrestReportBBCode;
-            document.querySelector("#displayArrestReportBB").select();
+            document.getElementById('displayFTSReportBB').value = FTSReportBBCode;
+            document.querySelector("#displayFTSReportBB").select();
             // Copy BBCode to clipboard
-            navigator.clipboard.writeText(arrestReportBBCode).then(() => {
-                document.getElementById("copyArrestReportSuccess").textContent = "BBCode copied to clipboard!";
+            navigator.clipboard.writeText(FTSReportBBCode).then(() => {
+                document.getElementById("copyFTSReportSuccess").textContent = "BBCode copied to clipboard!";
             });
 
         }
