@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
-    <title>GSB Reports Generator</title>
+    <title>PD Helper</title>
     <img src="https://i.imgur.com/1dhxhIu.png" alt="GSB logo" />
 
     <style>
@@ -61,7 +61,7 @@
         }
     </style>
     <div class="center-top">
-        <h1>GSB Reports Generator</h1>
+        <h1>PD Helper</h1>
         <p>If you find any issues or have a suggestion, contact <b>Alphus</b> on Discord</p>
     </div>
 
@@ -103,7 +103,7 @@
 
     <!-- Vehicle (Pass) -->
     <div id="VehPass" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -156,7 +156,7 @@
 
       <!-- Vehicle (Fail) -->
     <div id="VehFail" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -204,7 +204,7 @@
 
         <!-- Vehicle (Practical) -->
     <div id="VehPract" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -239,7 +239,7 @@
 
   <!-- Weapon (Pass) -->
     <div id="WeaponPass" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -281,7 +281,7 @@
 
    <!-- Weapon (Fail) -->
     <div id="WeaponFail" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -506,112 +506,7 @@ Los Santos Police Department
             });
         }
 
-function SubmitWeaponPass() {
-            const Rank = document.getElementById('txtEPDRankW').value;
-            const Name = document.getElementById('txtVPDNameW').value;
-            const Weapon = document.getElementById('txtVPDCertW').value;
-            // BBCode format for the VIP Transit Report
-            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
-[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
-[size=95]Training Division[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]${Rank} ${Name},[/b]
 
-Following your application, we have decided to [b]pass[/b] your weapon certification. You may utilize the ${Weapon}, operating under the allowed protocols defined by the Training Division.
-
-[/list][hr][/hr][list=none]
-
-Sincerely,
-Police Officer III Mick Wegman
-Trainee Instructor, Training Division
-Los Santos Police Department
-
-[/list][/divbox]
-[lspdfooter][/lspdfooter]`;
-
-            // Display the BBCode in the textarea
-            document.getElementById('displayWeaponPassBB').value = WeaponPassBBCode;
-
-            // Copy BBCode to clipboard
-            navigator.clipboard.writeText(WeaponPassBBCode).then(() => {
-                document.getElementById("copyWeaponPassSuccess").textContent = "BBCode copied to clipboard!";
-            });
-        }
-        function SubmitWeaponFail() {
-            const Rank = document.getElementById('txtEPDRankWF').value;
-            const Name = document.getElementById('txtVPDNameWF').value;
-            const Weapon = document.getElementById('txtVPDCertWF').value;
-            // BBCode format for the VIP Transit Report
-            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
-[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=120][color=#FF0000]CERTIFICATION FAILED[/color][/size]
-[size=95]Training Division[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]${Rank} ${Name},[/b]
-
-Following your application, we have decided to [b]fail[/b] your weapon certification. You may re-apply again after 7 days.
-
-[/list][hr][/hr][list=none]
-
-Sincerely,
-Police Officer III Mick Wegman
-Trainee Instructor, Training Division
-Los Santos Police Department
-
-[/list][/divbox]
-[lspdfooter][/lspdfooter]`;
-
-            // Display the BBCode in the textarea
-            document.getElementById('displayWeaponFailBB').value = WeaponFailBBCode;
-
-            // Copy BBCode to clipboard
-            navigator.clipboard.writeText(WeaponFailBBCode).then(() => {
-                document.getElementById("copyWeaponFailSuccess").textContent = "BBCode copied to clipboard!";
-            });
-        }
-        
-function SubmitVehPract() 
-            const Rank = document.getElementById('txtEPDRankPR').value;
-            const Name = document.getElementById('txtVPDNamePR').value;
-            // BBCode format for the VIP Transit Report
-            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
-[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=120][color=#FFC300]CERTIFICATION PENDING[/color][/size]
-[size=95]Training Division[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]${Rank} ${Name},[/b]
-
-Following your application, we have decided to move your vehicle certification to [b]pending practical[/b]. You may contact an instructor to complete your training session and pass your certification. You have 7 days from this response to organise and complete your practical session. Failure to do so will result in a denial of your certification.
-
-[/list][hr][/hr][list=none]
-
-Sincerely,
-Police Officer III Mick Wegman
-Trainee Instructor, Training Division
-Los Santos Police Department
-
-[/list][/divbox]
-[lspdfooter][/lspdfooter]
-`;
-
-            // Display the BBCode in the textarea
-            document.getElementById('displayVehPractBB').value = VehPractBBCode;
-
-            // Copy BBCode to clipboard
-            navigator.clipboard.writeText(VehPractBBCode).then(() => {
-                document.getElementById("copyVehPractSuccess").textContent = "BBCode copied to clipboard!";
-            });
-        }
-
-        
-        
 function submitFTSReport() {
             const Date = document.getElementById('txtFTSDate').value;
             const Time = document.getElementById('txtFTSTime').value;
@@ -748,6 +643,111 @@ Specify here..
         }
 
 
+function SubmitWeaponPass() {
+            const Rank = document.getElementById('txtEPDRankW').value;
+            const Name = document.getElementById('txtVPDNameW').value;
+            const Weapon = document.getElementById('txtVPDCertW').value;
+            // BBCode format for the VIP Transit Report
+            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank} ${Name},[/b]
+
+Following your application, we have decided to [b]pass[/b] your weapon certification. You may utilize the ${Weapon}, operating under the allowed protocols defined by the Training Division.
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+
+            // Display the BBCode in the textarea
+            document.getElementById('displayWeaponPassBB').value = WeaponPassBBCode;
+
+            // Copy BBCode to clipboard
+            navigator.clipboard.writeText(WeaponPassBBCode).then(() => {
+                document.getElementById("copyWeaponPassSuccess").textContent = "BBCode copied to clipboard!";
+            });
+        }
+
+
+ function SubmitWeaponFail() {
+            const Rank = document.getElementById('txtEPDRankWF').value;
+            const Name = document.getElementById('txtVPDNameWF').value;
+            const Weapon = document.getElementById('txtVPDCertWF').value;
+            // BBCode format for the VIP Transit Report
+            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#FF0000]CERTIFICATION FAILED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank} ${Name},[/b]
+
+Following your application, we have decided to [b]fail[/b] your weapon certification. You may re-apply again after 7 days.
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+
+            // Display the BBCode in the textarea
+            document.getElementById('displayWeaponFailBB').value = WeaponFailBBCode;
+
+            // Copy BBCode to clipboard
+            navigator.clipboard.writeText(WeaponFailBBCode).then(() => {
+                document.getElementById("copyWeaponFailSuccess").textContent = "BBCode copied to clipboard!";
+            });
+        }
+
+function SubmitVehPract() 
+            const Rank = document.getElementById('txtEPDRankPR').value;
+            const Name = document.getElementById('txtVPDNamePR').value;
+            // BBCode format for the VIP Transit Report
+            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#FFC300]CERTIFICATION PENDING[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank} ${Name},[/b]
+
+Following your application, we have decided to move your vehicle certification to [b]pending practical[/b]. You may contact an instructor to complete your training session and pass your certification. You have 7 days from this response to organise and complete your practical session. Failure to do so will result in a denial of your certification.
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]
+`;
+
+            // Display the BBCode in the textarea
+            document.getElementById('displayVehPractBB').value = VehPractBBCode;
+
+            // Copy BBCode to clipboard
+            navigator.clipboard.writeText(VehPractBBCode).then(() => {
+                document.getElementById("copyVehPractSuccess").textContent = "BBCode copied to clipboard!";
+            });
+        }
 
 
 
@@ -807,7 +807,7 @@ Specify here..
             const bbCode = `
 [img]https://i.imgur.com/cz5ry8N.png[/img]
 [divbox=#dbd3d3]
-[divbox=#4c0606][b][color=white]Suspect Details[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Suspect Details[/color][/b][/divbox]
 [divbox=white]
 [b]Full Name:[/b] ${suspectName}
 [b]Phone Number:[/b] ${suspectPhone}
@@ -818,7 +818,7 @@ ${charges.map(charge => `[*]${charge}`).join('\n')}
 [/list]
 [/divbox]
 
-[divbox=#4c0606][b][color=white]Incident Narrative[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Incident Narrative[/color][/b][/divbox]
 [divbox=white]
 [b]Agents/Officers Involved:[/b] 
 [list]
@@ -833,7 +833,7 @@ ${identificationMethod}
 
 [/divbox]
 
-[divbox=#4c0606][b][color=white]Evidence Details[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Evidence Details[/color][/b][/divbox]
 [divbox=white]
 [b]Document the possessions confiscated from the charged suspect.[/b]
 [size=85]Possessions are to be documented individually, examples of documented illegal possessions are "Pistol .50" or "12 grams of Cocaine". Legal possessions that can be categorized may be grouped, eg. "Clothing" to describe all clothing items.[/size]
@@ -1123,17 +1123,17 @@ function submitIncidentReport() {
     const incidentReportBBCode = `
 [img]https://i.imgur.com/1IO7nGN.png[/img]
 [divbox=#dbd3d3]
-[divbox=#4c0606][b][color=white]Details[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Details[/color][/b][/divbox]
 [divbox=white]
 [b]Date:[/b] ${incidentDate}
 [b]Incident Duration:[/b] ${incidentDuration}
 [/divbox]
-[divbox=#4c0606][b][color=white]Suspect Details[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Suspect Details[/color][/b][/divbox]
 [divbox=white]
 [b]Full Name(s) If applicable:[/b] ${suspectFullName}
 [b]Phone Number(s) If applicable:[/b] ${suspectPhoneNumber}
 [/divbox]
-[divbox=#4c0606][b][color=white]Agents/Officers Involved[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Agents/Officers Involved[/color][/b][/divbox]
 [divbox=white]
 [b]Agents/Officers Involved:[/b]
 [list]
@@ -1141,7 +1141,7 @@ ${officersInvolved}
 [/list]
 [b]Incident Summary:[/b] ${incidentSummary}
 [/divbox]
-[divbox=#4c0606][b][color=white]Evidence[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Evidence[/color][/b][/divbox]
 [divbox=white]
 [b]Provide your bodycam footage if possible below((screenshots or even short videos)):[/b]
 [Spoiler=Bodycam Evidence]
@@ -1209,7 +1209,7 @@ Incident Outcome: ${outcomeBB}
             const arrestReportBBCode = `
 [img]https://i.imgur.com/aDC580W.png[/img]
 [divbox=#dbd3d3]
-[divbox=#4c0606][b][color=white]Suspect Details[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Suspect Details[/color][/b][/divbox]
 [divbox=white]
 [float=right][fimg=200,185]${mugshot}[/fimg][/float]
 
@@ -1227,7 +1227,7 @@ Incident Outcome: ${outcomeBB}
 [*] ${charges}
 [/list]
 [/divbox]
-[divbox=#4c0606][b][color=white]Incident Details[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Incident Details[/color][/b][/divbox]
 [divbox=white]
 [b]Agents/Officers Involved:[/b]
 [i][size=85]Example: Agent III John Doe[/size][/i]
@@ -1240,7 +1240,7 @@ Incident Outcome: ${outcomeBB}
 
 [b]Summary:[/b] ${summary}
 [/divbox]
-[divbox=#4c0606][b][color=white]Evidence Details[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Evidence Details[/color][/b][/divbox]
 [divbox=white]
 [size=85]Document the possessions confiscated from the arrested suspect. Illegal possessions are to be documented individually, examples of documented illegal possessions are "Pistol .50" or "12 grams of Cocaine". Legal possessions that can be categorized may be grouped, eg. "Clothing" to describe all clothing items.
 * Where possible, the serial number of each firearm seized as evidence should be noted.
@@ -1361,18 +1361,18 @@ ${signatureSection}
             let dutyReportBBCode = `
 [img]https://i.imgur.com/KluN5gs.png[/img]
 [divbox=#dbd3d3]
-[divbox=#4c0606][b][color=white]Agent Details[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Agent Details[/color][/b][/divbox]
 [divbox=white]
 [b]Full Name:[/b] ${fullName}
 [b]Rank:[/b] ${rank}
 [/divbox]
-[divbox=#4c0606][b][color=white]Shift Details[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Shift Details[/color][/b][/divbox]
 [divbox=white]
 [b]Shift Start:[/b] ${shiftStart}
 [b]Shift End:[/b] ${shiftEnd}
 [b]Shift Summary:[/b] ${shiftSummary}
 [/divbox]
-[divbox=#4c0606][b][color=white]Incidents[/color][/b][/divbox]
+[divbox=#00008b][b][color=white]Incidents[/color][/b][/divbox]
 [divbox=white]
 `;
 
