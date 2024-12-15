@@ -340,13 +340,13 @@
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">MANUAL KNOWLEDGE:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSMan" class="form-control" style="width: 600px" />
+                        <textarea id="txtFTSMan" class="form-control" style="width: 600px" rows="5"></textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">BEHAVIOR:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSBehave" class="form-control" style="width: 600px" />
+                        <textarea id="txtFTSBehave" class="form-control" style="width: 600px" rows="5"></textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -364,42 +364,40 @@
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Material:</div>
                     <div class="col-md-10">
-                        <textarea id="txtFTSMat" class="form-control" style="width: 600px" rows="5"></textarea>
+                        <input type="text" id="txtFTSMat" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Any sections that would need to be reiterated:</div>
                     <div class="col-md-10">
-                        <textarea id="txtFTSRei" class="form-control" style="width: 600px" rows="5"></textarea>
+                        <input type="text" id="txtFTSRei" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Any key mistakes that need urgent attention:</div>
                     <div class="col-md-10">
-                        <textarea id="txtFTSAt" class="form-control" style="width: 600px" rows="5"></textarea>
+                        <input type="text" id="txtFTSAt" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Did you remind the Cadet to submit a Field Training Officer Review Survey?[:</div>
                     <div class="col-md-10">
-                        <textarea id="txtFTSSurv" class="form-control" style="width: 600px" rows="5"></textarea>
+                        <input type="text" id="txtFTSSurv" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Is your report on this session complete?:</div>
                     <div class="col-md-10">
-                        <textarea id="txtFTSComp" class="form-control" style="width: 600px" rows="5"></textarea>
+                        <input type="text" id="txtFTSComp" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Form:</div>
                     <div class="col-md-10">
-                        <textarea id="txtFTSForm" class="form-control" style="width: 600px" rows="5"></textarea>
+                        <input type="text" id="txtFTSForm" class="form-control" style="width: 600px" />
                     </div>
                 </div>
-
-
-                
+            
                 <!-- Submit Button -->
                 <div class="row mb-2">
                     <div class="col-md-2"></div>
@@ -417,568 +415,54 @@
             </div>
         </div>
     </div>
-    <!-- Incident Report Section -->
-    <div id="incidentReportSection" class="container mt-3 myHideableSection" style="display: none;">
-        <div class="card" style="background-color: #4c0606; color: white;">
-            <div class="card-body">
-                <!-- Incident Report Form Fields -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtIncidentDate" class="form-control" style="width: 600px"placeholder="eg. 01/DEC/2024" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident Duration:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtIncidentDuration" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect's Full Name:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtSuspectFullName" class="form-control" style="width: 600px"
-                            placeholder="John Doe" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect's Phone Number:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtSuspectPhoneNumber" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agents/Officers Involved:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtOfficersInvolved" class="form-control" style="width: 600px" />
-                        <button type="button" id="btnAddOfficer" class="btn btn-primary mt-2"
-                            onclick="addOfficer()">Add</button>
-<button type="button" id="btnRemOfficer" class="btn btn-danger mt-2"
-                            onclick="remOfficer()">Remove Last</button>
-
-                    </div>
-                </div>
-
-                <!-- List of Added Officers -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <ul id="officersList" style="list-style-type: none; padding-left: 0;"></ul>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident Summary:</div>
-                    <div class="col-md-10">
-                        <textarea id="txtIncidentSummary" class="form-control" style="width: 600px" rows="5"></textarea>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of RP:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtProofRP" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Evidence:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtEvidence" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <!-- Incident Outcome Buttons -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident Outcome:</div>
-                    <div class="col-md-10">
-                        <button type="button" id="btnOutcomeSuccess" class="btn btn-success"
-                            onclick="setIncidentOutcome('Successful')">Successful</button>
-                        <button type="button" id="btnOutcomeUnsuccessful" class="btn btn-danger"
-                            onclick="setIncidentOutcome('Unsuccessful')">Unsuccessful</button>
-                        <p id="selectedOutcome" style="margin-top: 10px; font-weight: bold;"></p>
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" id="btnSubmitIncidentReport" onClick="submitIncidentReport();"
-                            class="btn btn-success">
-                            Submit and copy to clipboard
-                        </button>
-                        <p id="copyIncidentReportSuccess"></p>
-                        <textarea id="displayIncidentReportBB" class="form-control" style="width: 600px"
-                            rows="10">BBCode will appear here</textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Arrest Report Section (Initially Hidden) -->
-    <div id="arrestReportSection" class="container mt-3 myHideableSection" style="display: none;">
-        <div class="card" style="background-color: #4c0606; color: white;">
-            <div class="card-body">
-                <!-- Arrest Report Form Fields -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect's Full Name:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtArrestSuspectFullName" class="form-control" style="width: 600px"
-                            placeholder="John Doe" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect's Phone Number:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtArrestSuspectPhoneNumber" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Mugshot:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="suspectMugshot" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Time of Arrest:</div>
-                    <div class="col-md-10">
-                        <!-- Date Selection Only -->
-                        <input type="text" id="txtArrestTime" class="form-control" style="width: 600px"placeholder="eg. 04/DEC/2024" />
-                    </div>
-                </div>
-
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Licenses:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtLicenses" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <!-- Charges Section -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Charges:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtCharges" class="form-control" style="width: 600px" />
-
-                        <div class="mt-2">
-                            <button type="button" class="btn btn-primary" onclick="addCharge()">Add</button>
-                            <button type="button" class="btn btn-danger" onclick="removeLastCharge()">Remove
-                                Last</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- List of Added Charges -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <ul id="chargesList" style="list-style-type: none; padding-left: 0; margin-top: 10px;"></ul>
-                    </div>
-                </div>
-
-
-                <!-- List of Added Charges -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <ul id="chargesList" style="list-style-type: none; padding-left: 0; margin-top: 10px;"></ul>
-                    </div>
-                </div>
-
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agents/Officers Involved:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtArrestOfficersInvolved" class="form-control" style="width: 600px" />
-                        <div class="mt-2">
-                            <button type="button" id="btnAddArrestOfficer" class="btn btn-primary"
-                                onclick="addArrestOfficer()">Add</button>
-                            <button type="button" id="btnRemoveArrestOfficer" class="btn btn-danger"
-                                onclick="removeLastArrestOfficer()">Remove Last</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- List of Added Officers -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <ul id="arrestOfficersList" style="list-style-type: none; padding-left: 0;"></ul>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Summary:</div>
-                    <div class="col-md-10">
-                        <textarea id="txtArrestSummary" class="form-control" style="width: 600px" rows="5"></textarea>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Illegal Possessions:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtIllegalPossessions" class="form-control" style="width: 600px" />
-                        <div class="mt-2">
-                            <button type="button" class="btn btn-primary" onclick="addIllegalPossession()">Add</button>
-                            <button type="button" class="btn btn-danger" onclick="removeLastIllegalPossession()">Remove
-                                Last</button>
-                        </div>
-                        <ul id="illegalPossessionsList"
-                            style="list-style-type: none; padding-left: 0; margin-top: 10px;"></ul>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Legal Possessions:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtLegalPossessions" class="form-control" style="width: 600px" />
-                        <div class="mt-2">
-                            <button type="button" class="btn btn-primary" onclick="addLegalPossession()">Add</button>
-                            <button type="button" class="btn btn-danger" onclick="removeLastLegalPossession()">Remove
-                                Last</button>
-                        </div>
-                        <ul id="legalPossessionsList" style="list-style-type: none; padding-left: 0; margin-top: 10px;">
-                        </ul>
-                    </div>
-                </div>
-
-               <div class="row mb-2">
-    <div class="col-md-2" style="font-weight: bold; text-align: right;">Photograph of Possessions:</div>
-    <div class="col-md-10">
-        <input type="file" id="uploadPhotograph" class="form-control" style="width: 600px" accept="image/*" />
-        <button type="button" class="btn btn-primary mt-2" onclick="uploadToImgur()">Upload to Imgur</button>
-        <p id="uploadStatus" class="mt-2"></p>
-        <input type="text" id="txtPhotographPossessions" class="form-control mt-2" placeholder="Imgur URL will appear here" readonly style="width: 600px" />
-    </div>
-</div>
-
-              <div class="row mb-2">
-    <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of RP:</div>
-    <div class="col-md-10">
-        <input type="file" id="uploadProofRP" class="form-control" style="width: 600px" accept="image/*" />
-        <button type="button" class="btn btn-primary mt-2" onclick="uploadProofRPToImgur()">Upload to Imgur</button>
-        <p id="uploadProofRPStatus" class="mt-2"></p>
-        <input type="text" id="txtArrestProofRP" class="form-control mt-2" placeholder="Imgur URL will appear here" readonly style="width: 600px" />
-    </div>
-</div>
-
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Bodycam Footage:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtArrestBodycamFootage" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" id="btnSubmitArrestReport" onClick="submitArrestReport();"
-                            class="btn btn-success">
-                            Submit and copy to clipboard
-                        </button>
-                        <p id="copyArrestReportSuccess"></p>
-                        <textarea id="displayArrestReportBB" class="form-control" style="width: 600px"
-                            rows="10">BBCode will appear here</textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- VIP Transit Report Section (Initially Hidden) -->
-    <div id="vipTransitSection" class="container mt-3 myHideableSection" style="display: none;">
-        <div class="card" style="background-color: #4c0606; color: white;">
-            <div class="card-body">
-                <!-- VIP Transit Report Form Fields -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agent in Charge:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVIPAgentInCharge" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agents Included:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVIPAgentsIncluded" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Level of Threat?
-                        (Low/High/None):</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVIPThreatLevel" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date & Time:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="dateAndTime" class="form-control" style="width: 600px"placeholder="eg. 02/DEC/2024 15:00 (Give time in UTC)" />
-                    </div>
-                </div>
-
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Weaponry (Handguns/Tazer/Heavy
-                        weapons):</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVIPWeaponry" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Comments:</div>
-                    <div class="col-md-10">
-                        <textarea id="txtVIPComments" class="form-control" style="width: 600px" rows="4"></textarea>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name of VIP's:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVIPNames" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Requested Services:</div>
-                    <div class="col-md-10">
-                        <textarea id="txtVIPRequestedServices" class="form-control" style="width: 600px"
-                            rows="4"></textarea>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Destination(s):</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVIPDestinations" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Vehicle(s) Used:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVIPVehiclesUsed" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Use of Force:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVIPUseOfForce" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Mission Summary:</div>
-                    <div class="col-md-10">
-                        <textarea id="txtVIPMissionSummary" class="form-control" style="width: 600px"
-                            rows="4"></textarea>
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" id="btnSubmitVIPReport" onClick="submitVIPReport();"
-                            class="btn btn-success">
-                            Submit and copy to clipboard
-                        </button>
-                        <p id="copyVIPReportSuccess"></p>
-                        <textarea id="displayVIPReportBB" class="form-control" style="width: 600px"
-                            rows="10">BBCode will appear here</textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="warrantReportSection" class="container mt-3 myHideableSection" style="display: none;">
-        <div class="card" style="background-color: #4c0606; color: white;">
-            <div class="card-body">
-                <!-- Suspect Name -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect Name:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtSuspectNameWarrant" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <!-- Suspect Phone Number -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect Phone Number:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtSuspectPhoneWarrant" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <!-- Charges -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Charges:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtChargesWarrant" class="form-control" style="width: 600px" />
-                        <div class="mt-2">
-                            <button type="button" class="btn btn-primary" onclick="addChargeWarrant()">Add</button>
-                            <button type="button" class="btn btn-danger" onclick="removeLastChargeWarrant()">Remove
-                                Last</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- List of Added Charges -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <ul id="chargesListWarrant" style="list-style-type: none; padding-left: 0; margin-top: 10px;">
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Agents/Officers Involved -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agents/Officers Involved:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtOfficersWarrant" class="form-control" style="width: 600px" />
-                        <div class="mt-2">
-                            <button type="button" class="btn btn-primary" onclick="addOfficerWarrant()">Add</button>
-                            <button type="button" class="btn btn-danger" onclick="removeLastOfficerWarrant()">Remove
-                                Last</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- List of Added Officers -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <ul id="officersListWarrant" style="list-style-type: none; padding-left: 0;"></ul>
-                    </div>
-                </div>
-
-                <!-- Incident Details -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident Details:</div>
-                    <div class="col-md-10">
-                        <textarea id="txtIncidentDetailsWarrant" class="form-control" rows="5"
-                            style="width: 600px"></textarea>
-                    </div>
-                </div>
-
-                <!-- Method of Identification -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Method of Identification:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtIdentificationMethodWarrant" class="form-control"
-                            style="width: 600px" />
-                    </div>
-                </div>
-
-                <!-- Proof of RP -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of RP:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtProofOfRPWarrant" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <!-- Bodycam Footage -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Bodycam Footage:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtBodycamFootageWarrant" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-
-                <!-- BBCode Display and Copy Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" id="btnSubmitWarrantReport" onclick="submitWarrantReport();"
-                            class="btn btn-success">
-                            Submit and Copy to Clipboard
-                        </button>
-                        <p id="copyWarrantReportSuccess"></p>
-                        <textarea id="displayWarrantReportBB" class="form-control" style="width: 600px"
-                            rows="15">BBCode will appear here</textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+       
 
 
 
     <script>
-        function submitVIPReport() {
-            const agentInCharge = document.getElementById('txtVIPAgentInCharge').value;
-            const agentsIncluded = document.getElementById('txtVIPAgentsIncluded').value;
-            const threatLevel = document.getElementById('txtVIPThreatLevel').value;
-            const dateAndTime =
-document.getElementById('dateAndTime').value;            
-             // Correct ID
-            const weaponry = document.getElementById('txtVIPWeaponry').value;
-            const comments = 
-document.getElementById('txtVIPComments').value;
-            const vipNames = document.getElementById('txtVIPNames').value;
-            const requestedServices = document.getElementById('txtVIPRequestedServices').value;
-            const destinations = document.getElementById('txtVIPDestinations').value;
-            const vehiclesUsed = document.getElementById('txtVIPVehiclesUsed').value;
-            const useOfForce = document.getElementById('txtVIPUseOfForce').value;
-            const missionSummary = document.getElementById('txtVIPMissionSummary').value;
-
+        function SubmitVehPass() {
+            const Rank = document.getElementById('txtEPDRank').value;
+            const Name = document.getElementById('txtVPDName').value;
+            const OnRoad = document.getElementById('txtVPDRoad').value;
+            const OffRoad = document.getElementById('txtVPDRoad').value;
             // BBCode format for the VIP Transit Report
             const vipReportBBCode = `
-[img]https://i.imgur.com/bwHuU5J.png[/img]
-[divbox=#dbd3d3]
-[divbox=#4c0606][b][color=white]Agent details[/color][/b][/divbox]
-[divbox=white]
-[b]Agent in charge:[/b] ${agentInCharge}
-[b]Agents included:[/b] ${agentsIncluded}
-[b]Level of threat? (Low/High/None):[/b] ${threatLevel}
-[b]Date & Time:[/b] ${dateAndTime}
-[b]Weaponry (Handguns/Tazer/Heavy weapons):[/b] ${weaponry}
-[b]Comments:[/b] ${comments}
-[/divbox]
-[divbox=#4c0606][b][color=white]VIP details[/color][/b][/divbox]
-[divbox=white]
-[b]Name of VIP's:[/b] ${vipNames}
-[b]Requested services (What was requested from the VIP?):[/b] ${requestedServices}
-[b]Comments:[/b] ${comments}
-[/divbox]
-[divbox=#4c0606][b][color=white]Mission details[/color][/b][/divbox]
-[divbox=white]
-[b]Destination(s) (From start location to every official stop and end location):[/b] ${destinations}
-[b]Vehicle(s) used:[/b] ${vehiclesUsed}
-[b]Use of force:[/b] ${useOfForce}
-[b]Mission summary:[/b] ${missionSummary}
-Incident report: 
-[i]If an incident has happened during the VIP transit log, an incident report should ALSO be filed. If the mission finished without any issues, an incident report is not required.[/i]
-[/divbox]
-[/divbox]
-[img]https://i.imgur.com/Fttvrwf.png[/img]
-        `;
+            [lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank} ${Name},[/b]
+
+Following your practical session, we have decided to [b]pass[/b] your vehicle certification. You may utilize the Shinobi and/or BF400, operating under the allowed protocols defined by the Training Division.
+[/list]
+
+[hr][center][color=red][b]FOR INSTRUCTOR USE[/b][/color][/center]
+[list=none]
+[b]Track Times[/b]
+[list]On Road Track: ${OnRoad}
+[*]Off Road Track: ${OffRoad}
+[/list]
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]
+`;
 
             // Display the BBCode in the textarea
-            document.getElementById('displayVIPReportBB').value = vipReportBBCode;
+            document.getElementById('displayVehPassBB').value = VehPassBBCode;
 
             // Copy BBCode to clipboard
-            navigator.clipboard.writeText(vipReportBBCode).then(() => {
-                document.getElementById("copyVIPReportSuccess").textContent = "BBCode copied to clipboard!";
+            navigator.clipboard.writeText(VehPassBBCode).then(() => {
+                document.getElementById("copyVehPassSuccess").textContent = "BBCode copied to clipboard!";
             });
         }
 
