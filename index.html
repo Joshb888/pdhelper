@@ -92,7 +92,7 @@
         <title>Background Color Example</title>
         <style>
             body {
-                background-color: #4c0606;
+                background-color: #00008b;
                 /* Dark red */
                 color: white;
                 /* White text */
@@ -109,13 +109,19 @@
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtEPDRank" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPDRank" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
                     <div class="col-md-10">
                         <input type="text" id="txtVPDName" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+             <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Vehicle:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDCertP" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -163,12 +169,6 @@
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
                     <div class="col-md-10">
                         <input type="text" id="txtVPDNameF" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-             <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Vehicle:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDCertF" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -417,11 +417,56 @@
     </div>
        
     <script>
+        function SubmitVehFail() {
+            const Rank = document.getElementById('txtEPDRankF').value;
+            const Name = document.getElementById('txtVPDNameF').value;
+            const OnRoad = document.getElementById('txtVPDRoadF').value;
+            const OffRoad = document.getElementById('txtVPDOFFF').value;
+            // BBCode format for the VIP Transit Report
+            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#FF0000]CERTIFICATION FAILED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank} ${Name},[/b]
+
+Following your application, we have decided to [b]fail[/b] your vehicle certification. You may re-apply again after 7 days.
+
+[/list]
+[hr]
+[center][b][color=red]FOR INSTRUCTOR USE[/color][/b][/center]
+
+[b]Track Times:[/b]
+[list]On Road Track: ${OnRoad}
+[*]Off Road Track: ${OffRoad}
+[/list]
+[hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+
+            // Display the BBCode in the textarea
+            document.getElementById('displayVehFailBB').value = VehFailBBCode;
+
+            // Copy BBCode to clipboard
+            navigator.clipboard.writeText(VehFailBBCode).then(() => {
+                document.getElementById("copyVehFailSuccess").textContent = "BBCode copied to clipboard!";
+            });
+        }
+
         function SubmitVehPass() {
             const Rank = document.getElementById('txtEPDRank').value;
             const Name = document.getElementById('txtVPDName').value;
+            const Vehicle = document.getElementById('txtVPDCertP').value;
             const OnRoad = document.getElementById('txtVPDRoad').value;
-            const OffRoad = document.getElementById('txtVPDRoad').value;
+            const OffRoad = document.getElementById('txtVPDOFF').value;
             // BBCode format for the VIP Transit Report
             const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
 [fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
@@ -432,7 +477,7 @@
 [list=none]
 [b]${Rank} ${Name},[/b]
 
-Following your practical session, we have decided to [b]pass[/b] your vehicle certification. You may utilize the Shinobi and/or BF400, operating under the allowed protocols defined by the Training Division.
+Following your practical session, we have decided to [b]pass[/b] your vehicle certification. You may utilize the ${Vehicle}, operating under the allowed protocols defined by the Training Division.
 [/list]
 
 [hr][center][color=red][b]FOR INSTRUCTOR USE[/b][/color][/center]
@@ -460,7 +505,6 @@ Los Santos Police Department
                 document.getElementById("copyVehPassSuccess").textContent = "BBCode copied to clipboard!";
             });
         }
-
 
         // JavaScript function to generate and display the BBCode for the arrest report
         function submitFTSReport() {
