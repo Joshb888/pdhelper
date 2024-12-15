@@ -80,6 +80,33 @@
 </div>
 
     </div>
+    <script>
+    $(document).ready(function () {
+        // Hide all sections initially
+        $('.container').hide();
+
+        // Show only the Duty Report section by default
+        $('#FTS').show();
+
+        // Highlight the Duty Report button as active
+        $('#navigationBar .btn').removeClass('btn-success').addClass('btn-secondary');
+        $('#navigationBar button[data-section="dutyReportSection"]').removeClass('btn-secondary').addClass('btn-success');
+    });
+
+    function showSection(sectionId, button) {
+        // Hide all sections
+        $('.container').hide();
+
+        // Show the selected section
+        $('#' + sectionId).show();
+
+        // Reset all buttons inside #navigationBar to btn-secondary
+        $('#navigationBar .btn').removeClass('btn-success').addClass('btn-secondary');
+
+        // Highlight the clicked button with btn-success
+        $(button).removeClass('btn-secondary').addClass('btn-success');
+    }
+</script>
     <!DOCTYPE html>
     <html lang="en">
 
