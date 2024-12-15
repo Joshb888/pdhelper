@@ -103,7 +103,7 @@
 
     <!-- Vehicle (Pass) -->
     <div id="VehPass" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -156,7 +156,7 @@
 
       <!-- Vehicle (Fail) -->
     <div id="VehFail" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -204,7 +204,7 @@
 
         <!-- Vehicle (Practical) -->
     <div id="VehPract" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -239,7 +239,7 @@
 
   <!-- Weapon (Pass) -->
     <div id="WeaponPass" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -281,7 +281,7 @@
 
    <!-- Weapon (Fail) -->
     <div id="WeaponFail" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #4c0606 -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
@@ -321,7 +321,7 @@
     </div>
 <!-- FTS Section -->
     <div id="FTS" class="container mt-3 myHideableSection" style="display: none;">
-        <div class="card" style="background-color: #4c0606; color: white;">
+        <div class="card" style="background-color: #00008b; color: white;">
             <div class="card-body">
                 <!-- Duty Report Form Fields -->
                 <div class="row mb-2">
@@ -506,7 +506,112 @@ Los Santos Police Department
             });
         }
 
+function SubmitWeaponPass() {
+            const Rank = document.getElementById('txtEPDRankW').value;
+            const Name = document.getElementById('txtVPDNameW').value;
+            const Weapon = document.getElementById('txtVPDCertW').value;
+            // BBCode format for the VIP Transit Report
+            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank} ${Name},[/b]
 
+Following your application, we have decided to [b]pass[/b] your weapon certification. You may utilize the ${Weapon}, operating under the allowed protocols defined by the Training Division.
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+
+            // Display the BBCode in the textarea
+            document.getElementById('displayWeaponPassBB').value = WeaponPassBBCode;
+
+            // Copy BBCode to clipboard
+            navigator.clipboard.writeText(WeaponPassBBCode).then(() => {
+                document.getElementById("copyWeaponPassSuccess").textContent = "BBCode copied to clipboard!";
+            });
+        }
+        function SubmitWeaponFail() {
+            const Rank = document.getElementById('txtEPDRankWF').value;
+            const Name = document.getElementById('txtVPDNameWF').value;
+            const Weapon = document.getElementById('txtVPDCertWF').value;
+            // BBCode format for the VIP Transit Report
+            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#FF0000]CERTIFICATION FAILED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank} ${Name},[/b]
+
+Following your application, we have decided to [b]fail[/b] your weapon certification. You may re-apply again after 7 days.
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+
+            // Display the BBCode in the textarea
+            document.getElementById('displayWeaponFailBB').value = WeaponFailBBCode;
+
+            // Copy BBCode to clipboard
+            navigator.clipboard.writeText(WeaponFailBBCode).then(() => {
+                document.getElementById("copyWeaponFailSuccess").textContent = "BBCode copied to clipboard!";
+            });
+        }
+        
+function SubmitVehPract() 
+            const Rank = document.getElementById('txtEPDRankPR').value;
+            const Name = document.getElementById('txtVPDNamePR').value;
+            // BBCode format for the VIP Transit Report
+            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#FFC300]CERTIFICATION PENDING[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank} ${Name},[/b]
+
+Following your application, we have decided to move your vehicle certification to [b]pending practical[/b]. You may contact an instructor to complete your training session and pass your certification. You have 7 days from this response to organise and complete your practical session. Failure to do so will result in a denial of your certification.
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]
+`;
+
+            // Display the BBCode in the textarea
+            document.getElementById('displayVehPractBB').value = VehPractBBCode;
+
+            // Copy BBCode to clipboard
+            navigator.clipboard.writeText(VehPractBBCode).then(() => {
+                document.getElementById("copyVehPractSuccess").textContent = "BBCode copied to clipboard!";
+            });
+        }
+
+        
+        
 function submitFTSReport() {
             const Date = document.getElementById('txtFTSDate').value;
             const Time = document.getElementById('txtFTSTime').value;
