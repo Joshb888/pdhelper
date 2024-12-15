@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+    <title>GSB Reports Generator</title>
+    <img src="https://i.imgur.com/1dhxhIu.png" alt="GSB logo" />
+
+    <style>
+        /* Set background color for the body */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            /* Full viewport height */
+            position: relative;
+            /* Set relative positioning to the body */
+        }
+
+
+        /* Position the image in the top right corner */
+        img {
+            position: absolute;
+            /* Absolute positioning */
+            top: 10px;
+            /* Space from the top */
+            left: 10px;
+            /* Space from the right */
+            width: 150px;
+            /* Image width */
+            height: auto;
+            /* Maintain aspect ratio */
+            z-index: 1000;
+        }
+    </style>
+</head>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .center-top {
+            text-align: center;
+            /* Center text horizontally */
+            margin: 0;
+            /* Remove default margins */
+            padding-top: 10px;
+            /* Optional: Add some spacing from the top */
+        }
+    </style>
+    <div class="center-top">
+        <h1>GSB Reports Generator</h1>
+        <p>If you find any issues or have a suggestion, contact <b>Alphus</b> on Discord</p>
+    </div>
+
+
+    <!-- Navigation Buttons -->
+    <div class="container mt-3 d-flex justify-content-center" id="navigationBar">
+        <button class="btn btn-success me-2" onclick="showSection('gsbEmailSection', this)">GSB Email</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('dutyReportSection', this)">Duty Report</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('incidentReportSection', this)">Incident
+            Report</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('arrestReportSection', this)">Arrest Report</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('vipTransitSection', this)">VIP Transit
+            Report</button>
+        <button class="btn btn-secondary" onclick="showSection('warrantReportSection', this)">Warrant Report</button>
+    </div>
+
+
+
+    </div>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Background Color Example</title>
+        <style>
+            body {
+                background-color: #4c0606;
+                /* Dark red */
+                color: white;
+                /* White text */
+            }
+        </style>
+    </head>
+
+
+    <!-- GSB Email Section -->
+    <div id="gsbEmailSection" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #4c0606; color: white;"> <!-- Set background color to #4c0606 -->
+            <div class="card-body">
+                <!-- GSB Email Form Fields -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Their Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtGSBTheirName" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Your Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtGSBYourName" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Your Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtGSBYourRank" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Badge Number:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtgsbBadge" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Subject:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtGSBSubject" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Email Text:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtGSBEmailtxt" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Signature Image:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtgsbSigImg" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createGSBEmail();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyGSBEmailSuccess"></p>
+                        <textarea id="displayGSBEmailBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Duty Report Section -->
+    <div id="dutyReportSection" class="container mt-3 myHideableSection" style="display: none;">
+        <div class="card" style="background-color: #4c0606; color: white;">
+            <div class="card-body">
+                <!-- Duty Report Form Fields -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Full Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtDutyFullName" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtDutyRank" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Shift Start:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtShiftStart" class="form-control" style="width: 600px"placeholder="eg. 01/DEC/2024 15:00 (Give time in UTC)" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Shift End:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtShiftEnd" class="form-control" style="width: 600px"placeholder="eg. 01/DEC/2024 18:00 (Give time in UTC)" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Shift Summary:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtShiftSummary" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+
+                <!-- Incident 1 -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident 1:</div>
+                    <div class="col-md-10">
+                        <div class="mb-2">
+                            <label for="txtIncident1Narrative" style="font-weight: bold;">Situation Narrative</label>
+                            <textarea id="txtIncident1Narrative" class="form-control" style="width: 600px"
+                                rows="3"></textarea>
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtIncident1Time" style="font-weight: bold;">Time of Event</label>
+                            <input type="text" id="txtIncident1Time" class="form-control"
+                                style="width: 600px"placeholder="eg. 01/DEC/2024 16:30 (Give time in UTC)" />
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtIncident1Link" style="font-weight: bold;">Link to Paperwork</label>
+                            <input type="text" id="txtIncident1Link" class="form-control" style="width: 600px" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Incident 2 -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident 2:</div>
+                    <div class="col-md-10">
+                        <div class="mb-2">
+                            <label for="txtIncident2Narrative" style="font-weight: bold;">Situation Narrative</label>
+                            <textarea id="txtIncident2Narrative" class="form-control" style="width: 600px"
+                                rows="3"></textarea>
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtIncident2Time" style="font-weight: bold;">Time of Event</label>
+                            <input type="text" id="txtIncident2Time" class="form-control"
+                                style="width: 600px"placeholder="eg. 01/DEC/2024 17:30 (Give time in UTC)" />
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtIncident2Link" style="font-weight: bold;">Link to Paperwork</label>
+                            <input type="text" id="txtIncident2Link" class="form-control" style="width: 600px" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Incident 3 -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident 3:</div>
+                    <div class="col-md-10">
+                        <div class="mb-2">
+                            <label for="txtIncident3Narrative" style="font-weight: bold;">Situation Narrative</label>
+                            <textarea id="txtIncident3Narrative" class="form-control" style="width: 600px"
+                                rows="3"></textarea>
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtIncident3Time" style="font-weight: bold;">Time of Event</label>
+                            <input type="text" id="txtIncident3Time" class="form-control"
+                                style="width: 600px"placeholder="eg. 01/DEC/2024 18:00 (Give time in UTC)" />
+                        </div>
+                        <div class="mb-2">
+                            <label for="txtIncident3Link" style="font-weight: bold;">Link to Paperwork</label>
+                            <input type="text" id="txtIncident3Link" class="form-control" style="width: 600px" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnSubmitDutyReport" onClick="submitDutyReport();"
+                            class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyDutyReportSuccess"></p>
+                        <textarea id="displayDutyReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Incident Report Section -->
+    <div id="incidentReportSection" class="container mt-3 myHideableSection" style="display: none;">
+        <div class="card" style="background-color: #4c0606; color: white;">
+            <div class="card-body">
+                <!-- Incident Report Form Fields -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtIncidentDate" class="form-control" style="width: 600px"placeholder="eg. 01/DEC/2024" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident Duration:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtIncidentDuration" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect's Full Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtSuspectFullName" class="form-control" style="width: 600px"
+                            placeholder="John Doe" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect's Phone Number:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtSuspectPhoneNumber" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agents/Officers Involved:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtOfficersInvolved" class="form-control" style="width: 600px" />
+                        <button type="button" id="btnAddOfficer" class="btn btn-primary mt-2"
+                            onclick="addOfficer()">Add</button>
+<button type="button" id="btnRemOfficer" class="btn btn-danger mt-2"
+                            onclick="remOfficer()">Remove Last</button>
+
+                    </div>
+                </div>
+
+                <!-- List of Added Officers -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <ul id="officersList" style="list-style-type: none; padding-left: 0;"></ul>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident Summary:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtIncidentSummary" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of RP:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtProofRP" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Evidence:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtEvidence" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <!-- Incident Outcome Buttons -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident Outcome:</div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnOutcomeSuccess" class="btn btn-success"
+                            onclick="setIncidentOutcome('Successful')">Successful</button>
+                        <button type="button" id="btnOutcomeUnsuccessful" class="btn btn-danger"
+                            onclick="setIncidentOutcome('Unsuccessful')">Unsuccessful</button>
+                        <p id="selectedOutcome" style="margin-top: 10px; font-weight: bold;"></p>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnSubmitIncidentReport" onClick="submitIncidentReport();"
+                            class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyIncidentReportSuccess"></p>
+                        <textarea id="displayIncidentReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arrest Report Section (Initially Hidden) -->
+    <div id="arrestReportSection" class="container mt-3 myHideableSection" style="display: none;">
+        <div class="card" style="background-color: #4c0606; color: white;">
+            <div class="card-body">
+                <!-- Arrest Report Form Fields -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect's Full Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtArrestSuspectFullName" class="form-control" style="width: 600px"
+                            placeholder="John Doe" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect's Phone Number:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtArrestSuspectPhoneNumber" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Mugshot:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="suspectMugshot" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Time of Arrest:</div>
+                    <div class="col-md-10">
+                        <!-- Date Selection Only -->
+                        <input type="text" id="txtArrestTime" class="form-control" style="width: 600px"placeholder="eg. 04/DEC/2024" />
+                    </div>
+                </div>
+
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Licenses:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtLicenses" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <!-- Charges Section -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Charges:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtCharges" class="form-control" style="width: 600px" />
+
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-primary" onclick="addCharge()">Add</button>
+                            <button type="button" class="btn btn-danger" onclick="removeLastCharge()">Remove
+                                Last</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List of Added Charges -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <ul id="chargesList" style="list-style-type: none; padding-left: 0; margin-top: 10px;"></ul>
+                    </div>
+                </div>
+
+
+                <!-- List of Added Charges -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <ul id="chargesList" style="list-style-type: none; padding-left: 0; margin-top: 10px;"></ul>
+                    </div>
+                </div>
+
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agents/Officers Involved:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtArrestOfficersInvolved" class="form-control" style="width: 600px" />
+                        <div class="mt-2">
+                            <button type="button" id="btnAddArrestOfficer" class="btn btn-primary"
+                                onclick="addArrestOfficer()">Add</button>
+                            <button type="button" id="btnRemoveArrestOfficer" class="btn btn-danger"
+                                onclick="removeLastArrestOfficer()">Remove Last</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List of Added Officers -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <ul id="arrestOfficersList" style="list-style-type: none; padding-left: 0;"></ul>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Summary:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtArrestSummary" class="form-control" style="width: 600px" rows="5"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Illegal Possessions:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtIllegalPossessions" class="form-control" style="width: 600px" />
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-primary" onclick="addIllegalPossession()">Add</button>
+                            <button type="button" class="btn btn-danger" onclick="removeLastIllegalPossession()">Remove
+                                Last</button>
+                        </div>
+                        <ul id="illegalPossessionsList"
+                            style="list-style-type: none; padding-left: 0; margin-top: 10px;"></ul>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Legal Possessions:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtLegalPossessions" class="form-control" style="width: 600px" />
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-primary" onclick="addLegalPossession()">Add</button>
+                            <button type="button" class="btn btn-danger" onclick="removeLastLegalPossession()">Remove
+                                Last</button>
+                        </div>
+                        <ul id="legalPossessionsList" style="list-style-type: none; padding-left: 0; margin-top: 10px;">
+                        </ul>
+                    </div>
+                </div>
+
+               <div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Photograph of Possessions:</div>
+    <div class="col-md-10">
+        <input type="file" id="uploadPhotograph" class="form-control" style="width: 600px" accept="image/*" />
+        <button type="button" class="btn btn-primary mt-2" onclick="uploadToImgur()">Upload to Imgur</button>
+        <p id="uploadStatus" class="mt-2"></p>
+        <input type="text" id="txtPhotographPossessions" class="form-control mt-2" placeholder="Imgur URL will appear here" readonly style="width: 600px" />
+    </div>
+</div>
+
+              <div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of RP:</div>
+    <div class="col-md-10">
+        <input type="file" id="uploadProofRP" class="form-control" style="width: 600px" accept="image/*" />
+        <button type="button" class="btn btn-primary mt-2" onclick="uploadProofRPToImgur()">Upload to Imgur</button>
+        <p id="uploadProofRPStatus" class="mt-2"></p>
+        <input type="text" id="txtArrestProofRP" class="form-control mt-2" placeholder="Imgur URL will appear here" readonly style="width: 600px" />
+    </div>
+</div>
+
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Bodycam Footage:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtArrestBodycamFootage" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnSubmitArrestReport" onClick="submitArrestReport();"
+                            class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyArrestReportSuccess"></p>
+                        <textarea id="displayArrestReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIP Transit Report Section (Initially Hidden) -->
+    <div id="vipTransitSection" class="container mt-3 myHideableSection" style="display: none;">
+        <div class="card" style="background-color: #4c0606; color: white;">
+            <div class="card-body">
+                <!-- VIP Transit Report Form Fields -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agent in Charge:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVIPAgentInCharge" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agents Included:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVIPAgentsIncluded" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Level of Threat?
+                        (Low/High/None):</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVIPThreatLevel" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date & Time:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="dateAndTime" class="form-control" style="width: 600px"placeholder="eg. 02/DEC/2024 15:00 (Give time in UTC)" />
+                    </div>
+                </div>
+
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Weaponry (Handguns/Tazer/Heavy
+                        weapons):</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVIPWeaponry" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Comments:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtVIPComments" class="form-control" style="width: 600px" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name of VIP's:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVIPNames" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Requested Services:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtVIPRequestedServices" class="form-control" style="width: 600px"
+                            rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Destination(s):</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVIPDestinations" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Vehicle(s) Used:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVIPVehiclesUsed" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Use of Force:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVIPUseOfForce" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Mission Summary:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtVIPMissionSummary" class="form-control" style="width: 600px"
+                            rows="4"></textarea>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnSubmitVIPReport" onClick="submitVIPReport();"
+                            class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyVIPReportSuccess"></p>
+                        <textarea id="displayVIPReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="warrantReportSection" class="container mt-3 myHideableSection" style="display: none;">
+        <div class="card" style="background-color: #4c0606; color: white;">
+            <div class="card-body">
+                <!-- Suspect Name -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtSuspectNameWarrant" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <!-- Suspect Phone Number -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Suspect Phone Number:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtSuspectPhoneWarrant" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <!-- Charges -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Charges:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtChargesWarrant" class="form-control" style="width: 600px" />
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-primary" onclick="addChargeWarrant()">Add</button>
+                            <button type="button" class="btn btn-danger" onclick="removeLastChargeWarrant()">Remove
+                                Last</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List of Added Charges -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <ul id="chargesListWarrant" style="list-style-type: none; padding-left: 0; margin-top: 10px;">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Agents/Officers Involved -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Agents/Officers Involved:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtOfficersWarrant" class="form-control" style="width: 600px" />
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-primary" onclick="addOfficerWarrant()">Add</button>
+                            <button type="button" class="btn btn-danger" onclick="removeLastOfficerWarrant()">Remove
+                                Last</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- List of Added Officers -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <ul id="officersListWarrant" style="list-style-type: none; padding-left: 0;"></ul>
+                    </div>
+                </div>
+
+                <!-- Incident Details -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Incident Details:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtIncidentDetailsWarrant" class="form-control" rows="5"
+                            style="width: 600px"></textarea>
+                    </div>
+                </div>
+
+                <!-- Method of Identification -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Method of Identification:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtIdentificationMethodWarrant" class="form-control"
+                            style="width: 600px" />
+                    </div>
+                </div>
+
+                <!-- Proof of RP -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of RP:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtProofOfRPWarrant" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <!-- Bodycam Footage -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Bodycam Footage:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtBodycamFootageWarrant" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+
+                <!-- BBCode Display and Copy Button -->
+                <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnSubmitWarrantReport" onclick="submitWarrantReport();"
+                            class="btn btn-success">
+                            Submit and Copy to Clipboard
+                        </button>
+                        <p id="copyWarrantReportSuccess"></p>
+                        <textarea id="displayWarrantReportBB" class="form-control" style="width: 600px"
+                            rows="15">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        function submitVIPReport() {
+            const agentInCharge = document.getElementById('txtVIPAgentInCharge').value;
+            const agentsIncluded = document.getElementById('txtVIPAgentsIncluded').value;
+            const threatLevel = document.getElementById('txtVIPThreatLevel').value;
+            const dateAndTime =
+document.getElementById('dateAndTime').value;            
+             // Correct ID
+            const weaponry = document.getElementById('txtVIPWeaponry').value;
+            const comments = 
+document.getElementById('txtVIPComments').value;
+            const vipNames = document.getElementById('txtVIPNames').value;
+            const requestedServices = document.getElementById('txtVIPRequestedServices').value;
+            const destinations = document.getElementById('txtVIPDestinations').value;
+            const vehiclesUsed = document.getElementById('txtVIPVehiclesUsed').value;
+            const useOfForce = document.getElementById('txtVIPUseOfForce').value;
+            const missionSummary = document.getElementById('txtVIPMissionSummary').value;
+
+            // BBCode format for the VIP Transit Report
+            const vipReportBBCode = `
+[img]https://i.imgur.com/bwHuU5J.png[/img]
+[divbox=#dbd3d3]
+[divbox=#4c0606][b][color=white]Agent details[/color][/b][/divbox]
+[divbox=white]
+[b]Agent in charge:[/b] ${agentInCharge}
+[b]Agents included:[/b] ${agentsIncluded}
+[b]Level of threat? (Low/High/None):[/b] ${threatLevel}
+[b]Date & Time:[/b] ${dateAndTime}
+[b]Weaponry (Handguns/Tazer/Heavy weapons):[/b] ${weaponry}
+[b]Comments:[/b] ${comments}
+[/divbox]
+[divbox=#4c0606][b][color=white]VIP details[/color][/b][/divbox]
+[divbox=white]
+[b]Name of VIP's:[/b] ${vipNames}
+[b]Requested services (What was requested from the VIP?):[/b] ${requestedServices}
+[b]Comments:[/b] ${comments}
+[/divbox]
+[divbox=#4c0606][b][color=white]Mission details[/color][/b][/divbox]
+[divbox=white]
+[b]Destination(s) (From start location to every official stop and end location):[/b] ${destinations}
+[b]Vehicle(s) used:[/b] ${vehiclesUsed}
+[b]Use of force:[/b] ${useOfForce}
+[b]Mission summary:[/b] ${missionSummary}
+Incident report: 
+[i]If an incident has happened during the VIP transit log, an incident report should ALSO be filed. If the mission finished without any issues, an incident report is not required.[/i]
+[/divbox]
+[/divbox]
+[img]https://i.imgur.com/Fttvrwf.png[/img]
+        `;
+
+            // Display the BBCode in the textarea
+            document.getElementById('displayVIPReportBB').value = vipReportBBCode;
+
+            // Copy BBCode to clipboard
+            navigator.clipboard.writeText(vipReportBBCode).then(() => {
+                document.getElementById("copyVIPReportSuccess").textContent = "BBCode copied to clipboard!";
+            });
+        }
+
+
+        // Charges Section Logic
+        function addChargeWarrant() {
+            const chargeInput = document.getElementById('txtChargesWarrant');
+            const chargesList = document.getElementById('chargesListWarrant');
+
+            if (chargeInput.value.trim() !== '') {
+                const li = document.createElement('li');
+                li.textContent = chargeInput.value;
+                li.classList.add('mb-2');
+                chargesList.appendChild(li);
+                chargeInput.value = ''; // Clear input
+            }
+        }
+
+        function removeLastChargeWarrant() {
+            const chargesList = document.getElementById('chargesListWarrant');
+            if (chargesList.lastChild) {
+                chargesList.removeChild(chargesList.lastChild);
+            }
+        }
+
+        // Officers Section
+        function addOfficerWarrant() {
+            const officerInput = document.getElementById('txtOfficersWarrant');
+            const officersList = document.getElementById('officersListWarrant');
+
+            if (officerInput.value.trim() !== '') {
+                const li = document.createElement('li');
+                li.textContent = officerInput.value;
+                li.classList.add('mb-2');
+                officersList.appendChild(li);
+                officerInput.value = ''; // Clear input
+            }
+        }
+
+        function removeLastOfficerWarrant() {
+            const officersList = document.getElementById('officersListWarrant');
+            if (officersList.lastChild) {
+                officersList.removeChild(officersList.lastChild);
+            }
+        }
+
+        // Generate BBCode
+        function submitWarrantReport() {
+            const charges = Array.from(document.getElementById('chargesListWarrant').children).map(li => li.textContent);
+            const officers = Array.from(document.getElementById('officersListWarrant').children).map(li => li.textContent);
+            const suspectName = document.getElementById('txtSuspectNameWarrant').value;
+            const suspectPhone = document.getElementById('txtSuspectPhoneWarrant').value;
+            const incidentDetails = document.getElementById('txtIncidentDetailsWarrant').value;
+            const identificationMethod = document.getElementById('txtIdentificationMethodWarrant').value;
+            const proofOfRP = document.getElementById('txtProofOfRPWarrant').value;
+            const bodycamFootage = document.getElementById('txtBodycamFootageWarrant').value;
+
+            const bbCode = `
+[img]https://i.imgur.com/cz5ry8N.png[/img]
+[divbox=#dbd3d3]
+[divbox=#4c0606][b][color=white]Suspect Details[/color][/b][/divbox]
+[divbox=white]
+[b]Full Name:[/b] ${suspectName}
+[b]Phone Number:[/b] ${suspectPhone}
+
+[b]Charges:[/b] 
+[list]
+${charges.map(charge => `[*]${charge}`).join('\n')}
+[/list]
+[/divbox]
+
+[divbox=#4c0606][b][color=white]Incident Narrative[/color][/b][/divbox]
+[divbox=white]
+[b]Agents/Officers Involved:[/b] 
+[list]
+${officers.map(officer => `[*]${officer}`).join('\n')}
+[/list]
+
+[b]Explain what happened, sufficient detail must be given to justify the placed charges, and videos could be provided. Include location, time of date etc:[/b]
+${incidentDetails}
+
+[b]Method of Identification:[/b]
+${identificationMethod}
+
+[/divbox]
+
+[divbox=#4c0606][b][color=white]Evidence Details[/color][/b][/divbox]
+[divbox=white]
+[b]Document the possessions confiscated from the charged suspect.[/b]
+[size=85]Possessions are to be documented individually, examples of documented illegal possessions are "Pistol .50" or "12 grams of Cocaine". Legal possessions that can be categorized may be grouped, eg. "Clothing" to describe all clothing items.[/size]
+
+[spoiler=Bodycam Footage]
+[spoiler=((Proof of RP))]
+((Include Proof of RP, if you have no recordings use /do immediately while the information is fresh. Then screenshot and submit it below))
+${proofOfRP}
+[/spoiler]
+${bodycamFootage}
+[/spoiler]
+[/divbox]
+[/divbox]
+[img]https://i.imgur.com/Fttvrwf.png[/img]    `;
+
+            document.getElementById('displayWarrantReportBB').value = bbCode;
+            navigator.clipboard.writeText(bbCode).then(() => {
+                document.getElementById('copyWarrantReportSuccess').textContent = 'BBCode copied to clipboard!';
+            });
+        }
+
+
+        // Function to add Illegal Possession to the list
+        function addIllegalPossession() {
+            const item = document.getElementById("txtIllegalPossessions").value.trim();
+            if (item === "") {
+                alert("Please enter an illegal possession before adding.");
+                return;
+            }
+
+
+            const list = document.getElementById("illegalPossessionsList");
+            const listItem = document.createElement("li");
+            listItem.textContent = item;
+            list.appendChild(listItem);
+
+            // Clear input field
+            document.getElementById("txtIllegalPossessions").value = "";
+        }
+
+        // Function to remove the last Illegal Possession from the list
+        function removeLastIllegalPossession() {
+            const list = document.getElementById("illegalPossessionsList");
+            if (list.lastChild) {
+                list.removeChild(list.lastChild);
+            } else {
+                alert("No illegal possessions to remove.");
+            }
+        }
+
+        // Function to add Legal Possession to the list
+        function addLegalPossession() {
+            const item = document.getElementById("txtLegalPossessions").value.trim();
+            if (item === "") {
+                alert("Please enter a legal possession before adding.");
+                return;
+            }
+
+            const list = document.getElementById("legalPossessionsList");
+            const listItem = document.createElement("li");
+            listItem.textContent = item;
+            list.appendChild(listItem);
+
+            // Clear input field
+            document.getElementById("txtLegalPossessions").value = "";
+        }
+
+        // Function to remove the last Legal Possession from the list
+        function removeLastLegalPossession() {
+            const list = document.getElementById("legalPossessionsList");
+            if (list.lastChild) {
+                list.removeChild(list.lastChild);
+            } else {
+                alert("No legal possessions to remove.");
+            }
+        }
+
+        // Function to add a charge to the list
+        function addCharge() {
+            const chargeText = document.getElementById("txtCharges").value.trim();
+            if (chargeText === "") {
+                alert("Please enter a charge before adding.");
+                return;
+            }
+
+            // Create a new list item
+            const chargesList = document.getElementById("chargesList");
+            const listItem = document.createElement("li");
+            listItem.textContent = chargeText;
+            chargesList.appendChild(listItem);
+
+            // Clear the text area after adding the charge
+            document.getElementById("txtCharges").value = "";
+        }
+
+        // Function to remove the last charge from the list
+        function removeLastCharge() {
+            const chargesList = document.getElementById("chargesList");
+            if (chargesList.lastChild) {
+                chargesList.removeChild(chargesList.lastChild);
+            } else {
+                alert("No charges to remove.");
+            }
+        }
+
+        // Add officer to the list
+        function addArrestOfficer() {
+            const officerName = document.getElementById("txtArrestOfficersInvolved").value;
+            const officersList = document.getElementById("arrestOfficersList");
+
+            if (officerName.trim() === "") {
+                alert("Please enter an officer's name before adding.");
+                return;
+            }
+
+            // Create a new list item for the officer
+            const listItem = document.createElement("li");
+            listItem.textContent = officerName;
+            listItem.style.marginBottom = "5px"; // Optional: Add some spacing between items
+            officersList.appendChild(listItem);
+
+            // Clear the input field
+            document.getElementById("txtArrestOfficersInvolved").value = "";
+        }
+
+        // Remove the last officer from the list
+        function removeLastArrestOfficer() {
+            const officersList = document.getElementById("arrestOfficersList");
+
+            // Check if the list has any items
+            if (officersList.lastChild) {
+                officersList.removeChild(officersList.lastChild);
+            } else {
+                alert("No officers to remove.");
+            }
+        }
+
+        // Store the selected incident outcome
+        let incidentOutcome = "";
+
+        // Function to set the incident outcome
+        function setIncidentOutcome(outcome) {
+            incidentOutcome = outcome;
+            document.getElementById('selectedOutcome').textContent = `Selected Outcome: ${outcome}`;
+        }
+
+       // Function to add an officer to the list
+function addOfficer() {
+    const officerName = document.getElementById('txtOfficersInvolved').value.trim();
+
+    // Check if the input is not empty
+    if (officerName !== "") {
+        // Create a new list item for the officer
+        const li = document.createElement('li');
+        li.textContent = officerName;
+
+        // Append the new list item to the officer list
+        document.getElementById('officersList').appendChild(li);
+
+        // Clear the input field
+        document.getElementById('txtOfficersInvolved').value = "";
+    }
+}
+
+function uploadToImgur() {
+    const clientId = '47e4045e5bc753e'; // Replace with your Imgur Client ID
+    const fileInput = document.getElementById('uploadPhotograph');
+    const statusElement = document.getElementById('uploadStatus');
+    const urlInput = document.getElementById('txtPhotographPossessions');
+
+    if (!fileInput.files[0]) {
+        statusElement.textContent = 'Please select a file to upload.';
+        statusElement.style.color = 'red';
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+
+    // Update status
+    statusElement.textContent = 'Uploading...';
+    statusElement.style.color = 'blue';
+
+    // Make the API request
+    fetch('https://api.imgur.com/3/image', {
+        method: 'POST',
+        headers: {
+            Authorization: `Client-ID ${clientId}`,
+        },
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const imageUrl = data.data.link;
+                statusElement.textContent = 'Upload successful!';
+                statusElement.style.color = 'green';
+                urlInput.value = imageUrl; // Display the URL in the readonly input field
+            } else {
+                throw new Error(data.data.error);
+            }
+        })
+        .catch(error => {
+            statusElement.textContent = `Upload failed: ${error.message}`;
+            statusElement.style.color = 'red';
+        });
+}
+function uploadProofRPToImgur() {
+    const clientId = '47e4045e5bc753e'; // Replace with your Imgur Client ID
+    const fileInput = document.getElementById('uploadProofRP');
+    const statusElement = document.getElementById('uploadProofRPStatus');
+    const urlInput = document.getElementById('txtArrestProofRP');
+
+    if (!fileInput.files[0]) {
+        statusElement.textContent = 'Please select a file to upload.';
+        statusElement.style.color = 'red';
+        return;
+    }
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+
+    // Update status
+    statusElement.textContent = 'Uploading...';
+    statusElement.style.color = 'blue';
+
+    // Make the API request
+    fetch('https://api.imgur.com/3/image', {
+        method: 'POST',
+        headers: {
+            Authorization: `Client-ID ${clientId}`,
+        },
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const imageUrl = data.data.link;
+                statusElement.textContent = 'Upload successful!';
+                statusElement.style.color = 'green';
+                urlInput.value = imageUrl; // Display the URL in the readonly input field
+            } else {
+                throw new Error(data.data.error);
+            }
+        })
+        .catch(error => {
+            statusElement.textContent = `Upload failed: ${error.message}`;
+            statusElement.style.color = 'red';
+        });
+}
+
+
+// Function to remove the last officer from the list
+function remOfficer() {
+    const officersList = document.getElementById('officersList');
+    // Check if there are any items in the list
+    if (officersList.lastChild) {
+        officersList.removeChild(officersList.lastChild); // Remove the last child (officer)
+    }
+}
+
+       // JavaScript function to generate and display the BBCode for the report
+function submitIncidentReport() {
+    const incidentDate = document.getElementById('txtIncidentDate').value;
+    const incidentDuration = document.getElementById('txtIncidentDuration').value;
+    const suspectFullName = document.getElementById('txtSuspectFullName').value;
+    const suspectPhoneNumber = document.getElementById('txtSuspectPhoneNumber').value;
+
+    // Generate officers list with [*]
+    const officersInvolved = Array.from(document.getElementById('officersList').getElementsByTagName('li'))
+        .map(li => `[*] ${li.textContent}`)
+        .join("\n");
+
+    const incidentSummary = document.getElementById('txtIncidentSummary').value;
+    const proofRP = document.getElementById('txtProofRP').value;
+    const evidence = document.getElementById('txtEvidence').value;
+
+    // Assuming incidentOutcome is declared elsewhere, handle its value
+    const incidentOutcome = document.querySelector('input[name="incidentOutcome"]:checked')?.value || "No Outcome Selected";
+    const outcomeBB = incidentOutcome === "Successful"
+        ? "[highlight=green][b]Successful[/b][/highlight]"
+        : "[highlight=red][b]Unsuccessful[/b][/highlight]";
+
+    // Generate the BBCode for the Incident Report
+    const incidentReportBBCode = `
+[img]https://i.imgur.com/1IO7nGN.png[/img]
+[divbox=#dbd3d3]
+[divbox=#4c0606][b][color=white]Details[/color][/b][/divbox]
+[divbox=white]
+[b]Date:[/b] ${incidentDate}
+[b]Incident Duration:[/b] ${incidentDuration}
+[/divbox]
+[divbox=#4c0606][b][color=white]Suspect Details[/color][/b][/divbox]
+[divbox=white]
+[b]Full Name(s) If applicable:[/b] ${suspectFullName}
+[b]Phone Number(s) If applicable:[/b] ${suspectPhoneNumber}
+[/divbox]
+[divbox=#4c0606][b][color=white]Agents/Officers Involved[/color][/b][/divbox]
+[divbox=white]
+[b]Agents/Officers Involved:[/b]
+[list]
+${officersInvolved}
+[/list]
+[b]Incident Summary:[/b] ${incidentSummary}
+[/divbox]
+[divbox=#4c0606][b][color=white]Evidence[/color][/b][/divbox]
+[divbox=white]
+[b]Provide your bodycam footage if possible below((screenshots or even short videos)):[/b]
+[Spoiler=Bodycam Evidence]
+[list][*][ooc]${proofRP}[/ooc]
+[*] ${evidence}[/list]
+[/Spoiler]
+
+Incident Outcome: ${outcomeBB}
+[/divbox]
+[/divbox]
+[img]https://i.imgur.com/Fttvrwf.png[/img]
+`;
+
+            // Output the BBCode to the text area
+            document.getElementById("displayIncidentReportBB").value = incidentReportBBCode.trim();
+            document.querySelector("#displayIncidentReportBB").select();
+            document.execCommand("copy");
+            document.getElementById("copyIncidentReportSuccess").textContent = "BBCode copied to clipboard!";
+        }
+
+        // JavaScript function to show the specific section
+        function showSection(sectionId, button) {
+            // Hide all sections
+            $('.container').hide();
+
+            // Show the selected section
+            $('#' + sectionId).show();
+
+            // Reset all buttons inside #navigationBar to btn-secondary
+            $('#navigationBar .btn').removeClass('btn-success').addClass('btn-secondary');
+
+            // Highlight the clicked button with btn-success
+            $(button).removeClass('btn-secondary').addClass('btn-success');
+        }
+
+
+        // JavaScript function to generate and display the BBCode for the arrest report
+        function submitArrestReport() {
+            const suspectFullName = $('#txtArrestSuspectFullName').val();
+            const suspectPhoneNumber = $('#txtArrestSuspectPhoneNumber').val();
+            const mugshot = $('#suspectMugshot').val();
+            const arrestTime = $('#txtArrestTime').val();
+            const licenses = $('#txtLicenses').val();
+            const charges = $('#chargesList li').map(function () {
+                return $(this).text();
+            }).get().join("\n[*] ");
+            const officersInvolvedList = $('#arrestOfficersList li').map(function () {
+                return $(this).text();
+            }).get().join("\n[*] ");
+            const summary = $('#txtArrestSummary').val();
+            const illegalPossessions = $('#illegalPossessionsList li').map(function () {
+                return $(this).text();
+            }).get().join("\n[b] Exhibit [/b] ");
+            const legalPossessions = $('#legalPossessionsList li').map(function () {
+                return $(this).text();
+            }).get().join("\n[b] Exhibit [/b]");
+            const photographPossessions = $('#txtPhotographPossessions').val();
+            const proofRP = $('#txtArrestProofRP').val();
+            const bodycamFootage = $('#txtArrestBodycamFootage').val();
+
+
+
+
+            // Construct the BBCode
+            const arrestReportBBCode = `
+[img]https://i.imgur.com/aDC580W.png[/img]
+[divbox=#dbd3d3]
+[divbox=#4c0606][b][color=white]Suspect Details[/color][/b][/divbox]
+[divbox=white]
+[float=right][fimg=200,185]${mugshot}[/fimg][/float]
+
+[b]Full Name:[/b] ${suspectFullName}
+[b]Phone Number:[/b] ${suspectPhoneNumber}
+[b]Time of Arrest:[/b] ${arrestTime} (DD/MM/YY)
+[b]Licenses:[/b] 
+[spoiler]
+[img]${licenses}[/img]
+[/spoiler]
+
+[b]Charges:[/b]
+[i][size=85]Example: Attempted SF02 - Murder of a Government Employee[/size][/i]
+[list]
+[*] ${charges}
+[/list]
+[/divbox]
+[divbox=#4c0606][b][color=white]Incident Details[/color][/b][/divbox]
+[divbox=white]
+[b]Agents/Officers Involved:[/b]
+[i][size=85]Example: Agent III John Doe[/size][/i]
+[list]
+[*] ${officersInvolvedList}
+[/list]
+[i][size=85]Explain what happened, sufficient detail must be given to justify the placed charges. Include a detailed summary of start to finish, try not to leave any details out. 
+* Be sure to keep information such as witnesses or other accomplices to the crime, this helps the prosecution have the full picture in a court of law. Accomplices should have their radio frequency logged.
+* Bodycam footage is located below, DO NOT link it in this section but DO provide timestamps as they correlate to the incident.[/size][/i]
+
+[b]Summary:[/b] ${summary}
+[/divbox]
+[divbox=#4c0606][b][color=white]Evidence Details[/color][/b][/divbox]
+[divbox=white]
+[size=85]Document the possessions confiscated from the arrested suspect. Illegal possessions are to be documented individually, examples of documented illegal possessions are "Pistol .50" or "12 grams of Cocaine". Legal possessions that can be categorized may be grouped, eg. "Clothing" to describe all clothing items.
+* Where possible, the serial number of each firearm seized as evidence should be noted.
+* Individuals with a radio on them should have the frequency of that radio logged.
+[/size]
+[h]---- Add more exhibits where needed. ----[/h]
+[u]Illegal Possessions:[/u]
+[b] Exhibit:[/b] ${illegalPossessions}
+
+[u]Legal Possessions:[/u]
+[b] Exhibit:[/b] ${legalPossessions}
+[center]
+[spoiler=Photograph of Possessions (REQUIRED)]
+[img]${photographPossessions}[/img]
+[/spoiler]
+[/center]
+
+[b]Bodycam Footage:[/b]
+[size=85][i]Provide below your bodycam evidence. Remember, the less evidence here, the more evidence that should be written in the narrative. [ooc]Include Proof of RP, if you have no recordings, using screenshots that show the situation is acceptable. Screenshots should show the suspect doing the crime, being identified, etc[/ooc][/i][/size]
+[spoiler=Bodycam Footage]
+[list]
+[*] ${proofRP}
+[*] ${bodycamFootage}
+[*] ${bodycamFootage}
+[/list]
+[/spoiler]
+[/divbox]
+[/divbox]
+[img]https://i.imgur.com/Fttvrwf.png[/img]`;
+
+            // Display the BBCode in the textarea
+            document.getElementById('displayArrestReportBB').value = arrestReportBBCode;
+            document.querySelector("#displayArrestReportBB").select();
+            // Copy BBCode to clipboard
+            navigator.clipboard.writeText(arrestReportBBCode).then(() => {
+                document.getElementById("copyArrestReportSuccess").textContent = "BBCode copied to clipboard!";
+            });
+
+        }
+
+        function createGSBEmail() {
+            const theirName = $('#txtGSBTheirName').val();
+            const yourName = $('#txtGSBYourName').val();
+            const yourRank = $('#txtGSBYourRank').val();
+            const subject = $('#txtGSBSubject').val();
+            const emailText = $('#txtGSBEmailtxt').val();
+            const signatureImg = $('#txtgsbSigImg').val();
+            const badge = $('#txtgsbBadge').val();
+            let signatureSection = signatureImg
+                ? `
+Sincerely,
+[img]${signatureImg}[/img]
+[size=105]${yourName},[/size]
+[size=100][b]${yourRank} | [color=#800000]Government Security Bureau[/b][/size][/color]
+[color=#B38F00][size=100][b]San Andreas State Government[/b][/size][/color]
+[size=85]Rockford Hills City Hall, Carcer Way, Los Santos.[/size]        `
+                : `
+Sincerely,
+[size=105]${yourName},[/size]
+[size=100][b]${yourRank} | [color=#800000]Government Security Bureau[/b][/size][/color]
+[color=#B38F00][size=100][b]San Andreas State Government[/b][/size][/color]
+[size=85]Rockford Hills City Hall, Carcer Way, Los Santos.[/size]
+✉ [url=https://gov.eclipse-rp.net/ucp.php?i=pm&mode=compose&u=${badge}]${yourName}@sa.gov.us[/url]
+        `;
+
+            const emailTemplate = `
+[divbox=#E5E4E2]
+[img]https://i.imgur.com/Lp6dMi4.png[/img]
+[divbox=white]
+[img]https://i.imgur.com/1dhxhIu.png[/img]
+[aligntable=right,0,0,0,0,0,0][right][font=Arial][b]
+[size=130]SAN ANDREAS STATE GOVERNMENT[/size]
+[size=115]Government Security Bureau[/size][/b]
+[size=115][i]${subject}[/i][/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${theirName},[/b]
+${emailText}
+[/list]
+[hr][/hr][list=none]
+${signatureSection}
+[/divbox]
+[divbox=white][size=80][i][b]NOTICE OF CONFIDENTIALITY[/b]: The information contained within this electronic mail message is of an exceedingly confidential nature and may contain sensitive data intended solely for the aforementioned recipient(s). Should you receive this communication inadvertently or are not the intended addressee, we request that you immediately inform the sender and delete this correspondence from your system. The contents of this electronic mail message are strictly confidential and any unauthorized disclosure, reproduction, or distribution is strictly prohibited.[/i][/size][/divbox]
+[img]https://i.imgur.com/Lp6dMi4.png[/img]
+[/divbox]
+        `;
+
+            document.getElementById("displayGSBEmailBB").value = emailTemplate.trim();
+            document.querySelector("#displayGSBEmailBB").select();
+            document.execCommand('copy');
+
+            $('#copyGSBEmailSuccess').text('Copied to clipboard!');
+        }
+
+        function submitDutyReport() {
+            const fullName = document.getElementById('txtDutyFullName').value;
+            const rank = document.getElementById('txtDutyRank').value;
+            const shiftStart = document.getElementById('txtShiftStart').value;
+            const shiftEnd = document.getElementById('txtShiftEnd').value;
+            const shiftSummary = document.getElementById('txtShiftSummary').value;
+
+            // Incident 1 details
+            const incident1Narrative = document.getElementById('txtIncident1Narrative').value;
+            const incident1Time = document.getElementById('txtIncident1Time').value;
+            const incident1Link = document.getElementById('txtIncident1Link').value;
+
+            // Incident 2 details
+            const incident2Narrative = document.getElementById('txtIncident2Narrative').value;
+            const incident2Time = document.getElementById('txtIncident2Time').value;
+            const incident2Link = document.getElementById('txtIncident2Link').value;
+
+            // Incident 3 details
+            const incident3Narrative = document.getElementById('txtIncident3Narrative').value;
+            const incident3Time = document.getElementById('txtIncident3Time').value;
+            const incident3Link = document.getElementById('txtIncident3Link').value;
+
+            // Generate the BBCode for the Duty Report
+            let dutyReportBBCode = `
+[img]https://i.imgur.com/KluN5gs.png[/img]
+[divbox=#dbd3d3]
+[divbox=#4c0606][b][color=white]Agent Details[/color][/b][/divbox]
+[divbox=white]
+[b]Full Name:[/b] ${fullName}
+[b]Rank:[/b] ${rank}
+[/divbox]
+[divbox=#4c0606][b][color=white]Shift Details[/color][/b][/divbox]
+[divbox=white]
+[b]Shift Start:[/b] ${shiftStart}
+[b]Shift End:[/b] ${shiftEnd}
+[b]Shift Summary:[/b] ${shiftSummary}
+[/divbox]
+[divbox=#4c0606][b][color=white]Incidents[/color][/b][/divbox]
+[divbox=white]
+`;
+
+            // Add incident details
+            if (incident1Narrative) {
+                dutyReportBBCode += `[spoiler=Incident 1]
+[b]Situation Narrative:[/b] ${incident1Narrative}
+[b]Time of Event:[/b] ${incident1Time}
+[b]Link to Report:[/b] ${incident1Link}
+[/spoiler]`;
+            }
+            if (incident2Narrative) {
+                dutyReportBBCode += `[spoiler=Incident 2]
+[b]Situation Narrative:[/b] ${incident2Narrative}
+[b]Time of Event:[/b] ${incident2Time}
+[b]Link to Report:[/b] ${incident2Link}
+[/spoiler]`;
+            }
+            if (incident3Narrative) {
+                dutyReportBBCode += `[spoiler=Incident 3]
+[b]Situation Narrative:[/b] ${incident3Narrative}
+[b]Time of Event:[/b] ${incident3Time}
+[b]Link to Report:[/b] ${incident3Link}
+[/spoiler]`;
+            }
+
+            dutyReportBBCode += `
+[/divbox]
+`;
+
+
+
+            // Output the BBCode to the text area
+            document.getElementById("displayDutyReportBB").value = dutyReportBBCode.trim();
+            document.querySelector("#displayDutyReportBB").select();
+            document.execCommand('copy');
+
+            $('#copyDutyReportSuccess').text('Copied to clipboard!');
+        }
+
+    </script>
+</body>
+
+</html>
