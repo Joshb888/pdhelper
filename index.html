@@ -233,13 +233,13 @@ Los Santos Police Department
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSDate" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtFTSDate" class="form-control" style="width: 100px" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Time:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSTime" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtFTSTime" class="form-control" style="width: 300px" />
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -269,37 +269,37 @@ Los Santos Police Department
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Material:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSMat" class="form-control" style="width: 600px"placeholder="YES/NO" />
+                        <input type="text" id="txtFTSMat" class="form-control" style="width: 100px"placeholder="YES/NO" />
                     </div>
                 </div>
                <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Any sections that would need to be reiterated:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSRei" class="form-control" style="width: 600px"placeholder="YES/NO" />
+                        <input type="text" id="txtFTSRei" class="form-control" style="width: 100px"placeholder="YES/NO" />
                     </div>
                 </div>
                <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Any key mistakes that need urgent attention:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSAt" class="form-control" style="width: 600px"placeholder="YES/NO" />
+                        <input type="text" id="txtFTSAt" class="form-control" style="width: 100px"placeholder="YES/NO" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Did you remind the Cadet to submit a Field Training Officer Review Survey?[:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Did you remind the Cadet to submit a Field Training Officer Review Survey?:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSSurv" class="form-control" style="width: 600px"placeholder="YES/NO" />
+                        <input type="text" id="txtFTSSurv" class="form-control" style="width: 100px"placeholder="YES/NO" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Is your report on this session complete?:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSComp" class="form-control" style="width: 200px"placeholder="YES/NO" />
+                        <input type="text" id="txtFTSComp" class="form-control" style="width: 100px"placeholder="YES/NO" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Form:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtFTSForm" class="form-control" style="width: 600px"placeholder="YES/NO" />
+                        <input type="text" id="txtFTSForm" class="form-control" style="width: 100px"placeholder="YES/NO" />
                     </div>
                 </div>
             
@@ -327,7 +327,7 @@ function submitFTSReport() {
             const Material = $('#txtFTSMat').val();
             const reiterated = $('#txtFTSRei').val();
             const KeyMistakes = $('#txtFTSAt').val();
-            const Survey = $('#txtFTSAt').val();
+            const Survey = $('#txtFTSSurv').val();
             const Complete = $('#txtFTSComp').val();
             const Form = $('#txtFTSForm').val();
 
