@@ -11,7 +11,7 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
     <title>PD Helper</title>
-    <img src="https://i.imgur.com/1dhxhIu.png" alt="GSB logo" />
+    <img src="https://i.imgur.com/UYd15I0.png" alt="DOC logo" />
 
     <style>
         /* Set background color for the body */
@@ -66,12 +66,16 @@
     </div>
 
 
-    <!-- Navigation Buttons -->
-    <div class="container mt-3 d-flex justify-content-center" id="navigationBar">
+  <!-- Navigation Buttons -->
+<div class="container mt-3 d-flex justify-content-center" id="navigationBar">
         <button class="btn btn-success me-2" onclick="showSection('VehPass', this)">Vehicle (Pass)</button>
        <button class="btn btn-secondary me-2" onclick="showSection('VehPract', this)">Vehicle (Practical)</button> 
           <button class="btn btn-secondary me-2" onclick="showSection('VehFail', this)">Vehicle (Fail) </button> 
-    </div>
+       <button class="btn btn-secondary me-2" onclick="showSection('VehPract', this)">Vehicle (Practical)</button> 
+       <button class="btn btn-secondary me-2" onclick="showSection('VehPract', this)">Vehicle (Practical)</button> 
+
+</div>
+
 <!-- New Buttons Below -->
 <div class="container mt-3 d-flex justify-content-center" id="additionalNavigationBar">
         <button class="btn btn-secondary me-2" onclick="showSection('FTS', this)">FTS</button>
@@ -79,14 +83,15 @@
       <button class="btn btn-secondary" onclick="showSection('MockEval', this)">Mock Eval</button> 
 </div>
 
+
     </div>
-    <script>
+<script>
     $(document).ready(function () {
         // Hide all sections initially
         $('.container').hide();
 
         // Show only the Duty Report section by default
-        $('#FTS').show();
+        $('#dutyReportSection').show();
 
         // Highlight the Duty Report button as active
         $('#navigationBar .btn').removeClass('btn-success').addClass('btn-secondary');
@@ -117,7 +122,7 @@
         <style>
             body {
                 background-color: #00008b;
-                /* Dark red */
+                /* Dark green */
                 color: white;
                 /* White text */
             }
@@ -125,7 +130,7 @@
     </head>
 
 
-    <!-- Vehicle (Pass) -->
+<!-- Vehicle (Pass) -->
     <div id="VehPass" class="container mt-3 myHideableSection">
         <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
@@ -161,188 +166,65 @@
                     </div>
                 </div>
                                 <!-- Submit Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button" id="btnSubmitVehPass" onClick="SubmitVehPass();"
-                            class="btn btn-success">
+                        <button type="button" id="btnCopy" onClick="createForceReport();" class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
                         <p id="copyVehPassSuccess"></p>
                         <textarea id="displayVehPassBB" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-      <!-- Vehicle (Fail) -->
-    <div id="VehFail" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
-            <div class="card-body">
-                <!-- Equipement (Pass) -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtEPDRankF" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDNameF" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">On Road</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDRoadF" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Off Duty:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDOFFF" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                                <!-- Submit Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" id="btnSubmitVehFail" onClick="SubmitVehFail();"
-                            class="btn btn-success">
-                            Submit and copy to clipboard
-                        </button>
-                        <p id="copyVehFailSuccess"></p>
-                        <textarea id="displayVehFailBB" class="form-control" style="width: 600px"
-                            rows="10">BBCode will appear here</textarea>
-                    </div>
-                </div>
 
             </div>
         </div>
     </div>
 
 
-        <!-- Vehicle (Practical) -->
-    <div id="VehPract" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
-            <div class="card-body">
-                <!-- Equipement (Pass) -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtEPDRankPR" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDNamePR" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                                <!-- Submit Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" id="btnVehPractReport" onClick="SubmitVehPract();"
-                            class="btn btn-success">
-                            Submit and copy to clipboard
-                        </button>
-                        <p id="copyVehPractSuccess"></p>
-                        <textarea id="displayVehPractBB" class="form-control" style="width: 600px"
-                            rows="10">BBCode will appear here</textarea>
-                    </div>
-                </div>
+<script>
 
-            </div>
-        </div>
-    </div>
+function createForceReport() {
+            const Rank1 = $('#txtVPDRank').val(); 
+            const Name1 = $('#txtVPDName').val();
+            const Vehicle = $('#txtVPDCertP').val();
+            const OnRoad = $('#txtVPDRoad').val();
+            const OffRoad = $('#txtVPDOFF').val();
+ const forceTemplate = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank1} ${Name1},[/b]
 
-  <!-- Weapon (Pass) -->
-    <div id="WeaponPass" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
-            <div class="card-body">
-                <!-- Equipement (Pass) -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtEPDRankW" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDNameW" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-            <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Weapon:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDCertW" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                                <!-- Submit Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" id="btnSubmitWeaponPass" onClick="SubmitWeaponPass();"
-                            class="btn btn-success">
-                            Submit and copy to clipboard
-                        </button>
-                        <p id="copyWeaponPassSuccess"></p>
-                        <textarea id="displayWeaponPassBB" class="form-control" style="width: 600px"
-                            rows="10">BBCode will appear here</textarea>
-                    </div>
-                </div>
+Following your practical session, we have decided to [b]pass[/b] your vehicle certification. You may utilize the ${Vehicle}, operating under the allowed protocols defined by the Training Division.
+[/list]
 
-            </div>
-        </div>
-    </div>
+[hr][center][color=red][b]FOR INSTRUCTOR USE[/b][/color][/center]
+[list=none]
+[b]Track Times[/b]
+[list]On Road Track: ${OnRoad}
+[*]Off Road Track: ${OffRoad}
+[/list]
 
+[/list][hr][/hr][list=none]
 
-   <!-- Weapon (Fail) -->
-    <div id="WeaponFail" class="container mt-3 myHideableSection">
-        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
-            <div class="card-body">
-                <!-- Equipement (Pass) -->
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtEPDRankWF" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDNameWF" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-            <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Weapon:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDCertWF" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-                                <!-- Submit Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-10">
-                        <button type="button" id="btnSubmitWeaponFail" onClick="SubmitWeaponFail();"
-                            class="btn btn-success">
-                            Submit and copy to clipboard
-                        </button>
-                        <p id="copyWeaponFailSuccess"></p>
-                        <textarea id="displayWeaponFailBB" class="form-control" style="width: 600px"
-                            rows="10">BBCode will appear here</textarea>
-                    </div>
-                </div>
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
 
-            </div>
-        </div>
-    </div>
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+  document.getElementById("displayVehPassBB").value = forceTemplate.trim();
+            document.querySelector("#displayVehPassBB").select();
+            document.execCommand('copy');
+
+            $('#copyVehPassSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+
 <!-- FTS Section -->
     <div id="FTS" class="container mt-3 myHideableSection" style="display: none;">
         <div class="card" style="background-color: #00008b; color: white;">
@@ -363,7 +245,7 @@
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">MANUAL KNOWLEDGE:</div>
                     <div class="col-md-10">
-                        <textarea id="txtFTSMan" class="form-control" style="width: 600px" rows="5"></textarea>
+                        <textarea id="txtFTSMan" class="form-control" style="width: 600px" rows="5">placeholder="Did the Cadet demonstrate they'd read the Manual, prior to the session?, How much assistance did they require with the Manual contents?, At any point during the session, did the cadet have trouble with any of the Manual contents?"</textarea>
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -422,128 +304,33 @@
                 </div>
             
                 <!-- Submit Button -->
-                <div class="row mb-2">
-                    <div class="col-md-2"></div>
                     <div class="col-md-10">
-                        <button type="button" id="btnSubmitFTSReport" onClick="SubmitFTSReport();"
-                            class="btn btn-success">
+                        <button type="button" id="btnCopy" onClick="submitFTSReport();" class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
-                        <p id="copyFTSReportSuccess"></p>
+                        <p id="copyFTSSuccess"></p>
                         <textarea id="displayFTSReportBB" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
-                </div>
 
             </div>
         </div>
     </div>
-
-
-    <script>
-                function SubmitVehFail() {
-            const Rank5 = document.getElementById('txtEPDRankF').value;
-            const Name5 = document.getElementById('txtVPDNameF').value;
-            const OnRoad = document.getElementById('txtVPDRoadF').value;
-            const OffRoad = document.getElementById('txtVPDOFFF').value;
-            // BBCode format for the VIP Transit Report
-            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
-[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=120][color=#FF0000]CERTIFICATION FAILED[/color][/size]
-[size=95]Training Division[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]${Rank5} ${Name5},[/b]
-
-Following your application, we have decided to [b]fail[/b] your vehicle certification. You may re-apply again after 7 days.
-
-[/list]
-[hr]
-[center][b][color=red]FOR INSTRUCTOR USE[/color][/b][/center]
-
-[b]Track Times:[/b]
-[list]On Road Track: ${OnRoad}
-[*]Off Road Track: ${OffRoad}
-[/list]
-[hr][list=none]
-
-Sincerely,
-Police Officer III Mick Wegman
-Trainee Instructor, Training Division
-Los Santos Police Department
-
-[/list][/divbox]
-[lspdfooter][/lspdfooter]`;
-
-            // Display the BBCode in the textarea
-            document.getElementById('displayVehFailBB').value = VehFailBBCode;
-
-            // Copy BBCode to clipboard
-            navigator.clipboard.writeText(VehFailBBCode).then(() => {
-                document.getElementById("copyVehFailSuccess").textContent = "BBCode copied to clipboard!";
-            });
-        }
-
-function SubmitVehPass() {
-            const Rank1 = document.getElementById('txtEPDRank').value;
-            const Name1 = document.getElementById('txtVPDName').value;
-            const Vehicle = document.getElementById('txtVPDCertP').value;
-            const OnRoad = document.getElementById('txtVPDRoad').value;
-            const OffRoad = document.getElementById('txtVPDOFF').value;
-            // BBCode format for the VIP Transit Report
-            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
-[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
-[size=95]Training Division[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]${Rank1} ${Name1},[/b]
-
-Following your practical session, we have decided to [b]pass[/b] your vehicle certification. You may utilize the ${Vehicle}, operating under the allowed protocols defined by the Training Division.
-[/list]
-
-[hr][center][color=red][b]FOR INSTRUCTOR USE[/b][/color][/center]
-[list=none]
-[b]Track Times[/b]
-[list]On Road Track: ${OnRoad}
-[*]Off Road Track: ${OffRoad}
-[/list]
-
-[/list][hr][/hr][list=none]
-
-Sincerely,
-Police Officer III Mick Wegman
-Trainee Instructor, Training Division
-Los Santos Police Department
-
-[/list][/divbox]
-[lspdfooter][/lspdfooter]`;
-
-            // Display the BBCode in the textarea
-            document.getElementById('displayVehPassBB').value = VehPassBBCode;
-
-            // Copy BBCode to clipboard
-            navigator.clipboard.writeText(VehPassBBCode).then(() => {
-                document.getElementById("copyVehPassSuccess").textContent = "BBCode copied to clipboard!";
-            });
-        }
-
-
+<script>
 function submitFTSReport() {
-            const Date = document.getElementById('txtFTSDate').value;
-            const Time = document.getElementById('txtFTSTime').value;
-            const Manual = document.getElementById('txtFTSMan').value;
-            const Behavior = document.getElementById('txtFTSBehave').value;
-            const Communications = document.getElementById('txtFTSComm').value;
-            const Roleplay = document.getElementById('txtFTSRP').value;
-            const Material = document.getElementById('txtFTSMat').value;
-           const reiterated = document.getElementById('txtFTSRei').value;
-            const KeyMistakes = document.getElementById('txtFTSAt').value;;
-            const Survey = document.getElementById('txtFTSSurv').value;
-            const Complete = document.getElementById('txtFTSComp').value;
-            const Form = document.getElementById('txtFTSForm').value;
+            const Date = $('#txtFTSDate').val(); 
+            const Time = $('#txtFTSTime').val();
+            const Manual = $('#txtFTSMan').val();
+            const Behavior = $('#txtFTSBehave').val();
+            const Communications = $('#txtFTSComm').val();
+            const Roleplay = $('#txtFTSRP').val(); 
+            const Material = $('#txtFTSMat').val();
+            const reiterated = $('#txtFTSRei').val();
+            const KeyMistakes = $('#txtFTSAt').val();
+            const Survey = $('#txtFTSAt').val();
+            const Complete = $('#txtFTSComp').val();
+            const Form = $('#txtFTSForm').val();
+
             // Construct the BBCode
             const FTSReportBBCode = `[img]https://i.imgur.com/fSstyRv.png[/img]
 
@@ -656,195 +443,697 @@ Specify here..
 
 [lspdfooter][/lspdfooter]`;
 
-            // Display the BBCode in the textarea
-            document.getElementById('displayFTSReportBB').value = FTSReportBBCode;
+document.getElementById("displayFTSReportBB").value = FTSReportBBCode.trim();
             document.querySelector("#displayFTSReportBB").select();
-            // Copy BBCode to clipboard
-            navigator.clipboard.writeText(FTSReportBBCode).then(() => {
-                document.getElementById("copyFTSReportSuccess").textContent = "BBCode copied to clipboard!";
-            });
-
-        }
-
-
-function SubmitWeaponPass() {
-            const Rank4 = document.getElementById('txtEPDRankW').value;
-            const Name4 = document.getElementById('txtVPDNameW').value;
-            const Weapon = document.getElementById('txtVPDCertW').value;
-            // BBCode format for the VIP Transit Report
-            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
-[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
-[size=95]Training Division[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]${Rank4} ${Name4},[/b]
-
-Following your application, we have decided to [b]pass[/b] your weapon certification. You may utilize the ${Weapon}, operating under the allowed protocols defined by the Training Division.
-
-[/list][hr][/hr][list=none]
-
-Sincerely,
-Police Officer III Mick Wegman
-Trainee Instructor, Training Division
-Los Santos Police Department
-
-[/list][/divbox]
-[lspdfooter][/lspdfooter]`;
-
-            // Display the BBCode in the textarea
-            document.getElementById('displayWeaponPassBB').value = WeaponPassBBCode;
-
-            // Copy BBCode to clipboard
-            navigator.clipboard.writeText(WeaponPassBBCode).then(() => {
-                document.getElementById("copyWeaponPassSuccess").textContent = "BBCode copied to clipboard!";
-            });
-        }
-
-
- function SubmitWeaponFail() {
-            const Rank2 = document.getElementById('txtEPDRankWF').value;
-            const Name2 = document.getElementById('txtVPDNameWF').value;
-            const Weapon = document.getElementById('txtVPDCertWF').value;
-            // BBCode format for the VIP Transit Report
-            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
-[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=120][color=#FF0000]CERTIFICATION FAILED[/color][/size]
-[size=95]Training Division[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]${Rank2} ${Name2},[/b]
-
-Following your application, we have decided to [b]fail[/b] your weapon certification. You may re-apply again after 7 days.
-
-[/list][hr][/hr][list=none]
-
-Sincerely,
-Police Officer III Mick Wegman
-Trainee Instructor, Training Division
-Los Santos Police Department
-
-[/list][/divbox]
-[lspdfooter][/lspdfooter]`;
-
-            // Display the BBCode in the textarea
-            document.getElementById('displayWeaponFailBB').value = WeaponFailBBCode;
-
-            // Copy BBCode to clipboard
-            navigator.clipboard.writeText(WeaponFailBBCode).then(() => {
-                document.getElementById("copyWeaponFailSuccess").textContent = "BBCode copied to clipboard!";
-            });
-        }
-
-function SubmitVehPract() 
-            const Rank3 = document.getElementById('txtEPDRankPR').value;
-            const Name3 = document.getElementById('txtVPDNamePR').value;
-            // BBCode format for the VIP Transit Report
-            const VehPassBBCode = `[lspdfooter][/lspdfooter][divbox=white]
-[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=120][color=#FFC300]CERTIFICATION PENDING[/color][/size]
-[size=95]Training Division[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]${Rank3} ${Name3},[/b]
-
-Following your application, we have decided to move your vehicle certification to [b]pending practical[/b]. You may contact an instructor to complete your training session and pass your certification. You have 7 days from this response to organise and complete your practical session. Failure to do so will result in a denial of your certification.
-
-[/list][hr][/hr][list=none]
-
-Sincerely,
-Police Officer III Mick Wegman
-Trainee Instructor, Training Division
-Los Santos Police Department
-
-[/list][/divbox]
-[lspdfooter][/lspdfooter]
-`;
-
-
-
-        function submitDutyReport() {
-            const fullName = document.getElementById('txtDutyFullName').value;
-            const rank = document.getElementById('txtDutyRank').value;
-            const shiftStart = document.getElementById('txtShiftStart').value;
-            const shiftEnd = document.getElementById('txtShiftEnd').value;
-            const shiftSummary = document.getElementById('txtShiftSummary').value;
-
-            // Incident 1 details
-            const incident1Narrative = document.getElementById('txtIncident1Narrative').value;
-            const incident1Time = document.getElementById('txtIncident1Time').value;
-            const incident1Link = document.getElementById('txtIncident1Link').value;
-
-            // Incident 2 details
-            const incident2Narrative = document.getElementById('txtIncident2Narrative').value;
-            const incident2Time = document.getElementById('txtIncident2Time').value;
-            const incident2Link = document.getElementById('txtIncident2Link').value;
-
-            // Incident 3 details
-            const incident3Narrative = document.getElementById('txtIncident3Narrative').value;
-            const incident3Time = document.getElementById('txtIncident3Time').value;
-            const incident3Link = document.getElementById('txtIncident3Link').value;
-
-            // Generate the BBCode for the Duty Report
-            let dutyReportBBCode = `
-[img]https://i.imgur.com/KluN5gs.png[/img]
-[divbox=#dbd3d3]
-[divbox=#00008b][b][color=white]Agent Details[/color][/b][/divbox]
-[divbox=white]
-[b]Full Name:[/b] ${fullName}
-[b]Rank:[/b] ${rank}
-[/divbox]
-[divbox=#00008b][b][color=white]Shift Details[/color][/b][/divbox]
-[divbox=white]
-[b]Shift Start:[/b] ${shiftStart}
-[b]Shift End:[/b] ${shiftEnd}
-[b]Shift Summary:[/b] ${shiftSummary}
-[/divbox]
-[divbox=#00008b][b][color=white]Incidents[/color][/b][/divbox]
-[divbox=white]
-`;
-
-            // Add incident details
-            if (incident1Narrative) {
-                dutyReportBBCode += `[spoiler=Incident 1]
-[b]Situation Narrative:[/b] ${incident1Narrative}
-[b]Time of Event:[/b] ${incident1Time}
-[b]Link to Report:[/b] ${incident1Link}
-[/spoiler]`;
-            }
-            if (incident2Narrative) {
-                dutyReportBBCode += `[spoiler=Incident 2]
-[b]Situation Narrative:[/b] ${incident2Narrative}
-[b]Time of Event:[/b] ${incident2Time}
-[b]Link to Report:[/b] ${incident2Link}
-[/spoiler]`;
-            }
-            if (incident3Narrative) {
-                dutyReportBBCode += `[spoiler=Incident 3]
-[b]Situation Narrative:[/b] ${incident3Narrative}
-[b]Time of Event:[/b] ${incident3Time}
-[b]Link to Report:[/b] ${incident3Link}
-[/spoiler]`;
-            }
-
-            dutyReportBBCode += `
-[/divbox]
-`;
-
-
-
-            // Output the BBCode to the text area
-            document.getElementById("displayDutyReportBB").value = dutyReportBBCode.trim();
-            document.querySelector("#displayDutyReportBB").select();
             document.execCommand('copy');
 
-            $('#copyDutyReportSuccess').text('Copied to clipboard!');
+            $('#copyFTSSuccess').text('Copied to clipboard!');
+
+        }
+</script>
+
+ <!-- Solitary -->
+    <div id="solitarySection" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+            <div class="card-body">
+ <!-- Solitary Form Fields -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date & Time of Report:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtdatetime" class="form-control" style="width: 600px"placeholder="DD/MMM/YYYY XX:XX" />
+                    </div>
+                </div>
+        <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name, Rank & Badge Number:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtnamerankBadge" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+        <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">10-15s Confined:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txttensConfined" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+        <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Time Sentenced:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txttimeSentenced" class="form-control" style="width: 600px"placeholder="XX" />
+                    </div>
+                </div>
+        <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Log:</div>
+                    <div class="col-md-10">
+                        <textarea type="text" id="txtlog" class="form-control" style="width: 600px"rows="5"placeholder="A detailed description of events leading to solitary, the reasoning for the time sentenced. And the authorizing Officer (If over 45 Days)"></textarea>
+                    </div>
+                </div>
+          <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createSolitaryReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copySolitaryReportSuccess"></p>
+                        <textarea id="displaySolitaryReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+function createSolitaryReport() {
+            const datetime = $('#txtdatetime').val();
+            const namerankbadge = $('#txtnamerankBadge').val();
+            const tensconfined = $('#txttensConfined').val();
+            const timesentenced = $('#txttimeSentenced').val();
+            const loginfo = $('#txtlog').val();
+const solitaryTemplate = `
+[img]https://i.imgur.com/R6uBrxX.png[/img]
+[docsubtitle]Solitary Report Details[/docsubtitle]
+[divbox=white]
+[ol][/ol]
+[b]Date and Time of Report:[/b] 
+[ol]${datetime}[/ol]
+[hr]
+[ol][/ol]
+[b]Name, Rank, and Badge Number:[/b] ${namerankbadge}
+[hr]
+[ol][/ol]
+[b]10-15s Confined:[/b] ${tensconfined}
+[hr]
+[b]Time Sentenced:[/b] 
+[ol]${timesentenced} Days[/ol]
+[/divbox]
+[ol][/ol]
+[docsubtitle]Log[/docsubtitle]
+[divbox=white][ol][/ol]
+[i]A detailed description of events leading to solitary, the reasoning for the time sentenced. And the authorizing Officer (If over 45 Days)[/i]
+[ol]${loginfo}[/ol]
+[/divbox]
+[img]https://i.imgur.com/EYwU3XA.png[/img]
+ `;
+  document.getElementById("displaySolitaryReportBB").value = solitaryTemplate.trim();
+            document.querySelector("#displaySolitaryReportBB").select();
+            document.execCommand('copy');
+
+            $('#copySolitaryReportSuccess').text('Copied to clipboard!');
         }
 
-    </script>
-</body>
+</script>
+<!--Force 6 -->
+    <div id="expenseSection" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+            <div class="card-body">
+<!-- Expense Form Fields -->
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpensename" class="form-control" style="width: 600px" />
+    </div>
+</div>
 
-</html>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpenserank" class="form-control" style="width: 600px" />
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Item & Quantity:</div>
+    <div class="col-md-10">
+        <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; background-color: #f9f9f9;">
+            <input type="text" id="itemInput" placeholder="Item" style="border: none; outline: none; flex: 1; padding: 5px;" />
+            <span style="margin: 0 10px; color: #555; font-weight: bold;">|</span>
+            <input type="text" id="quantityInput" placeholder="Quantity" style="border: none; outline: none; flex: 1; padding: 5px;" />
+        </div>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <button id="addButton" class="btn btn-primary">Add</button>
+        <button id="removeButton" class="btn btn-danger">Remove Last</button>
+    </div>
+</div>
+
+<ul id="itemList" style="margin-top: 20px; padding-left: 0; list-style: none;"></ul>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Reason for purchase:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpensereason" class="form-control" style="width: 600px" />
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Price:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpenseprice" class="form-control" style="width: 600px" />
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date of purchase:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpensedate" class="form-control" style="width: 600px"placeholder="DD/MMM/YYYY" />
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of purchase:</div>
+    <div class="col-md-10">
+        <input type="text" id="txtexpenseproof" class="form-control" style="width: 600px" />
+    </div>
+</div>
+ <div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createExpenseReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyExpenseReportSuccess"></p>
+                        <textarea id="displayExpenseReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+// Function to generate the expense report with the added items
+function createExpenseReport() {
+    const expensename = $('#txtexpensename').val();
+    const expenserank = $('#txtexpenserank').val();
+    const expensereason = $('#txtexpensereason').val();
+    const expenseprice = $('#txtexpenseprice').val();
+    const expensedate = $('#txtexpensedate').val();
+    const expenseproof = $('#txtexpenseproof').val();
+
+    // Create the itemListString by looping through the items in the list
+    let itemListString = '';
+    const itemList = document.getElementById("itemList");
+    const listItems = itemList.getElementsByTagName("li");
+    
+    // Loop through all list items and build the itemListString
+    for (let i = 0; i < listItems.length; i++) {
+        itemListString += listItems[i].textContent + '\n'; // Adding a new line after each item
+    }
+
+    // Create the BBCode template
+    const expenseTemplate = `
+[img]https://i.imgur.com/7FFrt7W.png[/img]
+[docsubtitle]Employee Information[/docsubtitle]
+
+[divbox=white]
+[list=none]
+[b]Name:[/b] ${expensename}
+[b]Rank:[/b] ${expenserank}
+[/list]
+[/divbox]
+
+[docsubtitle]Expense Information[/docsubtitle]
+
+[divbox=white]
+[list=none]
+[b]Item(s) purchased:[/b] 
+${itemListString}
+[b]Reason for purchase:[/b] ${expensereason}
+[b]Price:[/b] ${expenseprice}
+[b]Date of purchase:[/b] ${expensedate}
+[b]Proof of purchase:[/b] [url=${expenseproof}]Proof[/url]
+[/list]
+[/divbox]
+
+[img]https://i.imgur.com/EYwU3XA.png[/img]
+ `;
+
+    // Display the BBCode and copy it to clipboard
+    document.getElementById("displayExpenseReportBB").value = expenseTemplate.trim();
+    document.querySelector("#displayExpenseReportBB").select();
+    document.execCommand('copy');
+
+    // Show success message
+    $('#copyExpenseReportSuccess').text('Copied to clipboard!');
+}
+
+</script>
+
+<!-- CERT Report -->
+<div id="certReportSection" class="container mt-3 myHideableSection">
+    <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+        <div class="card-body">
+            <!-- CERT Fields -->
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertdate" class="form-control" style="width: 600px" placeholder="DD/MMM/YYYY" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Officers name:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertname" class="form-control" style="width: 600px" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Other CERT staff:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertstaff" class="form-control" style="width: 600px"placeholder="Seperate names with commas" />
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Non CERT staff (Officers, other inmates, visitors):</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertnonstaff" class="form-control" style="width: 600px"placeholder="Seperate names with commas" />
+                </div>
+            </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank within CERT:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertrank" class="form-control" style="width: 600px" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Weapon(s) deployed:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcertweapon" class="form-control" style="width: 600px"placeholder="Seperate weapon(s) with commas" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Conclusion:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtconclusion" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Situation:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtcertsituation" class="form-control" style="width: 600px"rows="5" placeholder="A detailed description of the situation"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createCERTReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyCERTReportSuccess"></p>
+                        <textarea id="displayCERTReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <script>
+function createCERTReport() {
+    // Get the input field values
+    const certdate = $('#txtcertdate').val();
+    const certname = $('#txtcertname').val();
+    const noncert = $('#txtcertnonstaff').val();
+    const othercert = $('#txtcertstaff').val();
+    const certrank = $('#txtcertrank').val();
+    const certweapon = $('#txtcertweapon').val();
+    const certconclusion = $('#txtconclusion').val();
+    const certsituation = $('#txtcertsituation').val();
+
+ 
+    // BBCode Template with updated staff lists
+    const certTemplate = `
+[img]https://imgur.com/E58Frv0.png[/img]
+[doccsubtitle=#111111,#686867]CERT Situation Report[/doccsubtitle]
+[divbox=white]
+[ol][/ol]
+[b]Date:[/b] 
+[ol]${certdate}[/ol]
+[hr]
+[ol][/ol]
+[b]Officers name:[/b] 
+[ol]${certname}[/ol]
+[hr]
+[ol][/ol]
+[b]Other CERT staff:[/b] 
+[ol]${othercert}[/ol]
+[hr]
+[ol][/ol]
+[b]Non CERT staff (Officers, other inmates, visitors):[/b] 
+[ol]${noncert}[/ol]
+[hr]
+[ol][/ol]
+[b]Rank within CERT:[/b] 
+[ol]${certrank}[/ol]
+[hr]
+[ol][/ol]
+[b]Weapon(s) deployed:[/b] 
+[ol]${certweapon}[/ol]
+[hr]
+[ol][/ol]
+[b]Conclusion:[/b] 
+[ol]${certconclusion}[/ol]
+[/divbox]
+[doccsubtitle=#111111,#686867]Situation[/doccsubtitle]
+[divbox=white]
+[i]${certsituation}[/i]
+[ol][/ol][ol][/ol]
+[/divbox]
+`;
+
+    // Display the BBCode in the textarea
+    document.getElementById("displayCERTReportBB").value = certTemplate.trim();
+
+    // Select the textarea content
+    document.querySelector("#displayCERTReportBB").select();
+
+    // Copy to clipboard
+    document.execCommand('copy');
+
+    // Show success message
+    $('#copyCERTReportSuccess').text('Copied to clipboard!');
+}
+</script>
+
+<!-- CFT Report -->
+<div id="cftDutyReportSection" class="container mt-3 myHideableSection">
+    <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+        <div class="card-body">
+  <!-- CFT Fields -->
+            <div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Date of Report:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtcftdate" class="form-control" style="width: 600px" placeholder="DD/MMM/YYYY" />
+                </div>
+            </div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Mark:</div>
+    <div class="col-md-10">
+        <select id="txtcftmark" class="form-control" style="width: 600px;">
+            <option value="pass">Pass</option>
+            <option value="fail">Fail</option>
+        </select>
+    </div>
+</div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Trainings Completed:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtcfttrainings" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Officers involved:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtcftofficers" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Description of trainings conducted:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtcftdescribe" class="form-control" style="width: 600px"rows="5"placeholder="A detailed description"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createCFTReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyCFTReportSuccess"></p>
+                        <textarea id="displayCFTReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <script>
+function createCFTReport() {
+    const cftdate = $('#txtcftdate').val();
+    const cftmark = $('#txtcftmark').val();
+    const cfttrainings = $('#txtcfttrainings').val();
+    const cftOfficers = $('#txtcftofficers').val();
+    const cftdescribe = $('#txtcftdescribe').val();
+
+    const cftTemplate = `
+[img]https://i.imgur.com/zo6to0g.png[/img]
+[img]https://i.imgur.com/iljOG9F.png[/img]
+[divbox=white]
+[ol][/ol]
+[b]Date of Report:[/b]
+[ol]${cftdate}[/ol]
+[hr]
+[ol][/ol]
+[b]Mark[/b] ([size=125]🗵[/size]): ${cftmark === "pass" ? "[size=125]☑[/size][b] - [color=green]PASS[/color][/b] [size=150][b]|[/b][/size] [size=125]☐[/size][b] - [color=RED]FAIL[/color][/b]" : "[size=125]☐[/size][b] - [color=green]PASS[/color][/b] [size=150][b]|[/b][/size] [size=125]☑[/size][b] - [color=RED]FAIL[/color][/b]"}
+[ol][/ol]
+[hr]
+[ol][/ol]
+[b]Trainings completed:[/b]
+[ol]${cfttrainings}[/ol]
+[hr]
+[ol][/ol]
+[b]Officers involved:[/b]
+[ol]${cftOfficers}[/ol]
+[/divbox]
+[ol][/ol]
+[img]https://i.imgur.com/EiXCx2U.png[/img]
+[divbox=white][ol][/ol]
+[i]A detailed description of the trainings conducted during your watch, and officers involved[/i]
+[ol]${cftdescribe}[/ol]
+[/divbox]
+`;
+
+    // Display the BBCode and copy it to clipboard
+    document.getElementById("displayCFTReportBB").value = cftTemplate.trim();
+    document.getElementById("displayCFTReportBB").select();
+    document.execCommand('copy');
+
+    // Show success message
+    $('#copyCFTReportSuccess').text('Copied to clipboard!');
+}
+</script>
+<!-- Work Order Report -->
+<div id="workOrderSection" class="container mt-3 myHideableSection">
+    <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+        <div class="card-body">
+  <!-- Work Order Fields -->
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Work Order:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtworknumber" class="form-control" style="width: 600px" placeholder="###" />
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtworkdate" class="form-control" style="width: 600px" placeholder="DD/MMM/YYYY" />
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Name & Position:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtworkname" class="form-control" style="width: 600px" />
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Summary of the work completed:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtworksummary" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Parts acquired, if applicable:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtworkparts" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Expenses:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtworkexpenses" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Ready for Inspection:</div>
+    <div class="col-md-10">
+        <select id="txtworkinspection" class="form-control" style="width: 600px;">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+    </div>
+</div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">If not, explain why:</div>
+                <div class="col-md-10">
+                    <textarea type="text" id="txtworkwhy" class="form-control" style="width: 600px"rows="5"></textarea>
+                </div>
+            </div>
+<div class="row mb-2">
+                <div class="col-md-2" style="font-weight: bold; text-align: right;">Proof of RP:</div>
+                <div class="col-md-10">
+                    <input type="text" id="txtworkrp" class="form-control" style="width: 600px" />
+                </div>
+            </div>
+<div class="row mb-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createWORKReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyWORKReportSuccess"></p>
+                        <textarea id="displayWORKReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+function createWORKReport() {
+    const worknumber = $('#txtworknumber').val();
+    const workdate = $('#txtworkdate').val();
+    const workname = $('#txtworkname').val();
+    const worksumm = $('#txtworksummary').val();
+    const workparts = $('#txtworkparts').val();
+    const workexpenses = $('#txtworkexpenses').val();
+    const workinspection = $('#txtworkinspection').val(); // Dropdown value
+    const workwhy = $('#txtworkwhy').val();
+    const workrp = $('#txtworkrp').val();
+
+    const readyForInspection = workinspection === "yes"
+        ? "[X] Yes [ ] No"
+        : "[ ] Yes [X] No";
+
+    const workTemplate = `
+[img]https://i.imgur.com/PNwiHFS.png[/img]
+[divbox=white]
+[img]https://i.imgur.com/YRbH1QY.png[/img][float=right][right][font=Arial][b]
+[size=145]Work Order ${worknumber}[/size]
+[size=100]${workdate}[/size]
+[size=90]${workname}[/size][/b]
+[/font][/right][/float]
+[hr]
+[list=none]
+[b]Summary of the work completed:[/b]
+[i]${worksumm}[/i]
+ 
+ 
+[b]Parts acquired, if applicable:[/b]
+[i]${workparts}[/i]
+ 
+ 
+[b]Expenses:[/b]
+[i]${workexpenses}[/i]
+ 
+ 
+[b]Ready for Inspection?(Mark with a X):[/b]
+[i]${readyForInspection}[/i]
+ 
+[b]If not, explain why:[/b]
+[i]${workwhy}[/i]
+ 
+[spoiler=(( Proof of RP ))]${workrp}[/spoiler]
+ 
+[/list][/divbox]
+[img]https://i.imgur.com/PNwiHFS.png[/img]
+`;
+
+    // Display the BBCode in the textarea
+    document.getElementById("displayWORKReportBB").value = workTemplate.trim();
+
+    // Select the textarea content
+    document.querySelector("#displayWORKReportBB").select();
+
+    // Copy to clipboard
+    document.execCommand('copy');
+
+    // Show success message
+    $('#copyWORKReportSuccess').text('Copied to clipboard!');
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+function showSection(sectionId) {
+  // Hide all sections with the class 'myHideableSection'
+    const sections = document.querySelectorAll('.myHideableSection');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
+}
+</script>
+
+<script>
+    // Add an event listener for the Add button
+    document.getElementById("addButton").addEventListener("click", function () {
+        const itemInput = document.getElementById("itemInput");
+        const quantityInput = document.getElementById("quantityInput");
+        const itemList = document.getElementById("itemList");
+
+        // Get the values from the inputs
+        const item = itemInput.value.trim();
+        const quantity = quantityInput.value.trim();
+
+        // Check if both fields are filled
+        if (item && quantity) {
+            // Create a new list item
+            const listItem = document.createElement("li");
+            listItem.textContent = `${item} | ${quantity}`;
+            listItem.style.padding = "5px 0";
+            listItem.style.borderBottom = "1px solid #ddd";
+
+            // Add the new list item to the list
+            itemList.appendChild(listItem);
+
+            // Clear the input fields
+            itemInput.value = "";
+            quantityInput.value = "";
+
+            // Focus back on the first input
+            itemInput.focus();
+        } else {
+            alert("Please fill in both fields before adding.");
+        }
+    });
+
+    // Add an event listener for the Remove Last button
+    document.getElementById("removeButton").addEventListener("click", function () {
+        const itemList = document.getElementById("itemList");
+
+        // Remove the last item in the list if it exists
+        if (itemList.lastChild) {
+            itemList.removeChild(itemList.lastChild);
+        } else {
+            alert("No items to remove.");
+        }
+    });
+</script>
