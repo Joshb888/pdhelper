@@ -269,11 +269,13 @@ Los Santos Police Department
                         <input type="text" id="txtK0Depl" class="form-control" style="width: 100px" />
                     </div>
                 </div>
-    <div class="row mb-2">
+<div class="row mb-2">
     <div class="col-md-2" style="font-weight: bold; text-align: right;">Paperwork:</div>
     <div class="col-md-10">
         <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; background-color: #f9f9f9;">
-            <input type="text" id="itemInput" placeholder="Link" style="border: none; outline: none; flex: 1; padding: 5px;" />
+            <input type="text" id="itemInput" placeholder="Item" style="border: none; outline: none; flex: 1; padding: 5px;" />
+            <span style="margin: 0 10px; color: #555; font-weight: bold;">|</span>
+            <input type="text" id="quantityInput" placeholder="Quantity" style="border: none; outline: none; flex: 1; padding: 5px;" />
         </div>
     </div>
 </div>
@@ -338,7 +340,9 @@ ${Summary}
 
 [b]Did you fill out any supporting paperwork i.e. duty reports? [/b] [i]If so link them[/i]:
 
-${itemListString}
+
+[url]${itemList}[/url]
+
 
 [b]Additional Notes[/b] [i]OPTIONAL[/i]:
 [i]Insert additional notes here.[/i]
