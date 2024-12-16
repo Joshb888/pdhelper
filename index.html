@@ -635,6 +635,311 @@ ${Summary}
 </script>
 
         
+<!-- FPS Section -->
+    <div id="FPS" class="container mt-3 myHideableSection" style="display: none;">
+        <div class="card" style="background-color: #00008b; color: white;">
+            <div class="card-body">
+                <!-- Duty Report Form Fields -->
+<div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSDate" class="form-control" style="width: 200px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Time:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSTime" class="form-control" style="width: 300px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Modules:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFPSMod" class="form-control" style="width: 600px" rows="5"> 
+[spoil]
+[list=none] 
+[*] [cb] - [b]Conducted an arrest[/b]
+[*] [cb] - [b]Conducted a traffic stop (10-55)[/b]
+[*] [cb] - [b]Participated in a vehicle pursuit[/b]
+[*] [cb] - [b]Primary in a vehicle pursuit[/b]
+[*] [cb] - [url=viewtopic.php?p=40453#203][b]Conducted a Mock Pursuit[/b][/url]
+[/list]
+[hr]
+[list=none] 
+[*] [cb] - [b]Created a BOLO[/b]
+[*] [cb] - [b]Issued a citation[/b]
+[*] [cb] - [b]Impounded a vehicle[/b]
+[*] [cb] - [b]Released a vehicle[/b]
+[*] [cb] - [b]Conducted a felony stop (10-66)[/b]
+[/list]
+[hr]
+[list=none] 
+[*] [cb] - [b]Investigated a 911 call[/b]
+[*] [cb] - [b]Responded to a robbery call[/b]
+[*] [cb] - [b]Reviewed CCTV footage[/b]
+[*] [cb] - [b]Conducted a basic investigation[/b]
+[*] [cb] - [b]Gathered a statement[/b]
+[*] [cb] - [b]Handled evidence outside of an arrest[/b]
+[/list]
+[hr]
+[list=none] 
+[*] [cb] - [b]Remained calm in a stressful situation[/b]
+[*] [cb] - [b]Relayed information over a tactical frequency[/b]
+[*] [cb] - [b]Used the department radio[/b]
+[*] [cb] - [b]Responded to a report status (10-21)[/b]
+[*] [cb] - [b]Participated in a roll call (10-1)[/b]
+[/list][/spoil]
+                        </textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Timeline:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFPSLine" class="form-control" style="width: 600px" rows="15"placeholder="Minimum of 100 words"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">General attitude, demeanor and confidence:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSGen1" class="form-control" style="width: 200px"placeholder="GOOD / OKAY / POOR / N/A" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">General attitude, demeanor and confidence:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFPSGen2" class="form-control" style="width: 600px" rows="4"placeholder="Minimum of 25 words"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Field awareness, including general police tasks and proper use of force:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSField1" class="form-control" style="width: 200px"placeholder="GOOD / OKAY / POOR / N/A" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Field awareness, including general police tasks and proper use of force:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFPSField2" class="form-control" style="width: 600px" rows="4"placeholder="Minimum of 25 words"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Understanding and practice of our departmental procedures and protocols:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSMan1" class="form-control" style="width: 200px"placeholder="GOOD / OKAY / POOR / N/A" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Understanding and practice of our departmental procedures and protocols:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFPSMan2" class="form-control" style="width: 600px" rows="4"placeholder="Minimum of 25 words"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Communication, with other Officers, suspects, and civilians:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFpSCom1" class="form-control" style="width: 200px"placeholder="GOOD / OKAY / POOR / N/A" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Communication, with other Officers, suspects, and civilians:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFpSCom2" class="form-control" style="width: 600px" rows="4"placeholder="Minimum of 25 words"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Overall driving ability, including regular patrol and at high rates of speed:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSDriv1" class="form-control" style="width: 200px"placeholder="GOOD / OKAY / POOR / N/A" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Overall driving ability, including regular patrol and at high rates of speed:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFPSDriv2" class="form-control" style="width: 600px" rows="4"placeholder="Minimum of 25 words"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Understanding and ability to roleplay (/me's and /do's, allowing others to roleplay) and understanding of OOC commands (/cuff, /cpr, /drag, /stabilize):</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSRP1" class="form-control" style="width: 200px"placeholder="GOOD / OKAY / POOR / N/A" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Understanding and ability to roleplay (/me's and /do's, allowing others to roleplay) and understanding of OOC commands (/cuff, /cpr, /drag, /stabilize):</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFPSRP2" class="form-control" style="width: 600px" rows="4"placeholder="Minimum of 25 words"></textarea>
+                    </div>
+                </div>
+               <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Any sections that would need to be reiterated:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSRei" class="form-control" style="width: 100px"placeholder="YES/NO" />
+                    </div>
+                </div>
+               <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Any key mistakes that need urgent attention:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSAt" class="form-control" style="width: 100px"placeholder="YES/NO" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Did you remind the Cadet to submit a Field Training Officer Review Survey?:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSSurv" class="form-control" style="width: 100px"placeholder="YES/NO" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Have you filled in the comments in the grading section?:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSGrad" class="form-control" style="width: 100px"placeholder="YES/NO" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Is your report on this session complete?:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSComp" class="form-control" style="width: 100px"placeholder="YES/NO" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Form:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtFPSForm" class="form-control" style="width: 100px"placeholder="YES/NO" />
+                    </div>
+                </div>
+
+            
+                <!-- Submit Button -->
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="submitPSReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyPSSuccess"></p>
+                        <textarea id="displayPSReportBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+<script>
+function submitPSReport() {
+            const Date = $('#txtFPSDate').val(); 
+            const Time = $('#txtFPSTime').val();
+            const Mod2 = $('#txtFPSMod').val();
+            const Timeline = $('#txtFPSLine').val();
+           const Gen1 = $('#txtFPSGen1').val();
+            const Gen2 = $('#txtFPSGen2').val();
+           const Field1 = $('#txtFPSField1').val();
+            const Field2 = $('#txtFPSField2').val();
+            const Man1 = $('#txtFPSMan1').val();
+            const Man2 = $('#txtFPSMan2').val();
+            const Comm1 = $('#txtFpSCom1').val();
+            const Comm2 = $('#txtFpSCom2').val();
+            const Driv1 = $('#txtFPSDriv1').val();
+            const Driv2 = $('#txtFPSDriv2').val();
+            const RP1 = $('#txtFPSRP1').val();
+            const RP2 = $('#txtFPSRP2').val();
+            const reiterated = $('#txtFPSRei').val();
+            const KeyMistakes = $('#txtFPSAt').val();
+            const Survey = $('#txtFPSSurv').val();
+            const Grade = $('#txtFPSGrad').val();
+            const Complete = $('#txtFPSComp').val();
+            const Form = $('#txtFPSForm').val();
+
+
+            // Construct the BBCode
+            const FPSReportBBCode = `[img]https://i.imgur.com/jn09MP7.png[/img]
+
+[lspdsubtitle]1. SESSION DETAILS[/lspdsubtitle]
+[divbox=white][list=none]
+[b]Date:[/b] ${Date}
+[b]Patrol Hours [ooc] UTC, 24h format [/ooc]:[/b] ${Time}
+[/divbox]
+
+[lspdsubtitle]2. SESSION CHECKLIST[/lspdsubtitle]
+[divbox=white]
+[size=85][i]Mark each box by changing [c][cb][/c] to [c][cbc][/c] if they performed the action, otherwise leave it unchanged. The cadet is [b]not[/b] required to do everything on this list. [/i][/size]
+${Mod2}
+[/divbox]
+
+[lspdsubtitle]3. SESSION REPORT[/lspdsubtitle]
+[divbox=white]
+[size=85][i]Please provide a detailed timeline of the session below. Minimum of 100 words.[/i][/size]
+
+[spoil]
+${Timeline}
+[/spoil]
+
+[hr]
+
+[size=85][i]Below is the grading section to determine the cadet's performance during the session. The grading is based on their capacity to perform their duties to the standard that would be expected of a Police Officer I and in adherence with the Department Manual. Minimum of 25 words [b]PER SECTION[/b].[/i][/size]
+[spoil]
+[b]General attitude, demeanor and confidence[/b]:  [ ${Gen1} ]
+[list]
+[*] ${Gen2}
+[/list]
+[b]Field awareness, including general police tasks and proper use of force[/b]:  [ ${Field1} ]
+[list]
+[*] ${Field2}
+[/list]
+[b]Understanding and practice of our departmental procedures and protocols:[/b]:  [ ${Man1} ]
+[list]
+[*] ${Man2}
+[/list]
+[b]Communication, with other Officers, suspects, and civilians[/b]:  [ ${Comm1} ]
+[list]
+[*] ${Comm2}
+[/list]
+[b]Overall driving ability, including regular patrol and at high rates of speed[/b]:  [ ${Driv1} ]
+[list]
+[*] ${Driv2}
+[/list] 
+[ooc] [b]Understanding and ability to roleplay (/me's and /do's, allowing others to roleplay) and understanding of OOC commands (/cuff, /cpr, /drag, /stabilize)[/b]:  [ ${RP1} ] [/ooc]
+[list]
+[*][ooc] ${RP2} [/ooc]
+[/list]
+
+[hr]
+[b]GOOD[/b] - [b][color=#008040]Police Officer I Standard[/color][/b]
+[b]OKAY[/b] - [b][color=#FFA500]Minor Mistakes[/color][/b]
+[b]POOR[/b] - [b][color=#FF0000]More Training Required[/color][/b]
+[b]N/A[/b] - [b]Untested During the Session[/b]
+[/spoil][/divbox]
+
+[lspdsubtitle]4. ADDITIONAL NOTES[/lspdsubtitle]
+[divbox=white][list=none]
+
+[b]Any sections that would need to be reiterated?[/b]: [ ${reiterated} ] 
+Specify here..
+
+[b]Any key mistakes that need urgent attention?[/b]: [ ${KeyMistakes}]
+Specify here..
+
+[hr]
+
+[b]Did you remind the Cadet to submit a Field Training Officer Review Survey?[/b]: [ ${Survey}]
+
+[b]Have you filled in the comments in the grading section?[/b]: [ ${Grade}]
+
+[b]Is your report on this session complete?[/b]: [ ${Complete}]
+
+[b]Have you entered this session on the [url=https://forms.gle/jCRTjTn4p2t2nvBG6]Session Submission Form[/url]?[/b]: [ ${Form}]
+[/divbox]
+
+[lspdfooter][/lspdfooter]
+`;
+
+document.getElementById("displayPSReportBB").value = FPSReportBBCode.trim();
+            document.querySelector("#displayPSReportBB").select();
+            document.execCommand('copy');
+
+            $('#copyPSSuccess').text('Copied to clipboard!');
+
+        }
+</script>
+
+        
+        
 <!-- FTS Section -->
     <div id="FTS" class="container mt-3 myHideableSection" style="display: none;">
         <div class="card" style="background-color: #00008b; color: white;">
@@ -871,6 +1176,7 @@ document.getElementById("displayFTSReportBB").value = FTSReportBBCode.trim();
         }
 </script>
 
+        
 
 <script>
 function showSection(sectionId) {
