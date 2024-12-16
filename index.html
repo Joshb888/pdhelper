@@ -270,17 +270,16 @@ Los Santos Police Department
                     </div>
                 </div>
 <div class="row mb-2">
-    <div class="col-md-2" style="font-weight: bold; text-align: right;">Paperwork:</div>
+    <div class="col-md-1" style="font-weight: bold; text-align: right;">Paperwork:</div>
     <div class="col-md-10">
         <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; background-color: #f9f9f9;">
-            <input type="text" id="itemInput" placeholder="Item" style="border: none; outline: none; flex: 1; padding: 5px;" />
-            <span style="margin: 0 10px; color: #555; font-weight: bold;">|</span>
-            <input type="text" id="quantityInput" placeholder="Quantity" style="border: none; outline: none; flex: 1; padding: 5px;" />
+            <input type="text" id="itemInput" placeholder="Paperwork" style="border: none; outline: none; flex: 1; padding: 5px;" />
         </div>
     </div>
 </div>
+     <ul id="itemList" style="margin-top: 20px; padding-left: 0; list-style: none;"></ul>
     <div class="row mb-2">
-    <div class="col-md-2"></div>
+    <div class="col-md-1"></div>
     <div class="col-md-10">
         <button id="addButton" class="btn btn-primary">Add</button>
         <button id="removeButton" class="btn btn-danger">Remove Last</button>
@@ -312,12 +311,11 @@ function createK9Report() {
             const Summary = $('#txtK9Sum').val();
             const Deployments = $('#txtK0Depl').val();
 
-        let itemListString = '';
     const itemList = document.getElementById("itemList");
     
     // Loop through all list items and build the itemListString
     for (let i = 0; i < listItems.length; i++) {
-        itemListString += listItems[i].textContent + '\n'; // Adding a new line after each item
+         listItems[i].textContent + '\n'; // Adding a new line after each item
     }
  const K9Form = `[img]https://i.imgur.com/9rg9GNR.png[/img]
 [lspdsubtitle]PATROL DETAILS[/lspdsubtitle]
