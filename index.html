@@ -266,18 +266,18 @@ Los Santos Police Department
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Deployment:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtK0Depl" class="form-control" style="width: 100px" />
+                        <input type="text" id="txtK9Depl" class="form-control" style="width: 100px" />
                     </div>
                 </div>
 <div class="row mb-2">
     <div class="col-md-1" style="font-weight: bold; text-align: right;">Paperwork:</div>
     <div class="col-md-10">
         <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; background-color: #f9f9f9;">
-            <input type="text" id="itemInput" placeholder="Paperwork" style="border: none; outline: none; flex: 1; padding: 5px;" />
+            <input type="text" id="itemInput2" placeholder="Paperwork" style="border: none; outline: none; flex: 1; padding: 5px;" />
         </div>
     </div>
 </div>
-     <ul id="itemList" style="margin-top: 20px; padding-left: 0; list-style: none;"></ul>
+     <ul id="itemList2" style="margin-top: 20px; padding-left: 0; list-style: none;"></ul>
     <div class="row mb-2">
     <div class="col-md-1"></div>
     <div class="col-md-10">
@@ -1186,30 +1186,6 @@ function createWORKReport() {
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 function showSection(sectionId) {
   // Hide all sections with the class 'myHideableSection'
@@ -1226,8 +1202,8 @@ function showSection(sectionId) {
 <script>
     // Add an event listener for the Add button
     document.getElementById("addButton").addEventListener("click", function () {
-        const itemInput = document.getElementById("itemInput");
-        const itemList = document.getElementById("itemList");
+        const itemInput2 = document.getElementById("itemInput2");
+        const itemList2 = document.getElementById("itemList2");
 
         // Get the values from the inputs
         const item = itemInput.value.trim();
@@ -1241,7 +1217,7 @@ function showSection(sectionId) {
             listItem.style.borderBottom = "1px solid #ddd";
 
             // Add the new list item to the list
-            itemList.appendChild(listItem);
+            itemList2.appendChild(listItem);
 
             // Clear the input fields
             itemInput.value = "";
@@ -1256,11 +1232,11 @@ function showSection(sectionId) {
 
     // Add an event listener for the Remove Last button
     document.getElementById("removeButton").addEventListener("click", function () {
-        const itemList = document.getElementById("itemList");
+        const itemList2 = document.getElementById("itemList2");
 
         // Remove the last item in the list if it exists
-        if (itemList.lastChild) {
-            itemList.removeChild(itemList.lastChild);
+        if (itemList2.lastChild) {
+            itemList2.removeChild(itemList2.lastChild);
         } else {
             alert("No items to remove.");
         }
