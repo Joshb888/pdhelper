@@ -229,7 +229,166 @@ Los Santos Police Department
 
 </script>
 
+<!-- Vehicle (Practical) -->
+    <div id="VehPract" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDRankP" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDNameP" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createPractReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyVehPractSuccess"></p>
+                        <textarea id="copyVehPractSuccess" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
 
+            </div>
+        </div>
+    </div>
+
+
+<script>    
+function createPractReport() {
+            const Rank2 = $('#txtVPDRankP').val(); 
+            const Name2 = $('#txtVPDNameP').val();
+ const PractTemplate = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#FFC300]CERTIFICATION PENDING[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank2} ${Name2},[/b]
+
+Following your application, we have decided to move your vehicle certification to [b]pending practical[/b]. You may contact an instructor to complete your training session and pass your certification. You have 7 days from this response to organise and complete your practical session. Failure to do so will result in a denial of your certification.
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+  document.getElementById("displayPractBB").value = PractTemplate.trim();
+            document.querySelector("#displayPractBB").select();
+            document.execCommand('copy');
+
+            $('#copyPractSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+
+<!-- Vehicle (Fail) -->
+    <div id="VehPass" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDRank" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDName" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+             <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Vehicle:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDCertP" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">On Road</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDRoad" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Off Duty:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDOFF" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createForceReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyVehPassSuccess"></p>
+                        <textarea id="displayVehPassBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<script>    
+function createForceReport() {
+            const Rank1 = $('#txtVPDRank').val(); 
+            const Name1 = $('#txtVPDName').val();
+            const Vehicle = $('#txtVPDCertP').val();
+            const OnRoad = $('#txtVPDRoad').val();
+            const OffRoad = $('#txtVPDOFF').val();
+ const forceTemplate = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank1} ${Name1},[/b]
+
+Following your practical session, we have decided to [b]pass[/b] your vehicle certification. You may utilize the ${Vehicle}, operating under the allowed protocols defined by the Training Division.
+[/list]
+
+[hr][center][color=red][b]FOR INSTRUCTOR USE[/b][/color][/center]
+[list=none]
+[b]Track Times[/b]
+[list]On Road Track: ${OnRoad}
+[*]Off Road Track: ${OffRoad}
+[/list]
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+  document.getElementById("displayVehPassBB").value = forceTemplate.trim();
+            document.querySelector("#displayVehPassBB").select();
+            document.execCommand('copy');
+
+            $('#copyVehPassSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+
+        
 <!-- Canine -->
     <div id="K9" class="container mt-3 myHideableSection">
         <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
