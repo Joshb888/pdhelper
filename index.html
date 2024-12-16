@@ -222,25 +222,15 @@
                         <input type="text" id="txtK0Depl" class="form-control" style="width: 100px" />
                     </div>
                 </div>
-<div class="row mb-2">
-    <div class="col-md-2" style="font-weight: bold; text-align: right;">Item & Quantity:</div>
-    <div class="col-md-10">
-        <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; background-color: #f9f9f9;">
-            <input type="text" id="itemInput" placeholder="Item" style="border: none; outline: none; flex: 1; padding: 5px;" />
-            <span style="margin: 0 10px; color: #555; font-weight: bold;">|</span>
-            <input type="text" id="quantityInput" placeholder="Quantity" style="border: none; outline: none; flex: 1; padding: 5px;" />
-        </div>
-    </div>
-</div>
     
     
                                 <!-- Submit Button -->
                     <div class="col-md-10">
-                        <button type="button" id="btnCopy" onClick="createForceReport();" class="btn btn-success">
+                        <button type="button" id="btnCopy" onClick="createK9Report();" class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
                         <p id="copyVehPassSuccess"></p>
-                        <textarea id="displayVehPassBB" class="form-control" style="width: 600px"
+                        <textarea id="copyVehPassSuccess" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
 
@@ -251,13 +241,13 @@
 
 <script>
 
-function createForceReport() {
-            const Rank1 = $('#txtVPDRank').val(); 
-            const Name1 = $('#txtVPDName').val();
-            const Vehicle = $('#txtVPDCertP').val();
-            const OnRoad = $('#txtVPDRoad').val();
-            const OffRoad = $('#txtVPDOFF').val();
- const forceTemplate = `[img]https://i.imgur.com/9rg9GNR.png[/img]
+function createK9Report() {
+            const Rank1 = $('#txtK9Name').val(); 
+            const Name1 = $('#txtK9Other').val();
+            const Vehicle = $('#txtK9Date').val();
+            const OnRoad = $('#txtK9Sum').val();
+            const OffRoad = $('#txtK0Depl').val();
+ const K9Form = `[img]https://i.imgur.com/9rg9GNR.png[/img]
 [lspdsubtitle]PATROL DETAILS[/lspdsubtitle]
 [divbox=white]
 [b]Your Rank and Name[/b]:
@@ -285,8 +275,8 @@ Insert details of the patrol here.
 
 [/divbox]
 [img]https://i.imgur.com/88vzzHs.jpg[/img]]`;
-  document.getElementById("displayVehPassBB").value = forceTemplate.trim();
-            document.querySelector("#displayVehPassBB").select();
+  document.getElementById("displayK9BB").value = K9Form.trim();
+            document.querySelector("#displayK9BB").select();
             document.execCommand('copy');
 
             $('#copyVehPassSuccess').text('Copied to clipboard!');
