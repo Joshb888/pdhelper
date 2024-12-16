@@ -251,6 +251,12 @@ Los Santos Police Department
                         <input type="text" id="txtK9Date" class="form-control" style="width: 600px" />
                     </div>
                 </div>
+             <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Time:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtK9Time" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Summary</div>
                     <div class="col-md-10">
@@ -271,14 +277,21 @@ Los Santos Police Department
         </div>
     </div>
 </div>
-    
+    <div class="row mb-2">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <button id="addButton" class="btn btn-primary">Add</button>
+        <button id="removeButton" class="btn btn-danger">Remove Last</button>
+    </div>
+</div>
+
                                 <!-- Submit Button -->
                     <div class="col-md-10">
                         <button type="button" id="btnCopy" onClick="createK9Report();" class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
-                        <p id="copyVehPassSuccess"></p>
-                        <textarea id="copyVehPassSuccess" class="form-control" style="width: 600px"
+                        <p id="copyK9Success"></p>
+                        <textarea id="copyK9Success" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
 
@@ -290,33 +303,42 @@ Los Santos Police Department
 <script>
 
 function createK9Report() {
-            const Rank1 = $('#txtK9Name').val(); 
-            const Name1 = $('#txtK9Other').val();
-            const Vehicle = $('#txtK9Date').val();
-            const OnRoad = $('#txtK9Sum').val();
-            const OffRoad = $('#txtK0Depl').val();
+            const Officer = $('#txtK9Name').val(); 
+            const Other = $('#txtK9Other').val();
+            const Date = $('#txtK9Date').val();
+           const Time = $('#txtK9Time').val();
+            const Summary = $('#txtK9Sum').val();
+            const Deployments = $('#txtK0Depl').val();
+
+        let itemListString = '';
+    const itemList = document.getElementById("itemList");
+    
+    // Loop through all list items and build the itemListString
+    for (let i = 0; i < listItems.length; i++) {
+        itemListString += listItems[i].textContent + '\n'; // Adding a new line after each item
+    }
  const K9Form = `[img]https://i.imgur.com/9rg9GNR.png[/img]
 [lspdsubtitle]PATROL DETAILS[/lspdsubtitle]
 [divbox=white]
-[b]Your Rank and Name[/b]:
-[b]Other Officers involved[/b] [i]If any[/i]:
-[i]List involved officers here.[/i]
+[b]Your Rank and Name[/b]: ${Officer}
+[b]Other Officers involved[/b] [i]If any[/i]: ${Other}
+[i]List involved officers here.[/i] 
 
-[b]Date[/b]: DD/MMM/YYYY
-[b]Time ((UTC))[/b]: 00:00 AM/PM > 00:00 AM/PM
+[b]Date[/b]: ${Date}
+[b]Time ((UTC))[/b]: ${Time}
 [hr]-[/hr]
 
 [b]Patrol Summary: [/b]
-Insert details of the patrol here.
+${Summary}
 
-[b]Release of K9 count[/b]: [b][i][REPLACE TEXT WITH ANSWER][/i][/b]
+[b]Release of K9 count[/b]: [b][i]${Deployments}[/i][/b]
 
 
 [hr]-[/hr]
 
 [b]Did you fill out any supporting paperwork i.e. duty reports? [/b] [i]If so link them[/i]:
 
-[url=LINK HERE]Supporting paperwork[/url]
+${itemListString}
 
 [b]Additional Notes[/b] [i]OPTIONAL[/i]:
 [i]Insert additional notes here.[/i]
@@ -327,7 +349,7 @@ Insert details of the patrol here.
             document.querySelector("#displayK9BB").select();
             document.execCommand('copy');
 
-            $('#copyVehPassSuccess').text('Copied to clipboard!');
+            $('#copyK9Success').text('Copied to clipboard!');
         }
 
 </script>
