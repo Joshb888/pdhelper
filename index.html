@@ -228,13 +228,15 @@ Los Santos Police Department
         }
 
 </script>
-<!-- Vehicle (Pass) -->
+
+
+<!-- Canine -->
     <div id="K9" class="container mt-3 myHideableSection">
         <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name and Rank:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank and Name:</div>
                     <div class="col-md-10">
                         <input type="text" id="txtK9Name" class="form-control" style="width: 600px" />
                     </div>
@@ -251,38 +253,39 @@ Los Santos Police Department
                         <input type="text" id="txtK9Date" class="form-control" style="width: 600px" />
                     </div>
                 </div>
-             <div class="row mb-2">
+                <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Time:</div>
                     <div class="col-md-10">
                         <input type="text" id="txtK9Time" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Summary</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Summary:</div>
                     <div class="col-md-10">
                         <input type="text" id="txtK9Sum" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Deployment:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Deployments:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtK9Depl" class="form-control" style="width: 50px" />
+                        <input type="text" id="txtK9Depl" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Paperwork:</div>
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">paperwork:</div>
                     <div class="col-md-10">
                         <input type="text" id="txtK9Paper" class="form-control" style="width: 600px" />
                     </div>
                 </div>
 
+
                                 <!-- Submit Button -->
                     <div class="col-md-10">
-                        <button type="button" id="btnCopy" onClick="createK9Report();" class="btn btn-success">
+                        <button type="button" id="btnCopy" onClick="createCanineReport();" class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
-                        <p id="copyK9ReportSuccess"></p>
-                        <textarea id="displayK9BB" class="form-control" style="width: 600px"
+                        <p id="copyCanineSuccess"></p>
+                        <textarea id="displayCanineBB" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
 
@@ -291,17 +294,17 @@ Los Santos Police Department
     </div>
 
 
-<script>
-
-function createK9Report() {
-            const Officer = $('#txtK9Name').val(); 
+<script>    
+function createCanineReport() {
+           const Officer = $('#txtK9Name').val(); 
             const Other = $('#txtK9Other').val();
             const Date = $('#txtK9Date').val();
            const Time = $('#txtK9Time').val();
             const Summary = $('#txtK9Sum').val();
             const Deployments = $('#txtK9Depl').val();
-            const Deployments = $('#txtK9Paper').val();
- const K9Form = `[img]https://i.imgur.com/9rg9GNR.png[/img]
+            const Paperwork = $('#txtK9Paper').val();
+
+ const CanineTemplate = `[img]https://i.imgur.com/9rg9GNR.png[/img]
 [lspdsubtitle]PATROL DETAILS[/lspdsubtitle]
 [divbox=white]
 [b]Your Rank and Name[/b]: ${Officer}
@@ -323,22 +326,23 @@ ${Summary}
 [b]Did you fill out any supporting paperwork i.e. duty reports? [/b] [i]If so link them[/i]:
 
 
-[url]${itemList}[/url]
+[url]${Paperwork}[/url]
 
 
 [b]Additional Notes[/b] [i]OPTIONAL[/i]:
 [i]Insert additional notes here.[/i]
 
 [/divbox]
-[img]https://i.imgur.com/88vzzHs.jpg[/img]]`;
-  document.getElementById("displayK9BB").value = K9Form.trim();
-            document.querySelector("#displayK9BB").select();
+[img]https://i.imgur.com/88vzzHs.jpg[/img]`;
+  document.getElementById("displayCanineBB").value = CanineTemplate.trim();
+            document.querySelector("#displayCanineBB").select();
             document.execCommand('copy');
 
-            $('#copyK9ReportSuccess').text('Copied to clipboard!');
+            $('#copyCanineSuccess').text('Copied to clipboard!');
         }
 
 </script>
+
         
 <!-- FTS Section -->
     <div id="FTS" class="container mt-3 myHideableSection" style="display: none;">
@@ -580,5 +584,3 @@ function showSection(sectionId) {
     document.getElementById(sectionId).style.display = 'block';
 }
 </script>
-
-
