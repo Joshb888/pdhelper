@@ -185,8 +185,49 @@
     </div>
 
 
-<script>
+<script>    
+function createForceReport() {
+            const Rank1 = $('#txtVPDRank').val(); 
+            const Name1 = $('#txtVPDName').val();
+            const Vehicle = $('#txtVPDCertP').val();
+            const OnRoad = $('#txtVPDRoad').val();
+            const OffRoad = $('#txtVPDOFF').val();
+ const forceTemplate = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank1} ${Name1},[/b]
 
+Following your practical session, we have decided to [b]pass[/b] your vehicle certification. You may utilize the ${Vehicle}, operating under the allowed protocols defined by the Training Division.
+[/list]
+
+[hr][center][color=red][b]FOR INSTRUCTOR USE[/b][/color][/center]
+[list=none]
+[b]Track Times[/b]
+[list]On Road Track: ${OnRoad}
+[*]Off Road Track: ${OffRoad}
+[/list]
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+  document.getElementById("displayVehPassBB").value = forceTemplate.trim();
+            document.querySelector("#displayVehPassBB").select();
+            document.execCommand('copy');
+
+            $('#copyVehPassSuccess').text('Copied to clipboard!');
+        }
+
+</script>
 <!-- Vehicle (Pass) -->
     <div id="VehPass" class="container mt-3 myHideableSection">
         <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
@@ -283,51 +324,7 @@ Insert details of the patrol here.
         }
 
 </script>
-
-    
-function createForceReport() {
-            const Rank1 = $('#txtVPDRank').val(); 
-            const Name1 = $('#txtVPDName').val();
-            const Vehicle = $('#txtVPDCertP').val();
-            const OnRoad = $('#txtVPDRoad').val();
-            const OffRoad = $('#txtVPDOFF').val();
- const forceTemplate = `[lspdfooter][/lspdfooter][divbox=white]
-[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
-[size=95]Training Division[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]${Rank1} ${Name1},[/b]
-
-Following your practical session, we have decided to [b]pass[/b] your vehicle certification. You may utilize the ${Vehicle}, operating under the allowed protocols defined by the Training Division.
-[/list]
-
-[hr][center][color=red][b]FOR INSTRUCTOR USE[/b][/color][/center]
-[list=none]
-[b]Track Times[/b]
-[list]On Road Track: ${OnRoad}
-[*]Off Road Track: ${OffRoad}
-[/list]
-
-[/list][hr][/hr][list=none]
-
-Sincerely,
-Police Officer III Mick Wegman
-Trainee Instructor, Training Division
-Los Santos Police Department
-
-[/list][/divbox]
-[lspdfooter][/lspdfooter]`;
-  document.getElementById("displayVehPassBB").value = forceTemplate.trim();
-            document.querySelector("#displayVehPassBB").select();
-            document.execCommand('copy');
-
-            $('#copyVehPassSuccess').text('Copied to clipboard!');
-        }
-
-</script>
-
+        
 <!-- FTS Section -->
     <div id="FTS" class="container mt-3 myHideableSection" style="display: none;">
         <div class="card" style="background-color: #00008b; color: white;">
