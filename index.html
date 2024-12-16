@@ -273,11 +273,11 @@ Los Santos Police Department
     <div class="col-md-1" style="font-weight: bold; text-align: right;">Paperwork:</div>
     <div class="col-md-10">
         <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; background-color: #f9f9f9;">
-            <input type="text" id="itemInput2" placeholder="Paperwork" style="border: none; outline: none; flex: 1; padding: 5px;" />
+            <input type="text" id="Paperwork" placeholder="Paperwork" style="border: none; outline: none; flex: 1; padding: 5px;" />
         </div>
     </div>
 </div>
-     <ul id="itemList2" style="margin-top: 20px; padding-left: 0; list-style: none;"></ul>
+     <ul id="Paper" style="margin-top: 20px; padding-left: 0; list-style: none;"></ul>
     <div class="row mb-2">
     <div class="col-md-1"></div>
     <div class="col-md-10">
@@ -311,12 +311,16 @@ function createK9Report() {
             const Summary = $('#txtK9Sum').val();
             const Deployments = $('#txtK0Depl').val();
 
-    const itemList = document.getElementById("itemList");
+    // Create the itemListString by looping through the items in the list
+    let itemListString = '';
+    const paper = document.getElementById("itemList");
+    const listItems = itemList.getElementsByTagName("li");
     
     // Loop through all list items and build the itemListString
     for (let i = 0; i < listItems.length; i++) {
-         listItems[i].textContent + '\n'; // Adding a new line after each item
+        itemListString += listItems[i].textContent + '\n'; // Adding a new line after each item
     }
+
  const K9Form = `[img]https://i.imgur.com/9rg9GNR.png[/img]
 [lspdsubtitle]PATROL DETAILS[/lspdsubtitle]
 [divbox=white]
@@ -1202,14 +1206,14 @@ function showSection(sectionId) {
 <script>
     // Add an event listener for the Add button
     document.getElementById("addButton").addEventListener("click", function () {
-        const itemInput2 = document.getElementById("itemInput2");
-        const itemList2 = document.getElementById("itemList2");
+        const pap = document.getElementById("Paperwork");
+        const pap2 = document.getElementById("Paper");
 
         // Get the values from the inputs
-        const item = itemInput.value.trim();
+        const item = pap.value.trim();
 
         // Check if both fields are filled
-        if (item && quantity) {
+        if (item) {
             // Create a new list item
             const listItem = document.createElement("li");
             listItem.textContent = `[url]${item}[/url]`;
