@@ -68,19 +68,19 @@
 
   <!-- Navigation Buttons -->
 <div class="container mt-3 d-flex justify-content-center" id="navigationBar">
-        <button class="btn btn-success me-2" onclick="showSection('VehPass', this)">Vehicle (Pass)</button>
+       <button class="btn btn-success me-2" onclick="showSection('VehPass', this)">Vehicle (Pass)</button>
        <button class="btn btn-secondary me-2" onclick="showSection('VehPract', this)">Vehicle (Practical)</button> 
-          <button class="btn btn-secondary me-2" onclick="showSection('VehFail', this)">Vehicle (Fail) </button> 
-       <button class="btn btn-secondary me-2" onclick="showSection('EqPass', this)">Weapon (Pass)</button> 
-       <button class="btn btn-secondary me-2" onclick="showSection('EqFail', this)">Weapon (Fail)</button> 
+       <button class="btn btn-secondary me-2" onclick="showSection('VehFail', this)">Vehicle (Fail) </button> 
+       <button class="btn btn-secondary me-2" onclick="showSection('WPass', this)">Weapon (Pass)</button> 
+       <button class="btn btn-secondary me-2" onclick="showSection('WFail', this)">Weapon (Fail)</button> 
 
 </div>
 
 <!-- New Buttons Below -->
 <div class="container mt-3 d-flex justify-content-center" id="additionalNavigationBar">
-        <button class="btn btn-secondary me-2" onclick="showSection('FTS', this)">FTS</button>
-         <button class="btn btn-secondary me-2" onclick="showSection('FPS', this)">FPS</button> 
-      <button class="btn btn-secondary" onclick="showSection('MockEval', this)">Mock Eval</button> 
+    <button class="btn btn-secondary me-2" onclick="showSection('FTS', this)">FTS</button>
+    <button class="btn btn-secondary me-2" onclick="showSection('FPS', this)">FPS</button> 
+    <button class="btn btn-secondary" onclick="showSection('MockEval', this)">Mock Eval</button> 
 </div>
     
 <!-- New Buttons Below -->
@@ -96,7 +96,7 @@
         $('.container').hide();
 
         // Show only the Duty Report section by default
-        $('#dutyReportSection').show();
+        $('#K9').show();
 
         // Highlight the Duty Report button as active
         $('#navigationBar .btn').removeClass('btn-success').addClass('btn-secondary');
@@ -229,7 +229,7 @@ Los Santos Police Department
 
 </script>
 
-<!-- Vehicle (Practical) -->
+<!-- Vehicle (Pract) -->
     <div id="VehPract" class="container mt-3 myHideableSection">
         <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
@@ -237,13 +237,13 @@ Los Santos Police Department
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtVPDRankP" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPrR" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtVPDNameP" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPrN" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                                 <!-- Submit Button -->
@@ -251,8 +251,8 @@ Los Santos Police Department
                         <button type="button" id="btnCopy" onClick="createPractReport();" class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
-                        <p id="copyVehPractSuccess"></p>
-                        <textarea id="copyVehPractSuccess" class="form-control" style="width: 600px"
+                        <p id="copyPractSuccess"></p>
+                        <textarea id="displayPractBB" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
 
@@ -263,16 +263,16 @@ Los Santos Police Department
 
 <script>    
 function createPractReport() {
-            const Rank2 = $('#txtVPDRankP').val(); 
-            const Name2 = $('#txtVPDNameP').val();
- const PractTemplate = `[lspdfooter][/lspdfooter][divbox=white]
+            const Rank = $('#txtVPrR').val(); 
+            const Name = $('#txtVPrN').val();
+ const PrTemplate = `[lspdfooter][/lspdfooter][divbox=white]
 [fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
 [size=150]Los Santos Police Department[/size][/b]
 [size=120][color=#FFC300]CERTIFICATION PENDING[/color][/size]
 [size=95]Training Division[/size][/font][/right][/aligntable]
 [hr]
 [list=none]
-[b]${Rank2} ${Name2},[/b]
+[b]${Rank} ${Name},[/b]
 
 Following your application, we have decided to move your vehicle certification to [b]pending practical[/b]. You may contact an instructor to complete your training session and pass your certification. You have 7 days from this response to organise and complete your practical session. Failure to do so will result in a denial of your certification.
 
@@ -285,7 +285,7 @@ Los Santos Police Department
 
 [/list][/divbox]
 [lspdfooter][/lspdfooter]`;
-  document.getElementById("displayPractBB").value = PractTemplate.trim();
+  document.getElementById("displayPractBB").value = PrTemplate.trim();
             document.querySelector("#displayPractBB").select();
             document.execCommand('copy');
 
@@ -295,47 +295,41 @@ Los Santos Police Department
 </script>
 
 <!-- Vehicle (Fail) -->
-    <div id="VehPass" class="container mt-3 myHideableSection">
+    <div id="VehFail" class="container mt-3 myHideableSection">
         <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
                 <!-- Equipement (Pass) -->
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtVPDRank" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPDRank1" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtVPDName" class="form-control" style="width: 600px" />
-                    </div>
-                </div>
-             <div class="row mb-2">
-                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Vehicle:</div>
-                    <div class="col-md-10">
-                        <input type="text" id="txtVPDCertP" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPDName1" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">On Road</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtVPDRoad" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPDRoad1" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">Off Duty:</div>
                     <div class="col-md-10">
-                        <input type="text" id="txtVPDOFF" class="form-control" style="width: 600px" />
+                        <input type="text" id="txtVPDOFF1" class="form-control" style="width: 600px" />
                     </div>
                 </div>
                                 <!-- Submit Button -->
                     <div class="col-md-10">
-                        <button type="button" id="btnCopy" onClick="createForceReport();" class="btn btn-success">
+                        <button type="button" id="btnCopy" onClick="createVFailReport();" class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
-                        <p id="copyVehPassSuccess"></p>
-                        <textarea id="displayVehPassBB" class="form-control" style="width: 600px"
+                        <p id="copyVFailSuccess"></p>
+                        <textarea id="displayVFailBB" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
 
@@ -345,30 +339,102 @@ Los Santos Police Department
 
 
 <script>    
-function createForceReport() {
-            const Rank1 = $('#txtVPDRank').val(); 
-            const Name1 = $('#txtVPDName').val();
-            const Vehicle = $('#txtVPDCertP').val();
-            const OnRoad = $('#txtVPDRoad').val();
-            const OffRoad = $('#txtVPDOFF').val();
- const forceTemplate = `[lspdfooter][/lspdfooter][divbox=white]
+function createVFailReport() {
+            const Rank2 = $('#txtVPDRank').val(); 
+            const Name2 = $('#txtVPDName').val();
+            const OnRoad1 = $('#txtVPDRoad').val();
+            const OffRoad1 = $('#txtVPDOFF').val();
+ const VFailTemplate = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#FF0000]CERTIFICATION FAILED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank2} ${Name2},[/b]
+
+Following your application, we have decided to [b]fail[/b] your vehicle certification. You may re-apply again after 7 days.
+
+[/list]
+[hr]
+[center][b][color=red]FOR INSTRUCTOR USE[/color][/b][/center]
+
+[b]Track Times:[/b]
+[list]On Road Track: ${OnRoad1}
+[*]Off Road Track: ${OffRoad1}
+[/list]
+[hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+  document.getElementById("displayVFailBB").value = VFailTemplate.trim();
+            document.querySelector("#displayVFailBB").select();
+            document.execCommand('copy');
+
+            $('#copyVFailSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+
+
+<!-- Weapon (Pass) -->
+    <div id="WPass" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtWPDRank1" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtWPDName1" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Weapon:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtWPD" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createWPassReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyWPassSuccess"></p>
+                        <textarea id="displayWPassBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<script>    
+function createWPassReport() {
+            const Rank3 = $('#txtWPDRank1').val(); 
+            const Name3 = $('#txtWPDName1').val();
+           const Weapon = $('#txtWPD').val();
+ const WPassTemplate = `[lspdfooter][/lspdfooter][divbox=white]
 [fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
 [size=150]Los Santos Police Department[/size][/b]
 [size=120][color=#009600]CERTIFICATION PASSED[/color][/size]
 [size=95]Training Division[/size][/font][/right][/aligntable]
 [hr]
 [list=none]
-[b]${Rank1} ${Name1},[/b]
+[b]${Rank3} ${Name3},[/b]
 
-Following your practical session, we have decided to [b]pass[/b] your vehicle certification. You may utilize the ${Vehicle}, operating under the allowed protocols defined by the Training Division.
-[/list]
-
-[hr][center][color=red][b]FOR INSTRUCTOR USE[/b][/color][/center]
-[list=none]
-[b]Track Times[/b]
-[list]On Road Track: ${OnRoad}
-[*]Off Road Track: ${OffRoad}
-[/list]
+Following your application, we have decided to [b]pass[/b] your weapon certification. You may utilize the ${Weapon}, operating under the allowed protocols defined by the Training Division.
 
 [/list][hr][/hr][list=none]
 
@@ -379,15 +445,81 @@ Los Santos Police Department
 
 [/list][/divbox]
 [lspdfooter][/lspdfooter]`;
-  document.getElementById("displayVehPassBB").value = forceTemplate.trim();
-            document.querySelector("#displayVehPassBB").select();
+  document.getElementById("displayWPassBB").value = WPassTemplate.trim();
+            document.querySelector("#displayWPassBB").select();
             document.execCommand('copy');
 
-            $('#copyVehPassSuccess').text('Copied to clipboard!');
+            $('#copyWPassSuccess').text('Copied to clipboard!');
         }
 
 </script>
 
+
+<!-- Weapon (Fail) -->
+    <div id="WFail" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDRank2" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtVPDName2" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createWFailReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyWFailSuccess"></p>
+                        <textarea id="displayWFailBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<script>    
+function createWFailReport() {
+            const Rank5 = $('#txtVPDRank2').val(); 
+            const Name5 = $('#txtVPDName2').val();
+ const WFailTemplate = `[lspdfooter][/lspdfooter][divbox=white]
+[fimg=150,150]https://i.imgur.com/UYd15I0.png[/fimg][aligntable=right,350,0,0,0,0,0][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=120][color=#FF0000]CERTIFICATION FAILED[/color][/size]
+[size=95]Training Division[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+[b]${Rank5} ${Name5},[/b]
+
+Following your application, we have decided to [b]fail[/b] your weapon certification. You may re-apply again after 7 days.
+
+[/list][hr][/hr][list=none]
+
+Sincerely,
+Police Officer III Mick Wegman
+Trainee Instructor, Training Division
+Los Santos Police Department
+
+[/list][/divbox]
+[lspdfooter][/lspdfooter]`;
+  document.getElementById("displayWFailBB").value = WFailTemplate.trim();
+            document.querySelector("#displayWFailBB").select();
+            document.execCommand('copy');
+
+            $('#copyWFailSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+        
         
 <!-- Canine -->
     <div id="K9" class="container mt-3 myHideableSection">
@@ -521,6 +653,46 @@ ${Summary}
                     </div>
                 </div>
                 <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Modules:</div>
+                    <div class="col-md-10">
+                        <textarea id="txtFTSMan" class="form-control" style="width: 600px" rows="5"> 
+                        [spoil]
+[b]ORIENTATION[/b]
+[list=none] 
+[*] [cb] - [b]Cadet was instructed how to start watch[/b]
+[*] [cb] - [b]Cadet was introduced to the concept of jurisdictions[/b]
+[*] [cb] - [b]Cadet was taught how to use the MDC[/b]
+[*] [cb] - [b]Cadet was introduced to our precincts and facilities[/b]
+[*] [cb] - [b]Cadet was taught how to operate the impound lot[/b]
+[*] [cb] - [b]Cadet was taught the basics of communication[/b]
+[*] [cb] - [b]Cadet has set up a Personnel Record (MUST BE CONFIRMED BY THE FTO)[/b]
+[/list]
+[hr]
+[b]BASIC POLICING[/b]
+[list=none] 
+[*] [cb] - [b]PRIORITY: Probable Cause & Arrest Procedure[/b]
+[*] [cb] - [b]PRIORITY: Use of Force[/b]
+[*] [cb] - [b]PRIORITY: Basics of Paperwork[/b]
+[*] [cb] - [b]Basics of Law[/b]
+[*] [cb] - [b]Advanced Communication[/b]
+[*] [cb] - [b]Traffic Stops[/b]
+[*] [cb] - [b]Pursuits[/b]
+[*] [cb] - [b]Scenes, Management & BLS[/b]
+[/list]
+[hr]
+[b]ADVANCED POLICING[/b]
+[list=none] 
+[*] [cb] - [b]Mask Enforcement[/b]
+[*] [cb] - [b]Robbery Response[/b]
+[*] [cb] - [b]Hostage Negotiation & Suicide Prevention[/b]
+[*] [cb] - [b]Felony Stops[/b]
+[*] [cb] - [b]Advanced Driving[/b]
+[*] [cb] - [b]Seeking Assistance[/b]
+[/list][/spoil]
+                        </textarea>
+                    </div>
+                </div>
+                <div class="row mb-2">
                     <div class="col-md-2" style="font-weight: bold; text-align: right;">MANUAL KNOWLEDGE:</div>
                     <div class="col-md-10">
                         <textarea id="txtFTSMan" class="form-control" style="width: 600px" rows="5"placeholder="Did the Cadet demonstrate they'd read the Manual, prior to the session?, How much assistance did they require with the Manual contents?, At any point during the session, did the cadet have trouble with any of the Manual contents?"></textarea>
@@ -598,6 +770,7 @@ ${Summary}
 function submitFTSReport() {
             const Date = $('#txtFTSDate').val(); 
             const Time = $('#txtFTSTime').val();
+                const Mod = $('#txtFTSMod').val();
             const Manual = $('#txtFTSMan').val();
             const Behavior = $('#txtFTSBehave').val();
             const Communications = $('#txtFTSComm').val();
@@ -622,40 +795,8 @@ function submitFTSReport() {
 [divbox=white]
 [size=85][i]Mark each box by changing [c][cb][/c] to [c][cbc][/c] if a topic or module was covered in the session, otherwise leave it unchanged.[/i][/size]
 
-[spoil]
-[b]ORIENTATION[/b]
-[list=none] 
-[*] [cb] - [b]Cadet was instructed how to start watch[/b]
-[*] [cb] - [b]Cadet was introduced to the concept of jurisdictions[/b]
-[*] [cb] - [b]Cadet was taught how to use the MDC[/b]
-[*] [cb] - [b]Cadet was introduced to our precincts and facilities[/b]
-[*] [cb] - [b]Cadet was taught how to operate the impound lot[/b]
-[*] [cb] - [b]Cadet was taught the basics of communication[/b]
-[*] [cb] - [b]Cadet has set up a Personnel Record (MUST BE CONFIRMED BY THE FTO)[/b]
-[/list]
-[hr]
-[b]BASIC POLICING[/b]
-[list=none] 
-[*] [cb] - [b]PRIORITY: Probable Cause & Arrest Procedure[/b]
-[*] [cb] - [b]PRIORITY: Use of Force[/b]
-[*] [cb] - [b]PRIORITY: Basics of Paperwork[/b]
-[*] [cb] - [b]Basics of Law[/b]
-[*] [cb] - [b]Advanced Communication[/b]
-[*] [cb] - [b]Traffic Stops[/b]
-[*] [cb] - [b]Pursuits[/b]
-[*] [cb] - [b]Scenes, Management & BLS[/b]
-[/list]
-[hr]
-[b]ADVANCED POLICING[/b]
-[list=none] 
-[*] [cb] - [b]Mask Enforcement[/b]
-[*] [cb] - [b]Robbery Response[/b]
-[*] [cb] - [b]Hostage Negotiation & Suicide Prevention[/b]
-[*] [cb] - [b]Felony Stops[/b]
-[*] [cb] - [b]Advanced Driving[/b]
-[*] [cb] - [b]Seeking Assistance[/b]
-[/list][/spoil][/divbox]
-
+${Mod}
+[/divbox]
 [lspdsubtitle]3. SESSION REPORT[/lspdsubtitle]
 [divbox=white]
 [size=85][i]Please answer each section with as much detail as possible. Minimum of 40 words [b]PER SECTION[/b].[/i][/size]
