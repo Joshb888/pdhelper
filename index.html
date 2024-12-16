@@ -82,6 +82,11 @@
          <button class="btn btn-secondary me-2" onclick="showSection('FPS', this)">FPS</button> 
       <button class="btn btn-secondary" onclick="showSection('MockEval', this)">Mock Eval</button> 
 </div>
+    
+<!-- New Buttons Below -->
+<div class="container mt-3 d-flex justify-content-center" id="additionalNavigationBar">
+        <button class="btn btn-secondary me-2" onclick="showSection('K9', this)">K9</button>
+</div>
 
 
     </div>
@@ -182,6 +187,114 @@
 
 <script>
 
+<!-- Vehicle (Pass) -->
+    <div id="VehPass" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name and Rank:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtK9Name" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Other:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtK9Other" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+             <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Date:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtK9Date" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Summary</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtK9Sum" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Deployment:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtK0Depl" class="form-control" style="width: 100px" />
+                    </div>
+                </div>
+<div class="row mb-2">
+    <div class="col-md-2" style="font-weight: bold; text-align: right;">Item & Quantity:</div>
+    <div class="col-md-10">
+        <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; background-color: #f9f9f9;">
+            <input type="text" id="itemInput" placeholder="Item" style="border: none; outline: none; flex: 1; padding: 5px;" />
+            <span style="margin: 0 10px; color: #555; font-weight: bold;">|</span>
+            <input type="text" id="quantityInput" placeholder="Quantity" style="border: none; outline: none; flex: 1; padding: 5px;" />
+        </div>
+    </div>
+</div>
+    
+    
+                                <!-- Submit Button -->
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createForceReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyVehPassSuccess"></p>
+                        <textarea id="displayVehPassBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<script>
+
+function createForceReport() {
+            const Rank1 = $('#txtVPDRank').val(); 
+            const Name1 = $('#txtVPDName').val();
+            const Vehicle = $('#txtVPDCertP').val();
+            const OnRoad = $('#txtVPDRoad').val();
+            const OffRoad = $('#txtVPDOFF').val();
+ const forceTemplate = `[img]https://i.imgur.com/9rg9GNR.png[/img]
+[lspdsubtitle]PATROL DETAILS[/lspdsubtitle]
+[divbox=white]
+[b]Your Rank and Name[/b]:
+[b]Other Officers involved[/b] [i]If any[/i]:
+[i]List involved officers here.[/i]
+
+[b]Date[/b]: DD/MMM/YYYY
+[b]Time ((UTC))[/b]: 00:00 AM/PM > 00:00 AM/PM
+[hr]-[/hr]
+
+[b]Patrol Summary: [/b]
+Insert details of the patrol here.
+
+[b]Release of K9 count[/b]: [b][i][REPLACE TEXT WITH ANSWER][/i][/b]
+
+
+[hr]-[/hr]
+
+[b]Did you fill out any supporting paperwork i.e. duty reports? [/b] [i]If so link them[/i]:
+
+[url=LINK HERE]Supporting paperwork[/url]
+
+[b]Additional Notes[/b] [i]OPTIONAL[/i]:
+[i]Insert additional notes here.[/i]
+
+[/divbox]
+[img]https://i.imgur.com/88vzzHs.jpg[/img]]`;
+  document.getElementById("displayVehPassBB").value = forceTemplate.trim();
+            document.querySelector("#displayVehPassBB").select();
+            document.execCommand('copy');
+
+            $('#copyVehPassSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+
+    
 function createForceReport() {
             const Rank1 = $('#txtVPDRank').val(); 
             const Name1 = $('#txtVPDName').val();
