@@ -281,8 +281,8 @@ Los Santos Police Department
                         <button type="button" id="btnCopy" onClick="createK9Report();" class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
-                        <p id="copyK9Success"></p>
-                        <textarea id="copyK9Success" class="form-control" style="width: 600px"
+                        <p id="copyK9ReportSuccess"></p>
+                        <textarea id="displayK9BB" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
 
@@ -335,7 +335,7 @@ ${Summary}
             document.querySelector("#displayK9BB").select();
             document.execCommand('copy');
 
-            $('#copyK9Success').text('Copied to clipboard!');
+            $('#copyK9ReportSuccess').text('Copied to clipboard!');
         }
 
 </script>
