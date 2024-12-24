@@ -938,7 +938,83 @@ document.getElementById("displayPSReportBB").value = FPSReportBBCode.trim();
         }
 </script>
 
-        
+        <!-- Application Denied -->
+    <div id="AppDenied" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+            <div class="card-body">
+                <!-- Equipement (Pass) -->
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtAPD1" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Reapply: ( [*] )</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtAPD2" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Reason:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtAPD3" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createAppDReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyAppDSuccess"></p>
+                        <textarea id="displayAppDBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<script>    
+function createVFailReport() {
+            const Name = $('#txtAPD1').val(); 
+            const Reapply = $('#txtAPD2').val();
+            const Reason = $('#txtAPD3').val();
+ const VFailTemplate = `[img]https://i.imgur.com/88vzzHs.jpg[/img][divbox=white]
+[img]https://i.imgur.com/UYd15I0.png[/img][aligntable=right,350,0,0,0,0,#FFFFFF][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=115]RE: LSPD Application — [color=#BF0000]DENIED[/color][/size]
+[size=95]"TO PROTECT AND SERVE"[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+
+
+[b]Dear ${Name},[/b]
+
+Thank you for applying to the Los Santos Police Department. After further review of your application, we regret to inform you that you have been [b][color=#BF0000]DENIED[/color][/b]. Feel free to re-apply no earlier than [b]${Reapply}[/b]. You have been denied for the following reason(s):
+
+[LIST]
+${Reason}
+[/LIST]
+
+
+[hr][/hr][list=none]
+
+Sincerely,
+[img]https://imgur.com/p2ksyW2.png[/img]
+Police Officer III Mick Wegman
+SRecruitment Officer, Recruitment and Employment Division
+Los Santos Police Department[/list][/divbox]
+[img]https://i.imgur.com/88vzzHs.jpg[/img]`;
+  document.getElementById("displayVFailBB").value = VFailTemplate.trim();
+            document.querySelector("#displayAppDBB").select();
+            document.execCommand('copy');
+
+            $('#copyAppDSuccess').text('Copied to clipboard!');
+        }
+
+</script>
         
 <!-- FTS Section -->
     <div id="FTS" class="container mt-3 myHideableSection" style="display: none;">
