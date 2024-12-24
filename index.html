@@ -73,7 +73,6 @@
        <button class="btn btn-secondary me-2" onclick="showSection('VehFail', this)">Vehicle (Fail) </button> 
        <button class="btn btn-secondary me-2" onclick="showSection('WPass', this)">Weapon (Pass)</button> 
        <button class="btn btn-secondary me-2" onclick="showSection('WFail', this)">Weapon (Fail)</button> 
-
 </div>
 
 <!-- New Buttons Below -->
@@ -81,6 +80,11 @@
     <button class="btn btn-secondary me-2" onclick="showSection('FTS', this)">FTS</button>
     <button class="btn btn-secondary me-2" onclick="showSection('FPS', this)">FPS</button> 
     <button class="btn btn-secondary" onclick="showSection('MockEval', this)">Mock Eval</button> 
+</div>
+
+<!-- New Buttons Below -->
+<div class="container mt-3 d-flex justify-content-center" id="additionalNavigationBar">
+    <button class="btn btn-secondary me-2" onclick="showSection('RED Denied', this)">FTS</button>
 </div>
     
 <!-- New Buttons Below -->
@@ -977,11 +981,11 @@ document.getElementById("displayPSReportBB").value = FPSReportBBCode.trim();
 
 
 <script>    
-function createVFailReport() {
+function createREDReport() {
             const Name = $('#txtAPD1').val(); 
             const Reapply = $('#txtAPD2').val();
             const Reason = $('#txtAPD3').val();
- const VFailTemplate = `[img]https://i.imgur.com/88vzzHs.jpg[/img][divbox=white]
+ const REDTemplate = `[img]https://i.imgur.com/88vzzHs.jpg[/img][divbox=white]
 [img]https://i.imgur.com/UYd15I0.png[/img][aligntable=right,350,0,0,0,0,#FFFFFF][right][font=Arial][b]
 [size=150]Los Santos Police Department[/size][/b]
 [size=115]RE: LSPD Application — [color=#BF0000]DENIED[/color][/size]
@@ -1007,7 +1011,7 @@ Police Officer III Mick Wegman
 SRecruitment Officer, Recruitment and Employment Division
 Los Santos Police Department[/list][/divbox]
 [img]https://i.imgur.com/88vzzHs.jpg[/img]`;
-  document.getElementById("displayVFailBB").value = VFailTemplate.trim();
+  document.getElementById("displayVFailBB").value = REDTemplate.trim();
             document.querySelector("#displayAppDBB").select();
             document.execCommand('copy');
 
