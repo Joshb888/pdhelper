@@ -955,11 +955,11 @@ document.getElementById("displayPSReportBB").value = FPSReportBBCode.trim();
                 </div>
                                 <!-- Submit Button -->
                     <div class="col-md-10">
-                        <button type="button" id="btnCopy" onClick="createREDReport();" class="btn btn-success">
+                        <button type="button" id="btnCopy" onClick="createRACReport();" class="btn btn-success">
                             Submit and copy to clipboard
                         </button>
-                        <p id="copyAppDSuccess"></p>
-                        <textarea id="displayAppDBB" class="form-control" style="width: 600px"
+                        <p id="copyAppASuccess"></p>
+                        <textarea id="displayAppABB" class="form-control" style="width: 600px"
                             rows="10">BBCode will appear here</textarea>
                     </div>
 
@@ -971,7 +971,7 @@ document.getElementById("displayPSReportBB").value = FPSReportBBCode.trim();
 <script>    
 function createRACReport() {
             const Name = $('#txtAPA').val(); 
- const REDTemplate = `[img]https://i.imgur.com/88vzzHs.jpg[/img][divbox=white]
+ const RACTemplate = `[img]https://i.imgur.com/88vzzHs.jpg[/img][divbox=white]
 [img]https://i.imgur.com/UYd15I0.png[/img][aligntable=right,350,0,0,0,0,#FFFFFF][right][font=Arial][b]
 [size=150]Los Santos Police Department[/size][/b]
 [size=115]RE: LSPD Application — [color=#00BF40]ACCEPTED FOR ACADEMY[/color][/size]
@@ -1002,11 +1002,11 @@ Police Officer III Mick Wegman
 Senior Recruitment Officer, Recruitment and Employment Division
 Los Santos Police Department[/list][/divbox]
 [img]https://i.imgur.com/88vzzHs.jpg[/img]`;
-  document.getElementById("displayAppDBB").value = REDTemplate.trim();
-            document.querySelector("#displayAppDBB").select();
+  document.getElementById("displayAppABB").value = RACTemplate.trim();
+            document.querySelector("#displayAppABB").select();
             document.execCommand('copy');
 
-            $('#copyAppDSuccess').text('Copied to clipboard!');
+            $('#copyAppASuccess').text('Copied to clipboard!');
         }
 
 </script>
