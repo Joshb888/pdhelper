@@ -942,7 +942,76 @@ document.getElementById("displayPSReportBB").value = FPSReportBBCode.trim();
         }
 </script>
 
-        <!-- Application Denied -->
+        <!-- Application Academy -->
+    <div id="AppAcademy" class="container mt-3 myHideableSection">
+        <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-md-2" style="font-weight: bold; text-align: right;">Name:</div>
+                    <div class="col-md-10">
+                        <input type="text" id="txtAPA" class="form-control" style="width: 600px" />
+                    </div>
+                </div>
+                                <!-- Submit Button -->
+                    <div class="col-md-10">
+                        <button type="button" id="btnCopy" onClick="createREDReport();" class="btn btn-success">
+                            Submit and copy to clipboard
+                        </button>
+                        <p id="copyAppDSuccess"></p>
+                        <textarea id="displayAppDBB" class="form-control" style="width: 600px"
+                            rows="10">BBCode will appear here</textarea>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+<script>    
+function createRACReport() {
+            const Name = $('#txtAPA').val(); 
+ const REDTemplate = `[img]https://i.imgur.com/88vzzHs.jpg[/img][divbox=white]
+[img]https://i.imgur.com/UYd15I0.png[/img][aligntable=right,350,0,0,0,0,#FFFFFF][right][font=Arial][b]
+[size=150]Los Santos Police Department[/size][/b]
+[size=115]RE: LSPD Application — [color=#00BF40]ACCEPTED FOR ACADEMY[/color][/size]
+[size=95]"TO PROTECT AND SERVE"[/size][/font][/right][/aligntable]
+[hr]
+[list=none]
+
+
+[b]Dear ${Nane},[/b]
+
+Thank you for taking the time to conduct your interview with our recruitment officers. After a careful review of your performance during your interview, as well as your overall progress throughout the recruitment process, we're pleased to inform you that your status within the Recruitment Process is now [b][color=#00BF40]ACCEPTED FOR ACADEMY[/color][/b].
+
+Over the next few days, the Recruitment and Employment Division will be working to schedule the next LSPD Police Academy. Once a date and time has been selected, a member of the Recruitment and Employment Division will reach out to you via e-mail to inform you of the date and time selected.
+
+It's important to note that every effort will be made to regularly host Police Academies. If the date and time selected do not work for you, additional academies will be scheduled in the future. We understand that circumstances outside of your control may arise, and as long as you make an effort to attend an academy by voting with your availability, you will not be removed from the recruitment process.
+
+You will now be receiving access to the [URL=https://gov.eclipse-rp.net/viewforum.php?f=99]Los Santos Police Department Manual[/URL]. Following reading the Manual you are required to sign the [URL=https://gov.eclipse-rp.net/viewtopic.php?f=99&t=454]Los Santos Police Department's Employee Contract[/URL]. You [b]MUST[/b] read the manual and sign the contract prior to attending the Academy.
+
+We look forward to seeing you at an Academy in the near future! If you have any questions, please reach out to either myself or another member of the Recruitment and Employment Division and we'll be happy to assist.
+[/list]
+
+
+[hr][/hr][list=none]
+
+Sincerely,
+[img]https://imgur.com/p2ksyW2.png[/img]
+Police Officer III Mick Wegman
+Senior Recruitment Officer, Recruitment and Employment Division
+Los Santos Police Department[/list][/divbox]
+[img]https://i.imgur.com/88vzzHs.jpg[/img]`;
+  document.getElementById("displayAppDBB").value = REDTemplate.trim();
+            document.querySelector("#displayAppDBB").select();
+            document.execCommand('copy');
+
+            $('#copyAppDSuccess').text('Copied to clipboard!');
+        }
+
+</script>
+
+
+    <!-- Application Denied -->
     <div id="AppDenied" class="container mt-3 myHideableSection">
         <div class="card" style="background-color: #00008b; color: white;"> <!-- Set background color to #00008b -->
             <div class="card-body">
@@ -1019,6 +1088,7 @@ Los Santos Police Department[/list][/divbox]
         }
 
 </script>
+
         
 <!-- FTS Section -->
     <div id="FTS" class="container mt-3 myHideableSection" style="display: none;">
