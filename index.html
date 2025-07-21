@@ -699,7 +699,7 @@ Los Santos Police Department[/list][/divbox]
       <h4>LSPD Major Crimes Letter Generator</h4>
     </div>
     <div class="card-body">
-      <form id="lspdMCDForm" autocomplete="off" novalidate>
+      <form id="lspdMCDForm3" autocomplete="off" novalidate>
         <!-- Letter Body -->
         <div class="mb-3 row align-items-center">
           <label for="letterBody3" class="col-sm-4 col-form-label fw-bold text-end">Letter Body:</label>
@@ -726,7 +726,7 @@ Los Santos Police Department[/list][/divbox]
 // Universal signature storage for LSPD forms
 
 // Save signature when form submits
-document.getElementById('lspdMCDForm').addEventListener('submit', function(e) {
+document.getElementById('lspdMCDForm3').addEventListener('submit', function(e) {
   e.preventDefault();
   const successMsg = document.getElementById('lspdMCDCopySuccess');
   successMsg.textContent = '';
