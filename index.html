@@ -1508,7 +1508,7 @@ ${image ? `[img]${image}[/img]` : ''}
 </script>
 
 <!-- ------------------------------------- -->
-<!-- Multi-Arrest BBCode Generator: With Charge Selector + Modifiers -->
+<!-- Multi-Arrest BBCode Generator: Multi-Modifier Support -->
 <div id="CHARGE" class="container mt-3 myHideableSection" style="max-width: 700px;">
   <div class="card shadow" style="background: linear-gradient(135deg, #001f4d, #003399); color: #fff;">
     <div class="card-header text-center">
@@ -1533,22 +1533,18 @@ ${image ? `[img]${image}[/img]` : ''}
             </div>
           </div>
 
-          <!-- Charges List Selector with Modifiers -->
+          <!-- Charges List Selector with MULTI Modifiers -->
           <fieldset class="mb-4">
             <legend class="fw-bold text-white">Charges</legend>
             <div class="mb-2">
               <div class="row g-2 align-items-center">
-                <div class="col-6 col-md-7">
+                <div class="col-7">
                   <input type="text" id="chargeSearchBox" class="form-control mb-1" placeholder="Search charge code or phrase..." autocomplete="off" />
                 </div>
-                <div class="col-6 col-md-5">
-                  <select id="modifierSelect" class="form-select mb-1">
-                    <option value="">No Modifier</option>
-                    <option value="Of Government Employee">Of Government Employee</option>
-                    <option value="Accessory">Accessory</option>
-                    <option value="Attempted">Attempted</option>
-                    <option value="Aggravated">Aggravated</option>
-                  </select>
+                <div class="col-5">
+                  <div class="d-flex flex-column flex-md-row flex-wrap gap-1" id="modifierArea" style="font-size:13px;">
+                    <!-- Modifiers will render here -->
+                  </div>
                 </div>
               </div>
               <div id="chargeSelectList" 
@@ -1594,160 +1590,32 @@ ${image ? `[img]${image}[/img]` : ''}
 <script>
 // ==== Official Charge Codes ====
 const allCharges = [
-  "VC01 - Speeding 1st Degree",
-  "VC02 - Speeding 2nd Degree",
-  "VC03 - Speeding 3rd Degree",
-  "VC04 - Illegal Parking",
-  "VC05 - Improper Traffic Maneuvers",
-  "VC06 - Following or Impeding Emergency Response",
-  "VC07 - Operating a Vehicle Without A License On Your Person",
-  "VC08 - Negligent Operation of a Road or Marine Vehicle",
-  "VC09 - Blocking Intersection",
-  "VC10 - Unroadworthy Vehicle",
-  "VC11 - Failure to Pay a Toll",
-  "VC12 - Operating an Unregistered Vehicle",
-  "VC13 - Disruptive Impeding or Blocking Travel",
-  "VC14 - Operation of a Vehicle without a License Plate",
-  "GC01 - Loitering",
-  "GC02 - Traffic Endangerment",
-  "GC03 - Disorderly Conduct",
-  "GC04 - Face Concealment",
-  "GC05 - Misuse of Government Public Safety Radio Frequencies or Hotlines",
-  "GC06 - Possession of Cannabis",
-  "GM01 - Assault",
-  "GM02 - Battery",
-  "GM03 - Possession of a Blade",
-  "GM04 - Resisting Arrest",
-  "GM05 - Receiving Stolen Property",
-  "GM06 - Petty Theft",
-  "GM07 - Criminal Fraud",
-  "GM08 - Vandalism",
-  "GM09 - Vigilantism",
-  "GM10 - Failure to Comply / Identify",
-  "GM11 - Predatory Lending",
-  "GM12 - Giving False Information to a Police Officer",
-  "GM13 - Criminal Threats",
-  "GM14 - Obstruction of Justice",
-  "GM15 - Animal Cruelty",
-  "GM16 - Failure to Pay a Fine",
-  "GM17 - Bribery",
-  "GM18 - Looting of a Dead Human Body",
-  "GM19 - Face Concealment (b)",
-  "GM20 - Minor Sales Tax Evasion",
-  "GM21 - False Imprisonment",
-  "GM22 - Contempt of Court",
-  "GM23 - Parole Violation",
-  "GM24 - Contempt of Congress",
-  "GM25 - Possession/Unlawful use of Government Equipment",
-  "GM26 - Possession of Illegal Information Gathering Devices",
-  "GM27 - Incitement of Violence against a Peace Officer",
-  "NM01 - Inciting a Riot",
-  "NM02 - Participating in a Riot",
-  "NM03 - Unlawful Assembly",
-  "NM04 - Stalking",
-  "NM05 - Public Intoxication",
-  "NM06 - Trespassing",
-  "NM07 - Prostitution, Pimping or Pandering",
-  "NM08 - Abuse of Government Public Safety Radio Frequencies or Hotlines",
-  "NM09 - Harassment",
-  "VM01 - Operating a Vehicle without a Valid License",
-  "VM02 - Operating a Vehicle with a Suspended License",
-  "VM03 - Reckless Operation of a Road or Marine Vehicle",
-  "VM05 - Drunk, Impaired, or Distracted Driving",
-  "VM06 - Street Competition",
-  "VM07 - Hit and Run",
-  "VM08 - Vehicle Registration Fraud",
-  "VM09 - Operation of a Vehicle without a License Plate",
-  "VF01 - Evading an Officer",
-  "VF02 - Felony Hit and Run",
-  "VF03 - Operating a Chop Shop",
-  "VF04 - Felony Public Endangerment",
-  "DM01 - Possession of a Schedule I Controlled Substance",
-  "DM02 - Possession of a Schedule II Controlled Substance",
-  "DM03 - Possession of a Schedule III Controlled Substance",
-  "DM04 - Possession of a Controlled Substance while Armed",
-  "DM05 - Possession of Drug Paraphernalia",
-  "DM06 - Cultivation of a Controlled Substance",
-  "DF01 - Possession of a Controlled Substance with Intent of Sales",
-  "DF02 - Sale of a Controlled Substance",
-  "DF03 - Sale of Drug Paraphernalia",
-  "DF04 - Trafficking a Controlled Substance",
-  "DF05 - Manufacturing a Controlled Substance",
-  "WM01 - Unlawful Brandishing of a Firearm or Weapon",
-  "WM02 - Possession of a Class 1 Firearm",
-  "WM03 - Criminal Use of Weapon Modifications",
-  "WM04 - Possession of Illegal Body Armor",
-  "WM05 - Possession of Body Armor as a Felon",
-  "WF01 - Assault with a Deadly Weapon",
-  "WF02 - Shooting from a Vehicle (Drive-By)",
-  "WF03 - Possession of a Class 2 Firearm",
-  "WF04 - Possession of a Class 3 Firearm",
-  "WF05 - Possession of a Class 4 Firearm",
-  "WF06 - Unlicensed transfer of firearms, ammunition and body armor",
-  "WF07 - Firearms Trafficking",
-  "GF01 - Child Endangerment",
-  "GF02 - Robbery",
-  "GF03 - Armed Robbery",
-  "GF04 - Sexual Assault",
-  "GF05 - Extortion",
-  "GF06 - Blackmail",
-  "GF07 - Felony Fraud",
-  "GF08 - Illegal Gambling",
-  "GF09 - Embezzlement",
-  "GF10 - Grand Theft",
-  "GF11 - Grand Theft Auto",
-  "GF12 - Forgery or Counterfeiting",
-  "GF13 - Arson",
-  "GF14 - False Impersonation",
-  "GF15 - Burglary",
-  "GF16 - Tampering with Evidence",
-  "GF17 - Rape",
-  "GF18 - Racketeering",
-  "GF19 - Abuse or Desecration of Dead Human Body",
-  "GF20 - Possession of Human Body Tissue",
-  "GF21 - Prison Break",
-  "GF22 - Breach of Trust",
-  "GF23 - Grand Sales Tax Evasion",
-  "GF24 - Perjury",
-  "GF25 - Felony Contempt of Court",
-  "GF26 - Organized Assault on Government or Law Enforcement Operations",
-  "GF27 - Incitement of Violence against a Peace Officer",
-  "SF01 - Domestic Terrorism",
-  "SF02 - Murder",
-  "SF03 - Involuntary or Vehicular Manslaughter",
-  "SF04 - Kidnapping",
-  "SF05 - Torture",
-  "SF06 - Possessing Destructive Devices or Explosives",
-  "SF07 - Bank Robbery",
-  "SF08 - Human Trafficking",
-  "SF09 - False Imprisonment of a Hostage",
-  "AM01 - Negligent Operation of an Aircraft",
-  "AM02 - Operating an Unregistered Aircraft",
-  "AM03 - Operating an Aircraft without a License on your Person",
-  "AM04 - Disrupting Airport/Aircraft Operations",
-  "AM05 - Operating an Aircraft without Proper Equipment",
-  "AM06 - Failure to Make Way for Emergency, State Government, or Military Aircraft",
-  "AM07 - Operating an Aircraft in Controlled Airspace without Clearance",
-  "AM08 - Violating a Restricted Airspace Order or Temporary Flight Restriction",
-  "AF01 - Reckless Operation of an Aircraft",
-  "AF02 - Committing a Crime Aboard an Aircraft in Flight",
-  "AF03 - Operating an Aircraft without an Active License",
-  "AF04 - Failure to Obey Intercepting Military or Law Enforcement Aircraft/ATC Orders",
-  "AF05 - Violating a Prohibited Airspace Order",
-  "AF06 - Transporting Dangerous Cargo",
-  "AF07 - Drunk, Impaired, or Distracted Flying",
-  "AF08 - Aircraft Piracy",
-  "AF09 - Destruction of an Aircraft or Aircraft Facilities",
-  "AF10 - Disobeying a Grounding Order"
+  "VC01 - Speeding 1st Degree","VC02 - Speeding 2nd Degree","VC03 - Speeding 3rd Degree","VC04 - Illegal Parking",
+  "VC05 - Improper Traffic Maneuvers","VC06 - Following or Impeding Emergency Response","VC07 - Operating a Vehicle Without A License On Your Person","VC08 - Negligent Operation of a Road or Marine Vehicle","VC09 - Blocking Intersection",
+  "VC10 - Unroadworthy Vehicle","VC11 - Failure to Pay a Toll","VC12 - Operating an Unregistered Vehicle","VC13 - Disruptive Impeding or Blocking Travel","VC14 - Operation of a Vehicle without a License Plate",
+  "GC01 - Loitering","GC02 - Traffic Endangerment","GC03 - Disorderly Conduct","GC04 - Face Concealment",
+  "GC05 - Misuse of Government Public Safety Radio Frequencies or Hotlines","GC06 - Possession of Cannabis",
+  "GM01 - Assault","GM02 - Battery","GM03 - Possession of a Blade","GM04 - Resisting Arrest","GM05 - Receiving Stolen Property",
+  "GM06 - Petty Theft","GM07 - Criminal Fraud","GM08 - Vandalism","GM09 - Vigilantism","GM10 - Failure to Comply / Identify","GM11 - Predatory Lending","GM12 - Giving False Information to a Police Officer","GM13 - Criminal Threats","GM14 - Obstruction of Justice","GM15 - Animal Cruelty","GM16 - Failure to Pay a Fine","GM17 - Bribery","GM18 - Looting of a Dead Human Body","GM19 - Face Concealment (b)","GM20 - Minor Sales Tax Evasion","GM21 - False Imprisonment","GM22 - Contempt of Court","GM23 - Parole Violation","GM24 - Contempt of Congress","GM25 - Possession/Unlawful use of Government Equipment","GM26 - Possession of Illegal Information Gathering Devices","GM27 - Incitement of Violence against a Peace Officer",
+  "NM01 - Inciting a Riot","NM02 - Participating in a Riot","NM03 - Unlawful Assembly","NM04 - Stalking","NM05 - Public Intoxication","NM06 - Trespassing","NM07 - Prostitution, Pimping or Pandering","NM08 - Abuse of Government Public Safety Radio Frequencies or Hotlines","NM09 - Harassment",
+  "VM01 - Operating a Vehicle without a Valid License","VM02 - Operating a Vehicle with a Suspended License","VM03 - Reckless Operation of a Road or Marine Vehicle","VM05 - Drunk, Impaired, or Distracted Driving","VM06 - Street Competition","VM07 - Hit and Run","VM08 - Vehicle Registration Fraud","VM09 - Operation of a Vehicle without a License Plate",
+  "VF01 - Evading an Officer","VF02 - Felony Hit and Run","VF03 - Operating a Chop Shop","VF04 - Felony Public Endangerment",
+  "DM01 - Possession of a Schedule I Controlled Substance","DM02 - Possession of a Schedule II Controlled Substance","DM03 - Possession of a Schedule III Controlled Substance","DM04 - Possession of a Controlled Substance while Armed","DM05 - Possession of Drug Paraphernalia","DM06 - Cultivation of a Controlled Substance",
+  "DF01 - Possession of a Controlled Substance with Intent of Sales","DF02 - Sale of a Controlled Substance","DF03 - Sale of Drug Paraphernalia","DF04 - Trafficking a Controlled Substance","DF05 - Manufacturing a Controlled Substance",
+  "WM01 - Unlawful Brandishing of a Firearm or Weapon","WM02 - Possession of a Class 1 Firearm","WM03 - Criminal Use of Weapon Modifications","WM04 - Possession of Illegal Body Armor","WM05 - Possession of Body Armor as a Felon",
+  "WF01 - Assault with a Deadly Weapon","WF02 - Shooting from a Vehicle (Drive-By)","WF03 - Possession of a Class 2 Firearm","WF04 - Possession of a Class 3 Firearm","WF05 - Possession of a Class 4 Firearm","WF06 - Unlicensed transfer of firearms, ammunition and body armor","WF07 - Firearms Trafficking",
+  "GF01 - Child Endangerment","GF02 - Robbery","GF03 - Armed Robbery","GF04 - Sexual Assault","GF05 - Extortion","GF06 - Blackmail","GF07 - Felony Fraud","GF08 - Illegal Gambling","GF09 - Embezzlement","GF10 - Grand Theft","GF11 - Grand Theft Auto","GF12 - Forgery or Counterfeiting","GF13 - Arson","GF14 - False Impersonation","GF15 - Burglary","GF16 - Tampering with Evidence","GF17 - Rape","GF18 - Racketeering","GF19 - Abuse or Desecration of Dead Human Body","GF20 - Possession of Human Body Tissue","GF21 - Prison Break","GF22 - Breach of Trust","GF23 - Grand Sales Tax Evasion","GF24 - Perjury","GF25 - Felony Contempt of Court","GF26 - Organized Assault on Government or Law Enforcement Operations","GF27 - Incitement of Violence against a Peace Officer",
+  "SF01 - Domestic Terrorism","SF02 - Murder","SF03 - Involuntary or Vehicular Manslaughter","SF04 - Kidnapping","SF05 - Torture","SF06 - Possessing Destructive Devices or Explosives","SF07 - Bank Robbery","SF08 - Human Trafficking","SF09 - False Imprisonment of a Hostage",
+  "AM01 - Negligent Operation of an Aircraft","AM02 - Operating an Unregistered Aircraft","AM03 - Operating an Aircraft without a License on your Person","AM04 - Disrupting Airport/Aircraft Operations","AM05 - Operating an Aircraft without Proper Equipment","AM06 - Failure to Make Way for Emergency, State Government, or Military Aircraft","AM07 - Operating an Aircraft in Controlled Airspace without Clearance","AM08 - Violating a Restricted Airspace Order or Temporary Flight Restriction",
+  "AF01 - Reckless Operation of an Aircraft","AF02 - Committing a Crime Aboard an Aircraft in Flight","AF03 - Operating an Aircraft without an Active License","AF04 - Failure to Obey Intercepting Military or Law Enforcement Aircraft/ATC Orders","AF05 - Violating a Prohibited Airspace Order","AF06 - Transporting Dangerous Cargo","AF07 - Drunk, Impaired, or Distracted Flying","AF08 - Aircraft Piracy","AF09 - Destruction of an Aircraft or Aircraft Facilities","AF10 - Disobeying a Grounding Order"
 ];
 
-// Modifiers (can customize, reorder etc)
+// Definition: list as {label, value, append (true=append, false=prepend)}
 const modifiers = [
-  { label: "No Modifier", value: "" },
-  { label: "Of Government Employee", value: "Of Government Employee" },
-  { label: "Accessory", value: "Accessory" },
-  { label: "Attempted", value: "Attempted" },
-  { label: "Aggravated", value: "Aggravated" }
+  { label: "Attempted", value: "Attempted", append: false },
+  { label: "Accessory", value: "Accessory", append: false },
+  { label: "Aggravated", value: "Aggravated", append: false },
+  { label: "Of Government Employee", value: "Of Government Employee", append: true }
 ];
 
 function formatDateDMY(dateStr) {
@@ -1773,74 +1641,107 @@ function formatDateDMY(dateStr) {
   const arrestList = document.getElementById('arrestList');
   const chargeSearchBox = document.getElementById('chargeSearchBox');
   const chargeSelectList = document.getElementById('chargeSelectList');
-  const modifierSelect = document.getElementById('modifierSelect');
+  const modifierArea = document.getElementById('modifierArea');
 
   const arrests = [];
   let currentCharges = [];
+  let selectedModifiers = [];
 
-  // ---- Charge Selector Rendering ----
-  function renderChargeList(query = '', selectedModifier = "") {
-    const q = query.trim().toLowerCase();
+  // Render Modifier Checkboxes
+  function renderModifiers() {
+    modifierArea.innerHTML = '';
+    modifiers.forEach((mod, i) => {
+      const id = "mod_" + i;
+      const div = document.createElement('div');
+      div.className = 'form-check form-check-inline m-0';
+      const chk = document.createElement('input');
+      chk.type = 'checkbox';
+      chk.className = 'form-check-input';
+      chk.id = id;
+      chk.value = mod.value;
+      chk.checked = selectedModifiers.includes(mod.value);
+      chk.addEventListener('change', function() {
+        if (this.checked) {
+          if (!selectedModifiers.includes(mod.value)) selectedModifiers.push(mod.value);
+        } else {
+          selectedModifiers = selectedModifiers.filter(m => m !== mod.value);
+        }
+        renderChargeList(chargeSearchBox.value, selectedModifiers);
+      });
+      const lab = document.createElement('label');
+      lab.className = 'form-check-label text-nowrap';
+      lab.htmlFor = id;
+      lab.textContent = mod.label;
+      div.append(chk, lab);
+      modifierArea.appendChild(div);
+    });
+  }
+
+  // Render the charge list for selection
+  function renderChargeList(query = '', selectedMods = []) {
     chargeSelectList.innerHTML = '';
+    const q = query.trim().toLowerCase();
     const filtered = allCharges.filter(c => !q || c.toLowerCase().includes(q));
     if (filtered.length === 0) {
       chargeSelectList.innerHTML = '<div style="padding:5px;">No matches.</div>';
       return;
     }
     filtered.forEach(charge => {
-      // Compose preview charge with selected modifier
-      const withModifier = applyModifierToCharge(selectedModifier, charge);
-      const alreadyAdded = currentCharges.includes(withModifier);
+      // Compose preview charge with modifiers
+      const withMods = applyModifiersToCharge(selectedMods, charge);
+      const alreadyAdded = currentCharges.includes(withMods);
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn btn-sm btn-light mb-1 w-100 text-start' + (alreadyAdded ? ' disabled text-body-secondary' : '');
-      btn.textContent = withModifier;
+      btn.textContent = withMods;
       btn.style.border = alreadyAdded ? '1px solid #229' : '1px solid #eee';
       btn.onclick = alreadyAdded 
         ? null
         : () => {
-            currentCharges.push(withModifier);
+            currentCharges.push(withMods);
             updateChargesUI();
-            renderChargeList(chargeSearchBox.value, modifierSelect.value);
+            renderChargeList(chargeSearchBox.value, selectedModifiers);
           };
       chargeSelectList.appendChild(btn);
     });
   }
 
-  // Compose the selected charge with the modifier
-  function applyModifierToCharge(modifier, charge) {
-    if (!modifier) return charge;
-    // These should always prepend, *except* "Of Government Employee" which is appended
-    if (modifier === "Of Government Employee") {
-      return `${charge} Of Government Employee`;
-    } else {
-      return `${modifier} ${charge}`;
-    }
+  // Compose a charge string with currently selected modifiers
+  function applyModifiersToCharge(selectedMods, charge) {
+    if (!selectedMods || selectedMods.length === 0) return charge;
+    // Separate prepends and appends
+    const prepends = [];
+    let appends = [];
+    selectedMods.forEach(val => {
+      const def = modifiers.find(m => m.value === val);
+      if (def?.append) appends.push(def.value);
+      else prepends.push(def.value);
+    });
+    return [...prepends, charge, ...appends].join(' ');
   }
 
-  // Whenever search or modifier changes, rerender list
   chargeSearchBox.addEventListener('input', () =>
-    renderChargeList(chargeSearchBox.value, modifierSelect.value));
-  modifierSelect.addEventListener('change', () =>
-    renderChargeList(chargeSearchBox.value, modifierSelect.value));
-  renderChargeList('', '');
+    renderChargeList(chargeSearchBox.value, selectedModifiers));
 
-  // ---- Manual-add charge (via input) ----
+  // On load, init modifiers and charge list
+  renderModifiers();
+  renderChargeList('', selectedModifiers);
+
+  // ---- Manual Add Charge (with modifiers) ----
   addBtn.addEventListener('click', () => {
     const val = chargeInput.value.trim();
     if (!val) {
       alert('Please enter a charge description.');
       return;
     }
-    // Compose with modifier
-    const withModifier = applyModifierToCharge(modifierSelect.value, val);
-    if (currentCharges.includes(withModifier)) {
+    const withMods = applyModifiersToCharge(selectedModifiers, val);
+    if (currentCharges.includes(withMods)) {
       alert('Charge already added!');
       return;
     }
-    currentCharges.push(withModifier);
+    currentCharges.push(withMods);
     updateChargesUI();
-    renderChargeList(chargeSearchBox.value, modifierSelect.value);
+    renderChargeList(chargeSearchBox.value, selectedModifiers);
     chargeInput.value = '';
     chargeInput.focus();
   });
@@ -1848,7 +1749,7 @@ function formatDateDMY(dateStr) {
   removeBtn.addEventListener('click', () => {
     currentCharges.pop();
     updateChargesUI();
-    renderChargeList(chargeSearchBox.value, modifierSelect.value);
+    renderChargeList(chargeSearchBox.value, selectedModifiers);
   });
 
   function updateChargesUI() {
@@ -1857,7 +1758,6 @@ function formatDateDMY(dateStr) {
       const li = document.createElement('li');
       li.className = 'list-group-item bg-light text-dark d-flex justify-content-between align-items-center';
       li.innerHTML = `<span>${chrg}</span>`;
-      // "Remove" button for each charge
       const delBtn = document.createElement('button');
       delBtn.type = 'button';
       delBtn.textContent = '✕';
@@ -1865,7 +1765,7 @@ function formatDateDMY(dateStr) {
       delBtn.onclick = () => {
         currentCharges.splice(i, 1);
         updateChargesUI();
-        renderChargeList(chargeSearchBox.value, modifierSelect.value);
+        renderChargeList(chargeSearchBox.value, selectedModifiers);
       };
       li.appendChild(delBtn);
       peopleList.appendChild(li);
@@ -1881,13 +1781,12 @@ function formatDateDMY(dateStr) {
       alert('Fill all fields and add at least one charge before adding an arrest.');
       return;
     }
-
     arrests.push({ link, date, charges: [...currentCharges], dateRaw });
     linkInput.value = '';
     dateInput.value = '';
     currentCharges = [];
     updateChargesUI();
-    renderChargeList(chargeSearchBox.value, modifierSelect.value);
+    renderChargeList(chargeSearchBox.value, selectedModifiers);
     updateArrestListUI();
   });
 
@@ -1945,6 +1844,7 @@ function formatDateDMY(dateStr) {
   });
 })();
 </script>
+
 <!-- ------------------------------------- -->
 
 <div id="LOG" class="container mt-3 myHideableSection" style="max-width: 700px;">
