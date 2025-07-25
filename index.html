@@ -699,7 +699,7 @@ Los Santos Police Department[/list][/divbox]
       <h4>LSPD Major Crimes Letter Generator</h4>
     </div>
     <div class="card-body">
-      <form id="lspdMCDForm3" autocomplete="off" novalidate>
+      <form id="lspdMCDForm" autocomplete="off" novalidate>
         <!-- Letter Body -->
         <div class="mb-3 row align-items-center">
           <label for="letterBody3" class="col-sm-4 col-form-label fw-bold text-end">Letter Body:</label>
@@ -710,7 +710,7 @@ Los Santos Police Department[/list][/divbox]
            <!-- Submit -->
         <div class="text-center">
           <button type="submit" class="btn btn-success px-5">Generate and Copy BBCode</button>
-          <p id="lspdMCDCopySuccess" class="mt-2 text-success fw-semibold"></p>
+          <p id="lspdK9CopySuccess" class="mt-2 text-success fw-semibold"></p>
         </div>
         <!-- BBCode Output -->
         <div class="mt-4">
@@ -726,7 +726,7 @@ Los Santos Police Department[/list][/divbox]
 // Universal signature storage for LSPD forms
 
 // Save signature when form submits
-document.getElementById('lspdMCDForm3').addEventListener('submit', function(e) {
+document.getElementById('lspdMCDForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const successMsg = document.getElementById('lspdMCDCopySuccess');
   successMsg.textContent = '';
@@ -1509,43 +1509,57 @@ ${image ? `[img]${image}[/img]` : ''}
 
 <!-- ------------------------------------- -->
 
+<!-- Multi-Arrest BBCode Generator: Sorted Nearest-to-Farthest by Date -->
 <div id="CHARGE" class="container mt-3 myHideableSection" style="max-width: 700px;">
-        <div class="card shadow" style="background: linear-gradient(135deg, #001f4d, #003399); color: #fff;">
+  <div class="card shadow" style="background: linear-gradient(135deg, #001f4d, #003399); color: #fff;">
     <div class="card-header text-center">
       <h4>Charge Information</h4>
     </div>
     <div class="card-body">
       <form id="chargeForm" autocomplete="off" novalidate>
-        <!-- Link -->
-        <div class="mb-3 row align-items-center">
-          <label for="txtChLink" class="col-sm-3 col-form-label fw-bold text-end">Link:</label>
-          <div class="col-sm-9">
-            <input type="url" id="txtChLink" class="form-control" placeholder="https://example.com/report" required />
+        <!-- Arrest Form -->
+        <div id="arrestEntrySection">
+          <!-- Link -->
+          <div class="mb-3 row align-items-center">
+            <label for="txtChLink" class="col-sm-3 col-form-label fw-bold text-end">Link:</label>
+            <div class="col-sm-9">
+              <input type="url" id="txtChLink" class="form-control" placeholder="https://example.com/report" required />
+            </div>
+          </div>
+
+          <!-- Date -->
+          <div class="mb-3 row align-items-center">
+            <label for="txtChDate" class="col-sm-3 col-form-label fw-bold text-end">Date:</label>
+            <div class="col-sm-9">
+              <input type="date" id="txtChDate" class="form-control" required />
+            </div>
+          </div>
+
+          <!-- Charges List -->
+          <fieldset class="mb-4">
+            <legend class="fw-bold text-white">Charges</legend>
+            <div class="input-group mb-2">
+              <input type="text" id="txtpeopleInvolved" class="form-control" placeholder="Enter charge description" />
+              <button type="button" id="btnAdd" class="btn btn-primary">Add Charge</button>
+            </div>
+            <ul id="peopleList" class="list-group list-group-flush" style="max-height: 150px; overflow-y: auto;"></ul>
+            <button type="button" id="btnRemove" class="btn btn-danger mt-2">Remove Last Charge</button>
+          </fieldset>
+          
+          <div class="mb-3 text-center">
+            <button type="button" id="btnAddArrest" class="btn btn-info mb-2 px-4">Add Arrest Entry</button>
           </div>
         </div>
 
-        <!-- Date -->
-        <div class="mb-3 row align-items-center">
-          <label for="txtChDate" class="col-sm-3 col-form-label fw-bold text-end">Date:</label>
-          <div class="col-sm-9">
-            <input type="date" id="txtChDate" class="form-control" required />
-          </div>
+        <!-- List of Added Arrests -->
+        <div class="mb-4">
+          <h5 class="fw-bold text-white">Arrest Entries</h5>
+          <ul id="arrestList" class="list-group"></ul>
         </div>
-
-        <!-- Charges List -->
-        <fieldset class="mb-4">
-          <legend class="fw-bold text-white">Charges</legend>
-          <div class="input-group mb-2">
-            <input type="text" id="txtpeopleInvolved" class="form-control" placeholder="Enter charge description" />
-            <button type="button" id="btnAdd" class="btn btn-primary">Add</button>
-          </div>
-          <ul id="peopleList" class="list-group list-group-flush" style="max-height: 150px; overflow-y: auto;"></ul>
-          <button type="button" id="btnRemove" class="btn btn-danger mt-2">Remove Last Charge</button>
-        </fieldset>
 
         <!-- Submit -->
         <div class="text-center">
-          <button type="submit" id="btnCopy" class="btn btn-success px-5">Submit and Copy to Clipboard</button>
+          <button type="submit" id="btnCopy" class="btn btn-success px-5">Submit and Copy BBCode</button>
           <p id="copyChargeSuccess" class="mt-2 text-success fw-semibold"></p>
         </div>
 
@@ -1562,92 +1576,144 @@ ${image ? `[img]${image}[/img]` : ''}
 <script>
 function formatDateDMY(dateStr) {
   if (!dateStr) return '';
-  const [year, month, day] = dateStr.split('-');
-  return `${day}/${month}/${year}`;
-}
-  (() => {
-    const chargeForm = document.getElementById('chargeForm');
-    const linkInput = document.getElementById('txtChLink');
-    const dateInput = document.getElementById('txtChDate');
-    const chargeInput = document.getElementById('txtpeopleInvolved');
-    const addBtn = document.getElementById('btnAdd');
-    const removeBtn = document.getElementById('btnRemove');
-    const peopleList = document.getElementById('peopleList');
-    const bbcodeOutput = document.getElementById('displayChargeBB');
-    const successMsg = document.getElementById('copyChargeSuccess');
-
-function formatDateDMY(dateStr) {
-  if (!dateStr) return '';
   const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
   const [year, month, day] = dateStr.split('-');
   const monthName = months[parseInt(month, 10) - 1] || '';
   return `${day}/${monthName}/${year}`;
 }
 
-const DateValRaw = dateInput.value;
-const DateVal = formatDateDMY(DateValRaw);
+(() => {
+  // Elements
+  const chargeForm = document.getElementById('chargeForm');
+  const linkInput = document.getElementById('txtChLink');
+  const dateInput = document.getElementById('txtChDate');
+  const chargeInput = document.getElementById('txtpeopleInvolved');
+  const addBtn = document.getElementById('btnAdd');
+  const removeBtn = document.getElementById('btnRemove');
+  const peopleList = document.getElementById('peopleList');
+  const bbcodeOutput = document.getElementById('displayChargeBB');
+  const successMsg = document.getElementById('copyChargeSuccess');
+  const addArrestBtn = document.getElementById('btnAddArrest');
+  const arrestList = document.getElementById('arrestList');
 
+  // Store multiple arrests
+  const arrests = [];
+  // Store charges for current arrest-in-progress
+  let currentCharges = [];
 
-    // Add charge to list
-    addBtn.addEventListener('click', () => {
-      const val = chargeInput.value.trim();
-      if (!val) {
-        alert('Please enter a charge description.');
-        return;
-      }
+  // Add charge to current charges list
+  addBtn.addEventListener('click', () => {
+    const val = chargeInput.value.trim();
+    if (!val) {
+      alert('Please enter a charge description.');
+      return;
+    }
+    currentCharges.push(val);
+    updateChargesUI();
+    chargeInput.value = '';
+    chargeInput.focus();
+  });
+
+  removeBtn.addEventListener('click', () => {
+    currentCharges.pop();
+    updateChargesUI();
+  });
+
+  function updateChargesUI() {
+    peopleList.innerHTML = '';
+    currentCharges.forEach(chrg => {
       const li = document.createElement('li');
       li.className = 'list-group-item bg-light text-dark';
-      li.textContent = val;
+      li.textContent = chrg;
       peopleList.appendChild(li);
-      chargeInput.value = '';
-      chargeInput.focus();
     });
-
-    // Remove last charge
-    removeBtn.addEventListener('click', () => {
-      if (peopleList.lastChild) peopleList.removeChild(peopleList.lastChild);
-    });
-
-    // Handle form submission
-    chargeForm.addEventListener('submit', e => {
-  e.preventDefault();
-  successMsg.textContent = '';
-
-  if (!chargeForm.checkValidity()) {
-    chargeForm.reportValidity();
-    return;
   }
 
-  const Link = linkInput.value.trim();
-  const DateValRaw = dateInput.value;
-  const DateVal = formatDateDMY(DateValRaw);
-  const charges = [...peopleList.querySelectorAll('li')]
-    .map(li => li.textContent)
-    .join(', ');
+  // Add a new arrest to main list
+  addArrestBtn.addEventListener('click', () => {
+    const link = linkInput.value.trim();
+    const dateRaw = dateInput.value;
+    const date = formatDateDMY(dateRaw);
 
-  if (!charges) {
-    alert('Please add at least one charge.');
-    return;
-  }
+    if (!link || !dateRaw || currentCharges.length === 0) {
+      alert('Fill all fields and add at least one charge before adding an arrest.');
+      return;
+    }
 
-  const bbcode = `[*][url=${Link}]${DateVal} - ${charges}[/url]`;
+    arrests.push({ link, date, charges: [...currentCharges], dateRaw });
+    linkInput.value = '';
+    dateInput.value = '';
+    currentCharges = [];
+    updateChargesUI();
+    updateArrestListUI();
+  });
 
-  bbcodeOutput.value = bbcode.trim();
-  bbcodeOutput.select();
+  // Display list of arrest entries, sorted by date descending (most recent first)
+  function updateArrestListUI() {
+    // Sort by dateRaw descending before display
+    const sortedArrests = arrests.slice().sort((a, b) => b.dateRaw.localeCompare(a.dateRaw));
 
-  try {
-    navigator.clipboard.writeText(bbcode).then(() => {
-      successMsg.textContent = 'Copied to clipboard!';
-    }, () => {
-      successMsg.textContent = 'Failed to copy automatically. Please copy manually.';
+    arrestList.innerHTML = '';
+    sortedArrests.forEach((arrest, idx) => {
+      // For correct removal from original array, find real index:
+      const realIdx = arrests.findIndex(a => a.link === arrest.link && a.dateRaw === arrest.dateRaw && JSON.stringify(a.charges) === JSON.stringify(arrest.charges));
+
+      const li = document.createElement('li');
+      li.className = 'list-group-item d-flex justify-content-between align-items-start';
+      li.innerHTML = `
+        <div>
+          <strong>${arrest.date}</strong> - <a href="${arrest.link}" target="_blank" style="color:#165ec5;">${arrest.link}</a>
+          <br>
+          <span class="badge bg-primary me-1">${arrest.charges.length} charge${arrest.charges.length !== 1 ? 's' : ''}</span>
+          ${arrest.charges.map(c => `<span class="badge bg-secondary me-1">${c}</span>`).join('')}
+        </div>
+        <button type="button" data-idx="${realIdx}" class="btn btn-sm btn-danger remove-arrest">Remove</button>
+      `;
+      arrestList.appendChild(li);
     });
-  } catch {
-    successMsg.textContent = 'Clipboard API not supported. Please copy manually.';
+
+    // Remove-arrest button handlers
+    document.querySelectorAll('.remove-arrest').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const idx = parseInt(this.getAttribute('data-idx'), 10);
+        arrests.splice(idx, 1);
+        updateArrestListUI();
+      });
+    });
   }
-});
-  })();
+
+  // On form submit, build BBCode for ALL arrests, sorted by most recent date first
+  chargeForm.addEventListener('submit', e => {
+    e.preventDefault();
+    successMsg.textContent = '';
+
+    if (arrests.length === 0) {
+      alert('Please add at least one arrest entry.');
+      return;
+    }
+
+    // Sort arrests array by dateRaw descending (most recent first)
+    const sortedArrests = arrests.slice().sort((a, b) => b.dateRaw.localeCompare(a.dateRaw));
+
+    const bbcode = sortedArrests.map(arrest =>
+      `[*][url=${arrest.link}]${arrest.date} - ${arrest.charges.join(', ')}[/url]`
+    ).join('\n');
+
+    bbcodeOutput.value = bbcode;
+    bbcodeOutput.select();
+
+    try {
+      navigator.clipboard.writeText(bbcode).then(() => {
+        successMsg.textContent = 'Copied to clipboard!';
+      }, () => {
+        successMsg.textContent = 'Failed to copy automatically. Please copy manually.';
+      });
+    } catch {
+      successMsg.textContent = 'Clipboard API not supported. Please copy manually.';
+    }
+  });
+})();
 </script>
-
 <!-- ------------------------------------- -->
 
 <div id="LOG" class="container mt-3 myHideableSection" style="max-width: 700px;">
@@ -5050,23 +5116,36 @@ Los Santos Police Department
 
   <!-- Scripts for Sidebar Accordion, Section Switching, and All Form Generators -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function showSection(id, btn) {
-      document.querySelectorAll('.sidebar .btn').forEach(el => el.classList.remove('btn-success'));
-      if(btn) btn.classList.add('btn-success');
-      document.querySelectorAll('.main-content .myHideableSection').forEach(s => s.classList.remove('active'));
-      let match = document.getElementById(id);
-      if(match) {
-        match.classList.add('active');
-        match.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+<script>
+  // Show and remember the active section
+  function showSection(id, btn) {
+    // Remove highlight from all sidebar buttons
+    document.querySelectorAll('.sidebar .btn').forEach(el => el.classList.remove('btn-success'));
+    if (btn) btn.classList.add('btn-success');
+    // Hide all content sections
+    document.querySelectorAll('.main-content .myHideableSection').forEach(s => s.classList.remove('active'));
+    // Show the selected section
+    let match = document.getElementById(id);
+    if (match) {
+      match.classList.add('active');
+      match.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Persist last opened section ID
+      localStorage.setItem('lastSection', id);
     }
-    document.addEventListener('DOMContentLoaded', function() {
-      // Show the first section if desired
-      const defaultId = document.querySelector('.myHideableSection')?.id;
-      if(defaultId) showSection(defaultId, null);
-    });
-  </script>
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Try to load the last opened section from localStorage
+    const lastSectionId = localStorage.getItem('lastSection');
+    // Verify the ID is still in the DOM
+    let targetId = lastSectionId;
+    if (!targetId || !document.getElementById(targetId)) {
+      targetId = document.querySelector('.myHideableSection')?.id;
+    }
+    if (targetId) showSection(targetId, null);
+  });
+</script>
+
 
   <!-- Paste all per-form scripts from your original file below -->
   <!-- These scripts handle dynamic lists, BBCode generation/copy, and interactivity for each section. Keep them in exact order. -->
