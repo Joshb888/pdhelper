@@ -1508,8 +1508,7 @@ ${image ? `[img]${image}[/img]` : ''}
 </script>
 
 <!-- ------------------------------------- -->
-
-<!-- Multi-Arrest BBCode Generator: With Charge Selector -->
+<!-- Multi-Arrest BBCode Generator: With Charge Selector + Modifiers -->
 <div id="CHARGE" class="container mt-3 myHideableSection" style="max-width: 700px;">
   <div class="card shadow" style="background: linear-gradient(135deg, #001f4d, #003399); color: #fff;">
     <div class="card-header text-center">
@@ -1517,7 +1516,6 @@ ${image ? `[img]${image}[/img]` : ''}
     </div>
     <div class="card-body">
       <form id="chargeForm" autocomplete="off" novalidate>
-        <!-- Arrest Form -->
         <div id="arrestEntrySection">
           <!-- Link -->
           <div class="mb-3 row align-items-center">
@@ -1535,11 +1533,24 @@ ${image ? `[img]${image}[/img]` : ''}
             </div>
           </div>
 
-          <!-- Charges List Selector -->
+          <!-- Charges List Selector with Modifiers -->
           <fieldset class="mb-4">
             <legend class="fw-bold text-white">Charges</legend>
             <div class="mb-2">
-              <input type="text" id="chargeSearchBox" class="form-control mb-1" placeholder="Search charge code or phrase..." autocomplete="off" />
+              <div class="row g-2 align-items-center">
+                <div class="col-6 col-md-7">
+                  <input type="text" id="chargeSearchBox" class="form-control mb-1" placeholder="Search charge code or phrase..." autocomplete="off" />
+                </div>
+                <div class="col-6 col-md-5">
+                  <select id="modifierSelect" class="form-select mb-1">
+                    <option value="">No Modifier</option>
+                    <option value="Of Government Employee">Of Government Employee</option>
+                    <option value="Accessory">Accessory</option>
+                    <option value="Attempted">Attempted</option>
+                    <option value="Aggravated">Aggravated</option>
+                  </select>
+                </div>
+              </div>
               <div id="chargeSelectList" 
                    style="max-height:180px;overflow-y:auto;background:#fff;border:1px solid #dee2e6;padding:2px 2px 0 2px;border-radius:.25rem;position:relative;">
                 <!-- JS will render -->
@@ -1730,7 +1741,15 @@ const allCharges = [
   "AF10 - Disobeying a Grounding Order"
 ];
 
-// Helper - Format date
+// Modifiers (can customize, reorder etc)
+const modifiers = [
+  { label: "No Modifier", value: "" },
+  { label: "Of Government Employee", value: "Of Government Employee" },
+  { label: "Accessory", value: "Accessory" },
+  { label: "Attempted", value: "Attempted" },
+  { label: "Aggravated", value: "Aggravated" }
+];
+
 function formatDateDMY(dateStr) {
   if (!dateStr) return '';
   const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -1754,12 +1773,13 @@ function formatDateDMY(dateStr) {
   const arrestList = document.getElementById('arrestList');
   const chargeSearchBox = document.getElementById('chargeSearchBox');
   const chargeSelectList = document.getElementById('chargeSelectList');
+  const modifierSelect = document.getElementById('modifierSelect');
 
   const arrests = [];
   let currentCharges = [];
 
-  // Render selectable charge list
-  function renderChargeList(query = '') {
+  // ---- Charge Selector Rendering ----
+  function renderChargeList(query = '', selectedModifier = "") {
     const q = query.trim().toLowerCase();
     chargeSelectList.innerHTML = '';
     const filtered = allCharges.filter(c => !q || c.toLowerCase().includes(q));
@@ -1768,39 +1788,59 @@ function formatDateDMY(dateStr) {
       return;
     }
     filtered.forEach(charge => {
-      const alreadyAdded = currentCharges.includes(charge);
+      // Compose preview charge with selected modifier
+      const withModifier = applyModifierToCharge(selectedModifier, charge);
+      const alreadyAdded = currentCharges.includes(withModifier);
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'btn btn-sm btn-light mb-1 w-100 text-start' + (alreadyAdded ? ' disabled text-body-secondary' : '');
-      btn.textContent = charge;
+      btn.textContent = withModifier;
       btn.style.border = alreadyAdded ? '1px solid #229' : '1px solid #eee';
       btn.onclick = alreadyAdded 
         ? null
         : () => {
-            currentCharges.push(charge);
+            currentCharges.push(withModifier);
             updateChargesUI();
-            renderChargeList(chargeSearchBox.value);
+            renderChargeList(chargeSearchBox.value, modifierSelect.value);
           };
       chargeSelectList.appendChild(btn);
     });
   }
-  chargeSearchBox.addEventListener('input', () => renderChargeList(chargeSearchBox.value));
-  renderChargeList();
 
-  // Manual-add charge
+  // Compose the selected charge with the modifier
+  function applyModifierToCharge(modifier, charge) {
+    if (!modifier) return charge;
+    // These should always prepend, *except* "Of Government Employee" which is appended
+    if (modifier === "Of Government Employee") {
+      return `${charge} Of Government Employee`;
+    } else {
+      return `${modifier} ${charge}`;
+    }
+  }
+
+  // Whenever search or modifier changes, rerender list
+  chargeSearchBox.addEventListener('input', () =>
+    renderChargeList(chargeSearchBox.value, modifierSelect.value));
+  modifierSelect.addEventListener('change', () =>
+    renderChargeList(chargeSearchBox.value, modifierSelect.value));
+  renderChargeList('', '');
+
+  // ---- Manual-add charge (via input) ----
   addBtn.addEventListener('click', () => {
     const val = chargeInput.value.trim();
     if (!val) {
       alert('Please enter a charge description.');
       return;
     }
-    if (currentCharges.includes(val)) {
+    // Compose with modifier
+    const withModifier = applyModifierToCharge(modifierSelect.value, val);
+    if (currentCharges.includes(withModifier)) {
       alert('Charge already added!');
       return;
     }
-    currentCharges.push(val);
+    currentCharges.push(withModifier);
     updateChargesUI();
-    renderChargeList(chargeSearchBox.value);
+    renderChargeList(chargeSearchBox.value, modifierSelect.value);
     chargeInput.value = '';
     chargeInput.focus();
   });
@@ -1808,7 +1848,7 @@ function formatDateDMY(dateStr) {
   removeBtn.addEventListener('click', () => {
     currentCharges.pop();
     updateChargesUI();
-    renderChargeList(chargeSearchBox.value);
+    renderChargeList(chargeSearchBox.value, modifierSelect.value);
   });
 
   function updateChargesUI() {
@@ -1825,7 +1865,7 @@ function formatDateDMY(dateStr) {
       delBtn.onclick = () => {
         currentCharges.splice(i, 1);
         updateChargesUI();
-        renderChargeList(chargeSearchBox.value);
+        renderChargeList(chargeSearchBox.value, modifierSelect.value);
       };
       li.appendChild(delBtn);
       peopleList.appendChild(li);
@@ -1847,7 +1887,7 @@ function formatDateDMY(dateStr) {
     dateInput.value = '';
     currentCharges = [];
     updateChargesUI();
-    renderChargeList(chargeSearchBox.value);
+    renderChargeList(chargeSearchBox.value, modifierSelect.value);
     updateArrestListUI();
   });
 
