@@ -403,7 +403,6 @@
   </h2>
         <div id="collapseATC" class="accordion-collapse collapse" aria-labelledby="headingATC" data-bs-parent="#tocAccordion">
     <div class="accordion-body">
-
  
       <!-- Shift Log -->
       <div class="mb-3">
@@ -428,10 +427,18 @@
           <button class="btn btn-secondary" onclick="showSection('VEHICLE', this)">Add Vehicle</button>
           <button class="btn btn-secondary" onclick="showSection('AFFIL', this)">Add Affiliate</button>
           <button class="btn btn-secondary" onclick="showSection('CHARGE', this)">Add Charge</button>
-          <button class="btn btn-secondary" onclick="showSection('LOG', this)">Dossier Log</button>
+          <button class="btn btn-secondary" onclick="showSection('traceUpdateGen', this)">Dossier Log</button>
+          <button class="btn btn-secondary" onclick="showSection('fineJailGen', this)">Time Log</button>
         </div>
       </div>
 
+      <!-- Operator Logs -->
+      <div class="mb-3">
+        <h6 class="text-light text-uppercase mb-2" style="font-size: 0.9rem;">📋 Shift Work</h6>
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn btn-secondary" onclick="showSection('StoreTimers', this)">Timer's</button>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -485,7 +492,7 @@
       <div class="mb-3">
         <h6 class="text-light text-uppercase mb-2" style="font-size: 0.9rem;">Field Training Division</h6>
         <div class="d-flex flex-wrap gap-2">
-          <button class="btn btn-secondary" onclick="showSection('FTS', this)">FTS</button>
+          <button class="btn btn-secondary" onclick="showSection('lspdCadetSessionGen', this)">FTS</button>
           <button class="btn btn-secondary" onclick="showSection('FPS', this)">FPS</button>
         </div>
       </div>
@@ -606,6 +613,84 @@ Los Santos Police Department[/list][/divbox]
 });
 </script>
 
+<div id="StoreTimers" class="container mt-3 myHideableSection" style="max-width: 800px;">
+ <div style="max-width:600px;margin:auto;">
+  <h3>Multiple Timers (Locations)</h3>
+  <button onclick="startAllTimers()">Start All</button>
+  <div id="timers"></div>
+</div>
+</div>
+<script>
+// Your full location list:
+const LOCATIONS = [
+  "Chumash - Barbareno Rd", "Chumash - GOH", "Chumash - Ineseno Rd",
+  "Chumash - Bank", "City - 13 Clinton Ave", "City - Lifeinvader",
+  "City - Pink Cage", "City - Legion Bank", "Davis - SanchezSnack",
+  "Industrial - Cypress", "County - Palomino"
+];
+const DURATIONS = [
+  {label:"2 hours", mins:120},
+  {label:"1 hour", mins:60},
+  {label:"30 minutes", mins:30},
+  {label:"15 minutes", mins:15}
+];
+function createTimerSection(location) {
+  let section = document.createElement('div');
+  section.style = "border:1px solid #ccc;padding:12px;margin-bottom:12px;border-radius:8px;background:#f7faff";
+  let header = document.createElement('h4');
+  header.textContent = location;
+  section.appendChild(header);
+
+  DURATIONS.forEach((duration) => {
+    let div = document.createElement('div');
+    div.style = "margin-bottom:7px;";
+    let span = document.createElement('span');
+    span.textContent = duration.label+': ';
+
+    let tspan = document.createElement('span');
+    // Make unique ID
+    tspan.id = location.replace(/[^a-zA-Z0-9]/g,'')+"-"+duration.mins;
+    tspan.textContent = formatTime(duration.mins*60);
+
+    let btn = document.createElement('button');
+    btn.textContent = "Start";
+    btn.style = "margin-left:10px;";
+    btn.onclick = () => startTimer(location,duration.mins);
+
+    div.append(span,tspan,btn);
+    section.appendChild(div);
+  });
+  return section;
+}
+document.getElementById('timers').append(
+  ...LOCATIONS.map(createTimerSection)
+);
+let intervals = {};
+function formatTime(secs) {
+  let m = Math.floor(secs/60), s = secs%60;
+  let h = Math.floor(m/60); m %= 60;
+  if (h) return `${h}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+  else return `${m}m ${String(s).padStart(2,'0')}s`;
+}
+function startTimer(loc, mins) {
+  let key = loc.replace(/[^a-zA-Z0-9]/g,'')+"-"+mins;
+  let total = mins*60;
+  clearInterval(intervals[key]);
+  let tspan = document.getElementById(key);
+  tspan.textContent = formatTime(total);
+  intervals[key] = setInterval(() => {
+    total--;
+    tspan.textContent = formatTime(total);
+    if (total <= 0) {
+      clearInterval(intervals[key]);
+      tspan.textContent="EXPIRED";
+    }
+  },1000);
+}
+function startAllTimers() {
+  LOCATIONS.forEach(loc => DURATIONS.forEach(dur => startTimer(loc,dur.mins)));
+}
+</script>
 
 
 <div id="lspdK9Gen" class="container mt-3 myHideableSection" style="max-width: 800px;">
@@ -614,44 +699,97 @@ Los Santos Police Department[/list][/divbox]
       <h4>LSPD K9 Letter Generator</h4>
     </div>
     <div class="card-body">
-      <form id="lspdK9Form" autocomplete="off" novalidate>
-        <!-- Letter Body -->
-        <div class="mb-3 row align-items-center">
-          <label for="letterBody2" class="col-sm-4 col-form-label fw-bold text-end">Letter Body:</label>
-          <div class="col-sm-8">
-            <textarea id="letterBody2" class="form-control" rows="7" required placeholder="Enter the body of your letter here..."></textarea>
-          </div>
-        </div>
-           <!-- Submit -->
-        <div class="text-center">
-          <button type="submit" class="btn btn-success px-5">Generate and Copy BBCode</button>
-          <p id="lspdK9CopySuccess" class="mt-2 text-success fw-semibold"></p>
-        </div>
-        <!-- BBCode Output -->
-        <div class="mt-4">
-          <label for="lspdK9BBOutput" class="form-label fw-bold">BBCode Output:</label>
-          <textarea id="lspdK9BBOutput" class="form-control" rows="20" readonly placeholder="BBCode will appear here"></textarea>
-        </div>
-      </form>
+<form id="lspdK9Form" autocomplete="off" novalidate>
+  <!-- Letter Body (toolbar appears above textarea) -->
+  <div class="mb-3 row align-items-center">
+    <label for="letterBody2" class="col-sm-4 col-form-label fw-bold text-end">Letter Body:</label>
+    <div class="col-sm-8">
+      <!-- Centered toolbar with all tags -->
+      <div class="mb-2 d-flex flex-wrap gap-1 justify-content-center">
+        <button type="button" class="btn btn-sm btn-light fw-bold" title="Bold" onclick="wrapBBK9('b')"><b>B</b></button>
+        <button type="button" class="btn btn-sm btn-light fst-italic" title="Italic" onclick="wrapBBK9('i')"><i>I</i></button>
+        <button type="button" class="btn btn-sm btn-info" title="Underline" onclick="wrapBBK9('u')"><u>U</u></button>
+        <button type="button" class="btn btn-sm btn-warning" title="Strikethrough" onclick="wrapBBK9('s')"><s>S</s></button>
+        <button type="button" class="btn btn-sm btn-secondary" title="Spoiler" onclick="wrapBBK9('spoiler')">Spoiler</button>
+        <button type="button" class="btn btn-sm btn-primary" title="Center" onclick="wrapBBK9('center')">Center</button>
+        <button type="button" class="btn btn-sm btn-info" title="URL" onclick="insertBBK9Url()">URL</button>
+        <button type="button" class="btn btn-sm btn-warning" title="Image" onclick="insertBBK9Image()">Image</button>
+        <button type="button" class="btn btn-sm btn-success" title="List" onclick="insertBBK9List()">List</button>
+        <button type="button" class="btn btn-sm btn-outline-success" title="List Item [*]" onclick="insertBBK9ListItem()">[*]</button>
+      </div>
+      <textarea id="letterBody2" class="form-control" rows="7" required placeholder="Enter the body of your letter here..."></textarea>
+      <small>
+        Supports BBCode: <code>[b]</code> <code>[i]</code> <code>[u]</code> <code>[s]</code> <code>[spoiler]</code> <code>[center]</code> <code>[url]</code> <code>[img]</code> <code>[list][*]</code>
+      </small>
+    </div>
+  </div>
+  <!-- Submit -->
+  <div class="text-center">
+    <button type="submit" class="btn btn-success px-5">Generate and Copy BBCode</button>
+    <p id="lspdK9CopySuccess" class="mt-2 text-success fw-semibold"></p>
+  </div>
+  <!-- BBCode Output -->
+  <div class="mt-4">
+    <label for="lspdK9BBOutput" class="form-label fw-bold">BBCode Output:</label>
+    <textarea id="lspdK9BBOutput" class="form-control" rows="20" readonly placeholder="BBCode will appear here"></textarea>
+  </div>
+</form>
     </div>
   </div>
 </div>
-
 <script>
-// Universal signature storage for LSPD forms
+// --- BBCode Toolbar Functions for K9 ---
+function wrapBBK9(tag) {
+  const ta = document.getElementById('letterBody2');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end);
+  ta.value = ta.value.substring(0, start) + `[${tag}]` + sel + `[/${tag}]` + ta.value.substring(end);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + `[${tag}]`.length + sel.length;
+}
+function insertBBK9Url() {
+  const ta = document.getElementById('letterBody2');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end);
+  const url = prompt('Enter the URL:');
+  if (!url) return;
+  ta.value = ta.value.substring(0, start) + `[url=${url}]` + (sel || url) + `[/url]` + ta.value.substring(end);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + `[url=${url}]`.length + (sel || url).length;
+}
+function insertBBK9Image() {
+  const ta = document.getElementById('letterBody2');
+  const url = prompt('Enter the image URL:');
+  if (!url) return;
+  const start = ta.selectionStart;
+  ta.value = ta.value.substring(0, start) + `[img]${url}[/img]` + ta.value.substring(start);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + `[img]${url}[/img]`.length;
+}
+function insertBBK9List() {
+  const ta = document.getElementById('letterBody2');
+  const start = ta.selectionStart;
+  ta.value = ta.value.substring(0, start) + `[list]\n[*]\n[/list]` + ta.value.substring(start);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + `[list]\n[*]\n[/list]`.length;
+}
+function insertBBK9ListItem() {
+  const ta = document.getElementById('letterBody2');
+  const start = ta.selectionStart;
+  ta.value = ta.value.substring(0, start) + `\n[*]` + ta.value.substring(start);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + 4;
+}
 
-// Save signature when form submits
+// --- Letter Generator Handler ---
 document.getElementById('lspdK9Form').addEventListener('submit', function(e) {
   e.preventDefault();
   const successMsg = document.getElementById('lspdK9CopySuccess');
   successMsg.textContent = '';
-
-
   if (!this.checkValidity()) {
     this.reportValidity();
     return;
   }
-
   const letterBody = document.getElementById('letterBody2').value.trim();
 
   const bbcode = `[img]https://i.imgur.com/88vzzHs.jpg[/img][divbox=white]
@@ -692,51 +830,109 @@ Los Santos Police Department[/list][/divbox]
 </script>
 
 
-
-<div id="lspdMCDGen" class="container mt-3 myHideableSection" style="max-width: 800px;">
+<div id="lspdMCDGen" class="container mt-3 myHideableSection" style="max-width: 900px;">
   <div class="card shadow" style="background: linear-gradient(135deg, #091f62, #003399); color: white;">
     <div class="card-header text-center">
-      <h4>LSPD Major Crimes Letter Generator</h4>
+      <h4>[DB] MCD Email Generator</h4>
     </div>
     <div class="card-body">
-      <form id="lspdMCDForm" autocomplete="off" novalidate>
-        <!-- Letter Body -->
-        <div class="mb-3 row align-items-center">
-          <label for="letterBody3" class="col-sm-4 col-form-label fw-bold text-end">Letter Body:</label>
-          <div class="col-sm-8">
-            <textarea id="letterBody3" class="form-control" rows="7" required placeholder="Enter the body of your letter here..."></textarea>
-          </div>
-        </div>
-           <!-- Submit -->
-        <div class="text-center">
-          <button type="submit" class="btn btn-success px-5">Generate and Copy BBCode</button>
-          <p id="lspdK9CopySuccess" class="mt-2 text-success fw-semibold"></p>
-        </div>
-        <!-- BBCode Output -->
-        <div class="mt-4">
-          <label for="lspdMCDBBOutput" class="form-label fw-bold">BBCode Output:</label>
-          <textarea id="lspdMCDBBOutput" class="form-control" rows="20" readonly placeholder="BBCode will appear here"></textarea>
-        </div>
-      </form>
-    </div>
-  </div>
+<form id="lspdMCDForm" autocomplete="off" novalidate>
+  <!-- Formatting Toolbar -->
+<div class="mb-2 d-flex flex-wrap gap-1 justify-content-center">
+  <button type="button" class="btn btn-sm btn-light fw-bold" title="Bold" onclick="wrapBB('b')"><b>B</b></button>
+  <button type="button" class="btn btn-sm btn-light fst-italic" title="Italic" onclick="wrapBB('i')"><i>I</i></button>
+  <button type="button" class="btn btn-sm btn-info" title="Underline" onclick="wrapBB('u')"><u>U</u></button>
+  <button type="button" class="btn btn-sm btn-warning" title="Strikethrough" onclick="wrapBB('s')"><s>S</s></button>
+  <button type="button" class="btn btn-sm btn-secondary" title="Spoiler" onclick="wrapBB('spoiler')">Spoiler</button>
+  <button type="button" class="btn btn-sm btn-primary" title="Center" onclick="wrapBB('center')">Center</button>
+  <button type="button" class="btn btn-sm btn-info" title="URL" onclick="insertBBUrl()">URL</button>
+  <button type="button" class="btn btn-sm btn-warning" title="Image" onclick="insertBBImage()">Image</button>
+  <button type="button" class="btn btn-sm btn-success" title="List" onclick="insertBBList()">List</button>
+  <button type="button" class="btn btn-sm btn-outline-success" title="List Item [*]" onclick="insertBBListItem()">[*]</button>
 </div>
 
-<script>
-// Universal signature storage for LSPD forms
+  <!-- Letter Body -->
+  <div class="mb-3 row align-items-center">
+    <label for="letterBody3" class="col-sm-4 col-form-label fw-bold text-end">Letter Body:</label>
+    <div class="col-sm-8">
+      <textarea id="letterBody3" class="form-control" rows="7" required placeholder="Enter the body of your letter here..."></textarea>
+      <small>
+        Supports BBCode: <code>[b]</code> <code>[i]</code> <code>[spoiler]</code> <code>[url]</code> <code>[img]</code> <code>[list][*]</code>
+      </small>
+    </div>
+  </div>
+  
+  <!-- Submit -->
+  <div class="text-center">
+    <button type="submit" class="btn btn-success px-5">Generate and Copy BBCode</button>
+    <p id="lspdMCDCopySuccess" class="mt-2 text-success fw-semibold"></p>
+  </div>
 
-// Save signature when form submits
+  <!-- BBCode Output -->
+  <div class="mt-4">
+    <label for="lspdMCDBBOutput" class="form-label fw-bold">BBCode Output:</label>
+    <textarea id="lspdMCDBBOutput" class="form-control" rows="20" readonly placeholder="BBCode will appear here"></textarea>
+  </div>
+</form>
+  </div>
+    </div>
+    </div>
+
+
+<script>
+// --- BBCode Toolbar Functions ---
+function wrapBB(tag) {
+  const ta = document.getElementById('letterBody3');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end);
+  // Insert wrapper
+  ta.value = ta.value.substring(0, start) + `[${tag}]` + sel + `[/${tag}]` + ta.value.substring(end);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + `[${tag}]`.length + sel.length;
+}
+function insertBBUrl() {
+  const ta = document.getElementById('letterBody3');
+  const start = ta.selectionStart, end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end);
+  const url = prompt('Enter the URL:');
+  if (!url) return;
+  ta.value = ta.value.substring(0, start) + `[url=${url}]` + (sel || url) + `[/url]` + ta.value.substring(end);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + `[url=${url}]`.length + (sel || url).length;
+}
+function insertBBImage() {
+  const ta = document.getElementById('letterBody3');
+  const url = prompt('Enter the image URL:');
+  if (!url) return;
+  const start = ta.selectionStart;
+  ta.value = ta.value.substring(0, start) + `[img]${url}[/img]` + ta.value.substring(start);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + `[img]${url}[/img]`.length;
+}
+function insertBBList() {
+  const ta = document.getElementById('letterBody3');
+  const start = ta.selectionStart;
+  ta.value = ta.value.substring(0, start) + `[list]\n[*]\n[/list]` + ta.value.substring(start);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + `[list]\n[*]\n[/list]`.length;
+}
+function insertBBListItem() {
+  const ta = document.getElementById('letterBody3');
+  const start = ta.selectionStart;
+  ta.value = ta.value.substring(0, start) + `\n[*]` + ta.value.substring(start);
+  ta.focus();
+  ta.selectionStart = ta.selectionEnd = start + 4;
+}
+
+// --- Letter Generator Handler ---
 document.getElementById('lspdMCDForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const successMsg = document.getElementById('lspdMCDCopySuccess');
   successMsg.textContent = '';
-
-
   if (!this.checkValidity()) {
     this.reportValidity();
     return;
   }
-
   const letterBody = document.getElementById('letterBody3').value.trim();
 
   const bbcode = `[lspdfooter][/lspdfooter]
@@ -1262,6 +1458,9 @@ document.getElementById('btnCopy').addEventListener('click', createDossierReport
           <button type="submit" class="btn btn-success px-4">Submit and Copy to Clipboard</button>
           <p id="copyMugshotSuccess" class="mt-2 text-success fw-semibold"></p>
         </div>
+<div class="text-center mt-2">
+  <button type="button" id="resetMugshot" class="btn btn-warning px-4">Clear</button>
+</div>
 
         <div class="mt-4">
           <label for="displayMugshotBB" class="form-label fw-bold">BBCode Output:</label>
@@ -1273,6 +1472,15 @@ document.getElementById('btnCopy').addEventListener('click', createDossierReport
 </div>
 
 <script>
+document.getElementById('resetMugshot').addEventListener('click', function() {
+  // Reset field values
+  document.getElementById('txtMDate').value = '';
+  document.getElementById('txtMLink').value = '';
+  document.getElementById('displayMugshotBB').value = '';
+  document.getElementById('copyMugshotSuccess').textContent = '';
+  // Add any other reset logic needed for this form (reset error messages, etc.)
+});
+
   (() => {
     const form = document.getElementById('mugshotForm');
     const dateInput = document.getElementById('txtMDate');
@@ -1505,6 +1713,166 @@ ${image ? `[img]${image}[/img]` : ''}
       }
     });
   })();
+</script>
+<div id="fineJailGen" class="container mt-4 myHideableSection" style="max-width: 900px;">
+  <div class="card shadow" style="background: linear-gradient(135deg, #113875, #091f62); color: white;">
+    <div class="card-header text-center">
+      <h4>Charge, Fine & Jail Time Calculator</h4>
+      <div style="font-size:90%">Add charges, then see totals and copy a ready charge sheet.</div>
+    </div>
+    <div class="card-body" style="background:#fff;color:#1a1a1a;">
+      <form id="fineJailForm" autocomplete="off" novalidate>
+        <label class="fw-bold mb-2">Add Charge:</label>
+        <div class="input-group mb-3">
+          <select id="chargeSelect" class="form-select">
+            <!-- Charges added by JS below -->
+          </select>
+          <button type="button" id="addChargeBtn" class="btn btn-primary">Add Charge</button>
+        </div>
+
+        <table class="table table-bordered mb-3" id="chargeTable">
+          <thead class="table-light">
+            <tr>
+              <th>Charge</th>
+              <th>Fine</th>
+              <th>Jail</th>
+              <th>Suspension</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot class="table-light">
+            <tr>
+              <th>Total</th>
+              <th id="totalFine">$0</th>
+              <th id="totalJail">0</th>
+              <th colspan="2"></th>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div class="mb-3">
+          <label class="fw-bold">BBCode Output (for forum use):</label>
+          <textarea id="outputBB" class="form-control" rows="12" readonly placeholder="BBCode will appear here"></textarea>
+        </div>
+        <div class="text-center">
+          <button type="button" class="btn btn-success px-5" id="copyOutput">Copy BBCode</button>
+          <span id="copySuccessMsg" class="ms-3 text-success fw-semibold"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+// MASTER CHARGE DATA
+const CHARGES = [
+  {code:"VC01",desc:"Speeding 1st Degree",fine:1000,jail:0,sus:"No"},
+  {code:"VC02",desc:"Speeding 2nd Degree",fine:2000,jail:0,sus:"3rd Demerit"},
+  {code:"VC03",desc:"Speeding 3rd Degree",fine:3500,jail:0,sus:"3rd Demerit"},
+  {code:"VC04",desc:"Illegal Parking",fine:500,jail:0,sus:"No"},
+  {code:"VC05",desc:"Improper Traffic Maneuvers",fine:500,jail:0,sus:"3rd Demerit"},
+  {code:"VC06",desc:"Following or Impeding Emergency Response",fine:1000,jail:0,sus:"3rd Demerit"},
+  {code:"VC07",desc:"Operating a Vehicle Without A License On Your Person",fine:500,jail:0,sus:"3rd Demerit"},
+  {code:"VC08",desc:"Negligent Operation of a Road or Marine Vehicle",fine:1500,jail:0,sus:"3rd Demerit"},
+  {code:"VC09",desc:"Blocking Intersection",fine:500,jail:0,sus:"3rd Demerit"},
+  {code:"VC10",desc:"Unroadworthy Vehicle",fine:500,jail:0,sus:"3rd Demerit"},
+  {code:"VC11",desc:"Failure to Pay a Toll",fine:3000,jail:0,sus:"No"},
+  {code:"VC12",desc:"Operating an Unregistered Vehicle",fine:1000,jail:0,sus:"3rd Demerit"},
+  {code:"VC13",desc:"Disruptive Impeding or Blocking Travel",fine:2000,jail:0,sus:"3rd Demerit"},
+  {code:"VC14",desc:"Operation of a Vehicle without a License Plate",fine:1000,jail:0,sus:"3rd Demerit"},
+  {code:"GC01",desc:"Loitering",fine:750,jail:0,sus:"No"},
+  {code:"GC02",desc:"Traffic Endangerment",fine:500,jail:0,sus:"No"},
+  {code:"GC03",desc:"Disorderly Conduct",fine:5000,jail:0,sus:"No"},
+  {code:"GC04",desc:"Face Concealment",fine:500,jail:0,sus:"No"},
+  {code:"GC05",desc:"Misuse of Government Public Safety Radio Frequencies or Hotlines",fine:1000,jail:0,sus:"No"},
+  {code:"GC06",desc:"Possession of Cannabis",fine:1000,jail:0,sus:"No"},
+  {code:"GM01",desc:"Assault",fine:1500,jail:10,sus:"No"},
+  {code:"GM02",desc:"Battery",fine:2000,jail:20,sus:"No"},
+  {code:"GM03",desc:"Possession of a Blade",fine:1000,jail:10,sus:"No"},
+  {code:"GM04",desc:"Resisting Arrest",fine:2000,jail:25,sus:"No"},
+  {code:"GM05",desc:"Receiving Stolen Property",fine:1000,jail:10,sus:"No"},
+  {code:"GM06",desc:"Petty Theft",fine:2000,jail:15,sus:"No"},
+  {code:"GM07",desc:"Criminal Fraud",fine:1500,jail:20,sus:"No"},
+  {code:"GM08",desc:"Vandalism",fine:1000,jail:15,sus:"No"},
+  {code:"GM09",desc:"Vigilantism",fine:1000,jail:15,sus:"No"},
+  {code:"GM10",desc:"Failure to Comply / Identify",fine:1000,jail:20,sus:"No"},
+  {code:"GM11",desc:"Predatory Lending",fine:2000,jail:15,sus:"No"},
+  {code:"GM12",desc:"Giving False Information to a Police Officer",fine:1000,jail:20,sus:"No"},
+  {code:"GM13",desc:"Criminal Threats",fine:1000,jail:20,sus:"No"},
+  {code:"GM14",desc:"Obstruction of Justice",fine:1000,jail:20,sus:"No"}
+];
+
+// Populate select
+const chargeSelect = document.getElementById('chargeSelect');
+CHARGES.forEach((c, idx) => {
+  const opt = document.createElement('option');
+  opt.value = idx;
+  opt.textContent = `${c.code} - ${c.desc} (${c.fine ? '$'+c.fine : ''}${c.jail?' | '+c.jail+'m jail':''}${c.sus && c.sus!='No'?' | '+c.sus:''})`;
+  chargeSelect.appendChild(opt);
+});
+
+// Internal list of added charges
+let added = [];
+
+function updateTableAndTotal() {
+  const tbody = document.querySelector('#chargeTable tbody');
+  tbody.innerHTML = '';
+  let totalFine = 0, totalJail = 0, suspArr = [];
+  added.forEach((item, idx) => {
+    totalFine += item.fine;
+    totalJail += item.jail;
+    if (item.sus && item.sus !== "No") suspArr.push(`${item.code}: ${item.sus}`);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${item.code} - ${item.desc}</td>
+      <td>$${item.fine}</td>
+      <td>${item.jail}m</td>
+      <td>${item.sus}</td>
+      <td><button type="button" class="btn btn-sm btn-danger" onclick="removeCharge(${idx})">Remove</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  document.getElementById('totalFine').textContent = '$'+totalFine;
+  document.getElementById('totalJail').textContent = totalJail;
+  // Output BBCode
+  let bb = `[table]\n[tr][th]Charge[/th][th]Fine[/th][th]Jail[/th][th]Suspension[/th][/tr]\n`;
+  added.forEach(charge => {
+    bb += `[tr][td]${charge.code} - ${charge.desc}[/td][td]$${charge.fine}[/td][td]${charge.jail?charge.jail+'m':'0'}[/td][td]${charge.sus}[/td][/tr]\n`;
+  });
+  bb += `[/table]\n\n`;
+  bb += `[b]Total Fine:[/b] $${totalFine}\n[b]Total Jail Time:[/b] ${totalJail} minutes\n`;
+  if (suspArr.length)
+    bb += `[b]Suspensions/Demerits:[/b]\n[spoiler]${suspArr.join('\n')}[/spoiler]`;
+  document.getElementById('outputBB').value = bb.trim();
+}
+window.removeCharge = function(idx) {
+  added.splice(idx,1);
+  updateTableAndTotal();
+};
+
+document.getElementById('addChargeBtn').addEventListener('click', () => {
+  const idx = parseInt(chargeSelect.value,10);
+  if (isNaN(idx) || idx < 0 || idx >= CHARGES.length) return;
+  added.push(CHARGES[idx]);
+  updateTableAndTotal();
+});
+
+document.getElementById('copyOutput').addEventListener('click', function(){
+  const bb = document.getElementById('outputBB').value;
+  if (!bb.trim()) return;
+  navigator.clipboard.writeText(bb)
+    .then(() => {
+      document.getElementById('copySuccessMsg').textContent = "Copied!";
+      setTimeout(()=>document.getElementById('copySuccessMsg').textContent='',1000);
+    })
+    .catch(() => {
+      document.getElementById('copySuccessMsg').textContent = "Copy failed, select and copy manually.";
+    });
+});
+
+// Initialize with empty
+updateTableAndTotal();
 </script>
 
 <!-- ------------------------------------- -->
@@ -1846,179 +2214,130 @@ function formatDateDMY(dateStr) {
 </script>
 
 <!-- ------------------------------------- -->
-
-<div id="LOG" class="container mt-3 myHideableSection" style="max-width: 700px;">
-        <div class="card shadow" style="background: linear-gradient(135deg, #001f4d, #003399); color: #fff;">
+<div id="traceUpdateGen" class="container mt-3 myHideableSection" style="max-width: 800px;">
+  <div class="card shadow" style="background: linear-gradient(135deg, #091f62 0%, #003399 90%); color: white;">
     <div class="card-header text-center">
-      <h4>Dossier Log</h4>
+      <h4>LSPD Trace Update Generator</h4>
     </div>
     <div class="card-body">
-      <form id="logForm" autocomplete="off" novalidate>
+      <form id="traceUpdateForm" autocomplete="off" novalidate>
+        <!-- Date of update -->
         <div class="mb-3 row align-items-center">
-          <label for="txtLDate" class="col-sm-3 col-form-label fw-bold text-end">Date:</label>
-          <div class="col-sm-9">
-            <input type="date" id="txtLDate" class="form-control" required />
+          <label for="updateDate" class="col-sm-4 col-form-label fw-bold text-end">Date of update:</label>
+          <div class="col-sm-8">
+            <input type="date" id="updateDate" class="form-control" required />
           </div>
         </div>
-
-        <div class="mb-4 row align-items-center">
-          <label for="txtLName" class="col-sm-3 col-form-label fw-bold text-end">Name:</label>
-          <div class="col-sm-9">
-            <input type="text" id="txtLName" class="form-control" placeholder="Name" required />
+        <!-- Trace Status -->
+        <div class="mb-3 row align-items-center">
+          <label for="traceStatus" class="col-sm-4 col-form-label fw-bold text-end">Trace Status:</label>
+          <div class="col-sm-8">
+            <select id="traceStatus" class="form-select" required>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
           </div>
         </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" id="certMUG" checked>
-            <label class="form-check-label" for="certMUG">
-             Mugshot's
-            </label>
-                 </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" id="certVEH">
-            <label class="form-check-label" for="certVEH">
-              Vehicle's
-            </label>
+        <!-- Update Types -->
+        <div class="mb-3">
+          <label class="fw-bold">Update Type(s):</label>
+          <div class="ms-3">
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="utOutfit"><label class="form-check-label" for="utOutfit">Outfits Updated</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="utAsset"><label class="form-check-label" for="utAsset">New asset documented (vehicle/property/etc)</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="utSurveil"><label class="form-check-label" for="utSurveil">Surveillance added</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="utAssociate"><label class="form-check-label" for="utAssociate">New known associate(s)</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="utPhone"><label class="form-check-label" for="utPhone">Phone number updated</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="utPattern"><label class="form-check-label" for="utPattern">Criminal pattern logged</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="utCrew"><label class="form-check-label" for="utCrew">Crew activity logged</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="utArrest"><label class="form-check-label" for="utArrest">Relevant Arrest Report logged</label></div>
           </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" id="certAFF">
-            <label class="form-check-label" for="certAFF">
-              Affiliate's 
-            </label>
-          </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" id="certArrest">
-            <label class="form-check-label" for="certArrest">
-              Arrest's
-            </label>
-          </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" id="certReacct">
-            <label class="form-check-label" for="certReacct">
-              Reactivated Dossier
-            </label>
-          </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" id="certMIA">
-            <label class="form-check-label" for="certMIA">
-              Archived Dossier - MIA
-            </label>
-          </div>
-          <div class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" id="certDEP">
-            <label class="form-check-label" for="certDEP">
-              Archived Dossier - Deported
-            </label>
-          </div>
+        </div>
+        <!-- Narrative Summary -->
+        <div class="mb-3">
+          <label for="summary" class="form-label fw-bold">Narrative Summary:</label>
+          <textarea id="summary" class="form-control" rows="3" placeholder="Summary of relevant updates."></textarea>
+        </div>
+        <!-- Submit/BBCode -->
         <div class="text-center">
-          <button type="submit" class="btn btn-success px-5">Submit and Copy to Clipboard</button>
-          <p id="copyLOGSuccess" class="mt-2 text-success fw-semibold"></p>
+          <button type="submit" class="btn btn-success px-5">Generate and Copy BBCode</button>
+          <p id="traceUpdateCopySuccess" class="mt-2 text-success fw-semibold"></p>
         </div>
-
         <div class="mt-4">
-          <label for="displayLOGBB" class="form-label fw-bold">BBCode Output:</label>
-          <textarea id="displayLOGBB" class="form-control" rows="10" readonly placeholder="BBCode will appear here"></textarea>
+          <label for="traceUpdateBBOutput" class="form-label fw-bold">BBCode Output:</label>
+          <textarea id="traceUpdateBBOutput" class="form-control" rows="18" readonly placeholder="BBCode will appear here"></textarea>
         </div>
       </form>
     </div>
   </div>
 </div>
-
 <script>
-  (() => {
-    const form = document.getElementById('logForm');
-    const dateInput = document.getElementById('txtLDate');
-    const nameInput = document.getElementById('txtLName');
-    const output = document.getElementById('displayLOGBB');
-    const successMsg = document.getElementById('copyLOGSuccess');
-
-function formatDateDMY(dateStr) {
-  if (!dateStr) return '';
-  const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+function formatDateDDMMMYYYY(dateStr) {
+  if (!dateStr) return 'DD/MMM/YYYY';
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const [year, month, day] = dateStr.split('-');
-  const monthName = months[parseInt(month, 10) - 1] || '';
-  return `${day}/${monthName}/${year}`;
+  return `${day}/${months[parseInt(month, 10) - 1]}/${year}`;
 }
+document.getElementById('traceUpdateForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const msg = document.getElementById('traceUpdateCopySuccess');
+  msg.textContent = '';
 
-const DateValRaw = dateInput.value;
-const DateVal = formatDateDMY(DateValRaw);
+  // Data
+  const date = formatDateDDMMMYYYY(document.getElementById('updateDate').value);
+  const traceStatus = document.getElementById('traceStatus').value;
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      successMsg.textContent = '';
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-  const DateValRaw = dateInput.value;
-  const DateVal = formatDateDMY(DateValRaw);
-      const Name33 = nameInput.value.trim();
-
-
-  let certs = '';
-  if (document.getElementById('certMUG').checked) {
-    certs += `[cbc] Mugshot's\n`;
+  // Update types
+  function cb(id, label) {
+    return document.getElementById(id).checked ? '[cbc]' : '[cb]';
   }
+  const updateTypes = [
+    `${cb('utOutfit','Outfits Updated')} Outfits Updated`,
+    `${cb('utAsset','New asset documented')} New asset documented (vehicle/property/etc)`,
+    `${cb('utSurveil','Surveillance added')} Surveillance added`,
+    `${cb('utAssociate','New known associate(s)')} New known associate(s)`,
+    `${cb('utPhone','Phone number updated')} Phone number updated`,
+    `${cb('utPattern','Criminal pattern logged')} Criminal pattern logged`,
+    `${cb('utCrew','Crew activity logged')} Crew activity logged`,
+    `${cb('utArrest','Relevant Arrest Report logged')} Relevant Arrest Report logged`
+  ];
 
-  if (document.getElementById('certVEH').checked) {
-    certs += `[cbc] Vehicle's\n`;
-  }
+  // Narrative
+  const narrative = document.getElementById('summary').value.trim() || 'Summary of relevant updates.';
 
-  if (document.getElementById('certAFF').checked) {
-    certs += `[cbc] Affiliate's\n`;
-  }
+  const bbcode =
+`[img]https://i.imgur.com/AknPOEA.png[/img]
 
-  if (document.getElementById('certArrest').checked) {
-    certs += `[cbc] Arrest's\n`;
-  }
-  if (document.getElementById('certReacct').checked) {
-    certs += `[cbc] Reactivated Dossier\n`;
-  }
-  if (document.getElementById('certMIA').checked) {
-    certs += `[cbc] Marked Dossier Inactive - Has not been seen in awhile\n`;
-  }
-  if (document.getElementById('certDEP').checked) {
-    certs += `[cbc] Marked Dossier Inactive - Has been deported from the city\n`;
-  }
+[lspdsubtitle]1. DETAILS[/lspdsubtitle]
+[divbox=white][list=none]
+[b]Date of update:[/b] ${date}  
+[b]Trace Status:[/b] [${traceStatus}]  
+[/list][/divbox]
 
+[lspdsubtitle]2. UPDATE TYPE(S)[/lspdsubtitle]
+[divbox=white][list=none]
+${updateTypes.join('  \n')}
+[/list][/divbox]
 
+[lspdsubtitle]3. NARRATIVE SUMMARY[/lspdsubtitle]
+[divbox=white][list=none]
+${narrative}
+[/list][/divbox]`;
 
-      const LOGTemplate = `[lspdfooter][/lspdfooter]
-[divbox=white]
-[mcdlogo=150][aligntable=right,0,0,0,0,0,#FFFFFF][right][font=Arial][b]
-[size=150]Los Santos Police Department[/size][/b]
-[size=95]"TO PROTECT AND TO SERVE"[/size][/font][/right][/aligntable]
-[hr]
-[list=none]
-[b]Re:[/b] Dossier - ${Name33} [${DateVal}]
-
-Following has been updated;
-${certs}
- 
-[/list]
-[hr][/hr]
-[list=none]
-Sincerely,
-[fimg=300,70]https://imgur.com/p2ksyW2.png[/fimg]
-[b] Police Detective I Mick Wegman[/b]
-Major Crimes Unit, Detective Bureau
-[b]Los Santos Police Department[/b][/list][/divbox] [lspdfooter][/lspdfooter]`;
-
-      output.value = LOGTemplate.trim();
-      output.select();
-
-      try {
-        navigator.clipboard.writeText(LOGTemplate).then(() => {
-          successMsg.textContent = 'Copied to clipboard!';
-        }, () => {
-          successMsg.textContent = 'Failed to copy automatically. Please copy manually.';
-        });
-      } catch {
-        successMsg.textContent = 'Clipboard API not supported. Please copy manually.';
-      }
+  const outputArea = document.getElementById('traceUpdateBBOutput');
+  outputArea.value = bbcode.trim();
+  outputArea.focus();
+  outputArea.select();
+  try {
+    navigator.clipboard.writeText(bbcode).then(() => {
+      msg.textContent = 'Copied to clipboard!';
+    }, () => {
+      msg.textContent = 'Failed to copy automatically. Please copy manually.';
     });
-  })();
+  } catch {
+    msg.textContent = 'Clipboard API not supported. Please copy manually.';
+  }
+});
 </script>
 <!-- ------------------------------------------------------- -->
 
@@ -4415,263 +4734,342 @@ Specify here..
 </script>
 
           
-<div id="FTS" class="container mt-3 myHideableSection" style="max-width: 900px; display: none;">
-        <div class="card shadow" style="background: linear-gradient(135deg, #001f4d, #003399); color: #fff;">
+<div id="lspdCadetSessionGen" class="container mt-3 myHideableSection" style="max-width: 950px;">
+  <div class="card shadow" style="background: linear-gradient(135deg, #113875, #091f62); color: white;">
     <div class="card-header text-center">
-      <h4>Field Training Session (FTS) Report</h4>
+      <h4>LSPD Cadet Session Evaluation Generator</h4>
     </div>
     <div class="card-body">
-      <form id="ftsForm" autocomplete="off" novalidate>
+      <form id="lspdCadetSessionForm" autocomplete="off" novalidate>
+        <!-- Date and Patrol Hours -->
         <div class="mb-3 row align-items-center">
-          <label for="txtFTSDate" class="col-sm-3 col-form-label fw-bold text-end">Date:</label>
-          <div class="col-sm-9">
-            <input type="date" id="txtFTSDate" class="form-control" required />
+          <label for="sessionDate" class="col-sm-4 col-form-label fw-bold text-end">Date:</label>
+          <div class="col-sm-4">
+            <input type="date" id="sessionDate" class="form-control" required />
           </div>
         </div>
         <div class="mb-3 row align-items-center">
-          <label for="txtFTSTime" class="col-sm-3 col-form-label fw-bold text-end">Time (UTC, 24h):</label>
-          <div class="col-sm-9">
-            <input type="text" id="txtFTSTime" class="form-control" required />
+          <label for="patrolStart" class="col-sm-4 col-form-label fw-bold text-end">Patrol Start [UTC, 24h]:</label>
+          <div class="col-sm-4">
+            <input type="text" id="patrolStart" class="form-control" required />
+          </div>
+          <label for="patrolEnd" class="col-sm-2 col-form-label fw-bold text-end">End:</label>
+          <div class="col-sm-2">
+            <input type="text" id="patrolEnd" class="form-control" required />
           </div>
         </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSMod" class="col-sm-3 col-form-label fw-bold text-end">Modules:</label>
-          <div class="col-sm-9">
-            <textarea id="txtFTSMod" class="form-control" rows="6" required>
-[spoil]
-[b]ORIENTATION[/b]
-[list=none] 
-[*] [cb] - [b]Cadet was instructed how to start watch[/b]
-[*] [cb] - [b]Cadet was introduced to the concept of jurisdictions[/b]
-[*] [cb] - [b]Cadet was taught how to use the MDC[/b]
-[*] [cb] - [b]Cadet was introduced to our precincts and facilities[/b]
-[*] [cb] - [b]Cadet was taught how to operate the impound lot[/b]
-[*] [cb] - [b]Cadet was taught the basics of communication[/b]
-[*] [cb] - [b]Cadet has set up a Personnel Record (MUST BE CONFIRMED BY THE FTO)[/b]
-[/list]
-[hr]
-[b]BASIC POLICING[/b]
-[list=none] 
-[*] [cb] - [b]PRIORITY: Probable Cause & Arrest Procedure[/b]
-[*] [cb] - [b]PRIORITY: Use of Force[/b]
-[*] [cb] - [b]PRIORITY: Basics of Paperwork[/b]
-[*] [cb] - [b]Basics of Law[/b]
-[*] [cb] - [b]Advanced Communication[/b]
-[*] [cb] - [b]Traffic Stops[/b]
-[*] [cb] - [b]Pursuits[/b]
-[*] [cb] - [b]Scenes, Management & BLS[/b]
-[/list]
-[hr]
-[b]ADVANCED POLICING[/b]
-[list=none] 
-[*] [cb] - [b]Mask Enforcement[/b]
-[*] [cb] - [b]Robbery Response[/b]
-[*] [cb] - [b]Hostage Negotiation & Suicide Prevention[/b]
-[*] [cb] - [b]Felony Stops[/b]
-[*] [cb] - [b]Advanced Driving[/b]
-[*] [cb] - [b]Seeking Assistance[/b]
-[/list]
-[/spoil]
-            </textarea>
+        <hr>
+        <!-- Checklist Section -->
+        <div class="mb-3">
+          <div class="fw-bold mb-2">Session Checklist</div>
+          <div class="mb-2">
+            <span style="font-size: 0.98em; color:#eee;">
+              Mark each box if a topic / module was covered. Leave unchecked if not covered.
+            </span>
+          </div>
+          <div class="border rounded p-2" style="background:#f9faff;color:#222;">
+            <b>ORIENTATION</b><br>
+            <div class="row mb-1">
+              <div class="col">
+                <input type="checkbox" id="ori1"> Cadet was instructed how to start watch
+              </div>
+              <div class="col">
+                <input type="checkbox" id="ori2"> Cadet was introduced to jurisdictions
+              </div>
+              <div class="col">
+                <input type="checkbox" id="ori3"> Cadet was taught how to use the MDC
+              </div>
+            </div>
+            <div class="row mb-1">
+              <div class="col">
+                <input type="checkbox" id="ori4"> Precincts and facilities
+              </div>
+              <div class="col">
+                <input type="checkbox" id="ori5"> Impound lot
+              </div>
+              <div class="col">
+                <input type="checkbox" id="ori6"> Basics of communication
+              </div>
+              <div class="col">
+                <input type="checkbox" id="ori7"> Set up Personnel Record
+              </div>
+            </div>
+            <hr>
+            <b>BASIC POLICING</b><br>
+            <div class="row mb-1">
+              <div class="col"><input type="checkbox" id="bp1"> PRIORITY: Probable Cause &amp; Arrest Procedure</div>
+              <div class="col"><input type="checkbox" id="bp2"> PRIORITY: Use of Force</div>
+              <div class="col"><input type="checkbox" id="bp3"> PRIORITY: Basics of Paperwork</div>
+              <div class="col"><input type="checkbox" id="bp4"> Basics of Law</div>
+            </div>
+            <div class="row mb-1">
+              <div class="col"><input type="checkbox" id="bp5"> Advanced Communication</div>
+              <div class="col"><input type="checkbox" id="bp6"> Traffic Stops</div>
+              <div class="col"><input type="checkbox" id="bp7"> Pursuits</div>
+              <div class="col"><input type="checkbox" id="bp8"> Scenes, Management &amp; BLS</div>
+            </div>
+            <hr>
+            <b>ADVANCED POLICING</b><br>
+            <div class="row mb-1">
+              <div class="col"><input type="checkbox" id="ap1"> Mask Enforcement</div>
+              <div class="col"><input type="checkbox" id="ap2"> Robbery Response</div>
+              <div class="col"><input type="checkbox" id="ap3"> Hostage Negotiation & Suicide Prevention</div>
+            </div>
+            <div class="row mb-1">
+              <div class="col"><input type="checkbox" id="ap4"> Felony Stops</div>
+              <div class="col"><input type="checkbox" id="ap5"> Advanced Driving</div>
+              <div class="col"><input type="checkbox" id="ap6"> Seeking Assistance</div>
+            </div>
           </div>
         </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSMan" class="col-sm-3 col-form-label fw-bold text-end">Manual Knowledge:</label>
-          <div class="col-sm-9">
-            <textarea id="txtFTSMan" class="form-control" rows="3" placeholder="Describe cadet's manual knowledge..." required></textarea>
+        <hr>
+        <!-- Session Report Section -->
+        <div class="mb-3">
+          <div class="fw-bold mb-2">Session Report</div>
+          <div class="mb-2" style="font-size:0.97em; color:#eee;">
+            Please answer each section based on your observations during the session.
+          </div>
+          <div class="border rounded p-2" style="background:#f9faff;color:#222;">
+            <b>MANUAL KNOWLEDGE</b>
+            <div class="mb-1">
+              Did the Cadet read the manual prior, require minimal assistance, and have no trouble with it during the session?
+              <select id="manKnowledge">
+                <option value="YES">YES</option>
+                <option value="NO">NO</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <input type="text" class="form-control" id="manKnowledgeNotes" placeholder="If no, provide details." />
+            </div>
+            <hr>
+            <b>BEHAVIOR</b>
+            <div class="mb-1">
+              Did the Cadet behave appropriately, ask questions, and demonstrate good conduct?
+              <select id="behavior">
+                <option value="YES">YES</option>
+                <option value="NO">NO</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <input type="text" class="form-control" id="behaviorNotes" placeholder="If no, provide details." />
+            </div>
+            <hr>
+            <b>COMMUNICATIONS</b>
+            <div class="mb-1">
+              Did the Cadet communicate clearly and confidently in the session/even under stress?
+              <select id="comms">
+                <option value="YES">YES</option>
+                <option value="NO">NO</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <input type="text" class="form-control" id="commsNotes" placeholder="If no, provide details." />
+            </div>
+            <hr>
+            <b>(( ROLEPLAY ABILITIES ))</b>
+            <div class="mb-1">
+              Does the Cadet meet department standards for roleplay (/me, /do, immersion)?
+              <select id="rpSkills">
+                <option value="YES">YES</option>
+                <option value="NO">NO</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <input type="text" class="form-control" id="rpNotes" placeholder="If no, provide details." />
+            </div>
           </div>
         </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSBehave" class="col-sm-3 col-form-label fw-bold text-end">Behavior:</label>
-          <div class="col-sm-9">
-            <textarea id="txtFTSBehave" class="form-control" rows="3" placeholder="Describe cadet's behavior..." required></textarea>
+        <hr>
+        <!-- Additional Notes Section -->
+        <div class="mb-3">
+          <div class="fw-bold mb-2">Additional Notes & Confirmations</div>
+          <div class="border rounded p-2" style="background:#f9faff;color:#222;">
+            <b>Did the Cadet demonstrate a solid understanding of the material, with no need for reiteration or correction?</b>
+            <select id="solidUnderstanding"><option>YES</option><option>NO</option></select>
+            <input type="text" class="form-control my-2" id="solidUnderstandingNotes" placeholder="If no, provide details." />
+            
+            <b>Are there any additional notes you'd like to add regarding the cadet, whether positive or negative?</b>
+            <select id="additionalNotes"><option>YES</option><option>NO</option></select>
+            <input type="text" class="form-control my-2" id="additionalNotesText" placeholder="If yes, provide details." />
+
+            <b>Is your report on this session complete?</b>
+            <select id="reportComplete"><option>YES</option><option>NO</option></select>
+            <input type="text" class="form-control my-2" id="reportCompleteNotes" placeholder="If no, provide details." />
+
+            <b>Have you entered this session on the <a href='https://forms.gle/jCRTjTn4p2t2nvBG6' target='_blank'>Session Submission Form</a>?</b>
+            <select id="sessionFormLogged"><option>YES</option><option>NO</option></select>
+            <input type="text" class="form-control my-2" id="sessionFormLoggedNotes" placeholder="If no, provide details." />
           </div>
         </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSComm" class="col-sm-3 col-form-label fw-bold text-end">Communications:</label>
-          <div class="col-sm-9">
-            <textarea id="txtFTSComm" class="form-control" rows="3" placeholder="Describe cadet's communication..." required></textarea>
-          </div>
-        </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSRP" class="col-sm-3 col-form-label fw-bold text-end">Roleplay Abilities:</label>
-          <div class="col-sm-9">
-            <textarea id="txtFTSRP" class="form-control" rows="3" placeholder="Describe cadet's roleplay abilities..." required></textarea>
-          </div>
-        </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSMat" class="col-sm-3 col-form-label fw-bold text-end">Understood Material?</label>
-          <div class="col-sm-9">
-            <input type="text" id="txtFTSMat" class="form-control" placeholder="YES/NO" required />
-          </div>
-        </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSRei" class="col-sm-3 col-form-label fw-bold text-end">Sections to Reiterate?</label>
-          <div class="col-sm-9">
-            <input type="text" id="txtFTSRei" class="form-control" placeholder="YES/NO" required />
-          </div>
-        </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSAt" class="col-sm-3 col-form-label fw-bold text-end">Key Mistakes?</label>
-          <div class="col-sm-9">
-            <input type="text" id="txtFTSAt" class="form-control" placeholder="YES/NO" required />
-          </div>
-        </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSSurv" class="col-sm-3 col-form-label fw-bold text-end">Cadet Reminded to Submit Survey?</label>
-          <div class="col-sm-9">
-            <input type="text" id="txtFTSSurv" class="form-control" placeholder="YES/NO" required />
-          </div>
-        </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSComp" class="col-sm-3 col-form-label fw-bold text-end">Report Complete?</label>
-          <div class="col-sm-9">
-            <input type="text" id="txtFTSComp" class="form-control" placeholder="YES/NO" required />
-          </div>
-        </div>
-        <div class="mb-3 row align-items-center">
-          <label for="txtFTSForm" class="col-sm-3 col-form-label fw-bold text-end">Session Form Submitted?</label>
-          <div class="col-sm-9">
-            <input type="text" id="txtFTSForm" class="form-control" placeholder="YES/NO" required />
-          </div>
-        </div>
+        <!-- Submit/BBCode -->
         <div class="text-center">
-          <button type="submit" class="btn btn-success px-5">Submit and Copy to Clipboard</button>
-          <p id="copyFTSSuccess" class="mt-2 text-success fw-semibold"></p>
+          <button type="submit" class="btn btn-success px-5">Generate and Copy BBCode</button>
+          <p id="lspdCadetSessionCopySuccess" class="mt-2 text-success fw-semibold"></p>
         </div>
         <div class="mt-4">
-          <label for="displayFTSReportBB" class="form-label fw-bold">BBCode Output:</label>
-          <textarea id="displayFTSReportBB" class="form-control" rows="12" readonly placeholder="BBCode will appear here"></textarea>
+          <label for="lspdCadetSessionBBOutput" class="form-label fw-bold">BBCode Output:</label>
+          <textarea id="lspdCadetSessionBBOutput" class="form-control" rows="36" readonly placeholder="BBCode will appear here"></textarea>
         </div>
       </form>
     </div>
   </div>
 </div>
-
 <script>
-(() => {
-  const form = document.getElementById('ftsForm');
-  const bbcodeOutput = document.getElementById('displayFTSReportBB');
-  const successMsg = document.getElementById('copyFTSSuccess');
-
-  form.addEventListener('submit', function (e) {
+function formatDateDDMMMYYYY(dateStr) {
+    if (!dateStr) return 'DD/MMM/YYYY';
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const [year, month, day] = dateStr.split('-');
+    return `${day}/${months[parseInt(month, 10) - 1]}/${year}`;
+}
+function formatTime24(timeStr) {
+    if (!timeStr) return "00:00";
+    return timeStr.slice(0,5);
+}
+document.getElementById('lspdCadetSessionForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    successMsg.textContent = '';
+    const msg = document.getElementById('lspdCadetSessionCopySuccess');
+    msg.textContent = '';
 
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
+    // Dates, times
+    const date = formatDateDDMMMYYYY(document.getElementById('sessionDate').value);
+    const patrolStart = formatTime24(document.getElementById('patrolStart').value);
+    const patrolEnd = formatTime24(document.getElementById('patrolEnd').value);
+
+    // Checklist
+    function cb(val) { return document.getElementById(val).checked ? '[cbc]' : '[cb]'; }
+    const checklist_ori = [
+      `${cb('ori1')} - [b]Cadet was instructed how to start watch[/b]`,
+      `${cb('ori2')} - [b]Cadet was introduced to the concept of jurisdictions[/b]`,
+      `${cb('ori3')} - [b]Cadet was taught how to use the MDC[/b]`,
+      `${cb('ori4')} - [b]Cadet was introduced to our precincts and facilities[/b]`,
+      `${cb('ori5')} - [b]Cadet was taught how to operate the impound lot[/b]`,
+      `${cb('ori6')} - [b]Cadet was taught the basics of communication[/b]`,
+      `${cb('ori7')} - [b]Cadet has set up a Personnel Record (MUST BE CONFIRMED BY THE FTO)[/b]`
+    ];
+    const checklist_bp = [
+      `${cb('bp1')} - [b]PRIORITY: Probable Cause & Arrest Procedure[/b]`,
+      `${cb('bp2')} - [b]PRIORITY: Use of Force[/b]`,
+      `${cb('bp3')} - [b]PRIORITY: Basics of Paperwork[/b]`,
+      `${cb('bp4')} - [b]Basics of Law[/b]`,
+      `${cb('bp5')} - [b]Advanced Communication[/b]`,
+      `${cb('bp6')} - [b]Traffic Stops[/b]`,
+      `${cb('bp7')} - [b]Pursuits[/b]`,
+      `${cb('bp8')} - [b]Scenes, Management & BLS[/b]`
+    ];
+    const checklist_ap = [
+      `${cb('ap1')} - [b]Mask Enforcement[/b]`,
+      `${cb('ap2')} - [b]Robbery Response[/b]`,
+      `${cb('ap3')} - [b]Hostage Negotiation & Suicide Prevention[/b]`,
+      `${cb('ap4')} - [b]Felony Stops[/b]`,
+      `${cb('ap5')} - [b]Advanced Driving[/b]`,
+      `${cb('ap6')} - [b]Seeking Assistance[/b]`
+    ];
+
+    // Session Report answers
+    function withDetail(qid, notesId) {
+      const val = document.getElementById(qid).value;
+      const notes = document.getElementById(notesId).value.trim();
+      if (val === "NO" && notes) return `[list]\n[*]${notes}\n[/list]`;
+      else return '';
     }
-
-    // Collect values
-    const Date = document.getElementById('txtFTSDate').value;
-    const Time = document.getElementById('txtFTSTime').value;
-    const Mod = document.getElementById('txtFTSMod').value;
-    const Manual = document.getElementById('txtFTSMan').value;
-    const Behavior = document.getElementById('txtFTSBehave').value;
-    const Communications = document.getElementById('txtFTSComm').value;
-    const Roleplay = document.getElementById('txtFTSRP').value;
-    const Material = document.getElementById('txtFTSMat').value;
-    const reiterated = document.getElementById('txtFTSRei').value;
-    const KeyMistakes = document.getElementById('txtFTSAt').value;
-    const Survey = document.getElementById('txtFTSSurv').value;
-    const Complete = document.getElementById('txtFTSComp').value;
-    const FormVal = document.getElementById('txtFTSForm').value;
-
-    // Construct the BBCode
-    const FTSReportBBCode = `[img]https://i.imgur.com/fSstyRv.png[/img]
+    const bbcode =
+`[img]https://i.imgur.com/fSstyRv.png[/img]
 
 [lspdsubtitle]1. SESSION DETAILS[/lspdsubtitle]
 [divbox=white][list=none]
-[b]Date:[/b] ${Date}
-[b]Patrol Hours [ooc] UTC, 24h format [/ooc]:[/b] ${Time}
+[b]Date:[/b] ${date}
+[b]Patrol Hours [ooc] UTC, 24h format [/ooc]:[/b] ${patrolStart} to ${patrolEnd}
 [/divbox]
 
 [lspdsubtitle]2. SESSION CHECKLIST[/lspdsubtitle]
 [divbox=white]
 [size=85][i]Mark each box by changing [c][cb][/c] to [c][cbc][/c] if a topic or module was covered in the session, otherwise leave it unchanged.[/i][/size]
 
-${Mod}
-[/divbox]
+[spoil]
+[b]ORIENTATION[/b]
+[list=none]
+${checklist_ori.join('\n')}
+[/list]
+[hr]
+[b]BASIC POLICING[/b]
+[list=none]
+${checklist_bp.join('\n')}
+[/list]
+[hr]
+[b]ADVANCED POLICING[/b]
+[list=none]
+${checklist_ap.join('\n')}
+[/list][/spoil][/divbox]
+
 [lspdsubtitle]3. SESSION REPORT[/lspdsubtitle]
 [divbox=white]
-[size=85][i]Please answer each section with as much detail as possible. Minimum of 40 words [b]PER SECTION[/b].[/i][/size]
+[size=85][i]Please answer each section based on your observations during the session.[/i][/size]
 
 [spoil]
 [b]MANUAL KNOWLEDGE[/b]
-[list] Did the Cadet demonstrate they'd read the Manual, prior to the session?
-[*] How much assistance did they require with the Manual contents?
-[*] At any point during the session, did the cadet have trouble with any of the Manual contents?
-[/list][b]Please describe how they did or did not demonstrate good Manual Knowledge.[/b]
-
-${Manual}
+[list]
+[*]Did the Cadet demonstrate they had read the manual prior to the session, require minimal assistance with its contents, and have no trouble with it during the session? [${document.getElementById('manKnowledge').value}]
+[/list]
+${withDetail('manKnowledge','manKnowledgeNotes')}
 
 [hr]
 [b]BEHAVIOR[/b]
-[list] How did the Cadet behave during the session?
-[*] Did they ask their own questions, outside of what was being taught?
-[*] How would you describe how they acted during your session together?
-[/list][b]Please describe their behavior and personality.[/b]
-
-${Behavior}
+[list]
+[*]Did the Cadet behave appropriately during the session, ask their own questions beyond what was being taught, and demonstrate good conduct throughout? [${document.getElementById('behavior').value}]
+[/list]
+${withDetail('behavior','behaviorNotes')}
 
 [hr]
 [b]COMMUNICATIONS[/b]
-[list] How do you feel the Cadet communicated during their session?
-[*] Did the Cadet speak clearly and confidently? 
-[*] Would you consider them able to remain calm and get their point across in high-stress situations?
-[/list][b]Please describe their behavior and personality.[/b]
-
-${Communications}
+[list]
+[*]Did the Cadet communicate clearly and confidently during the session, and show an ability to remain calm and express themselves effectively in high-stress situations? [${document.getElementById('comms').value}]
+[/list]
+${withDetail('comms','commsNotes')}
 
 [hr]
 [b](( ROLEPLAY ABILITIES ))[/b]
-[list] Do you believe the Police Cadet is up to par with the rest of the department in terms of roleplay abilities?
-[*]Have they demonstrated good and in-depth roleplay during your session?
-[*]Has the Police Cadet used /me and /do in his roleplay to add more depth and immersion for you?
-[/list][b]Please give a description of the Police Cadet's roleplay abilities.[/b]
-
-${Roleplay}
-
+[list]
+[*]Do you believe that the Cadet is up to par with the rest of the department in terms of roleplay abilities, demonstrating good roleplay, and using /me and /do to add depth and immersion? [${document.getElementById('rpSkills').value}]
+[/list]
+${withDetail('rpSkills','rpNotes')}
 [/spoil]
 [/divbox]
 
 [lspdsubtitle]4. ADDITIONAL NOTES[/lspdsubtitle]
 [divbox=white][list=none]
 
-[b]Did the Police Cadet display a good understanding of the session material?[/b]: [${Material}]
+[b]Did the Cadet demonstrate a solid understanding of the material, with no need for reiteration or correction?[/b]: [${document.getElementById('solidUnderstanding').value}]
+${document.getElementById('solidUnderstanding').value==="NO"?('If no, provide details: '+document.getElementById('solidUnderstandingNotes').value):''}
 
-[b]Any sections that would need to be reiterated?[/b]: [${reiterated}] 
-Specify here..
+[b]Are there any additional notes you'd like to add regarding the cadet, whether positive or negative?[/b]: [${document.getElementById('additionalNotes').value}]
+${document.getElementById('additionalNotes').value==="YES"?('If yes, provide details: '+document.getElementById('additionalNotesText').value):''}
 
-[b]Any key mistakes that need urgent attention?[/b]: [${KeyMistakes}]
-Specify here..
+[b]Is your report on this session complete?[/b]: [${document.getElementById('reportComplete').value}]
+${document.getElementById('reportComplete').value==="NO"?('If no, provide details: '+document.getElementById('reportCompleteNotes').value):''}
 
-[hr]
-
-[b]Did you remind the Cadet to submit a Field Training Officer Review Survey?[/b]: [${Survey}]
-
-[b]Is your report on this session complete?[/b]: [${Complete}]
-[b]Have you entered this session on the [url=https://forms.gle/jCRTjTn4p2t2nvBG6]Session Submission Form[/url]?[/b]: [${FormVal}]
+[b]Have you entered this session on the [url=https://forms.gle/jCRTjTn4p2t2nvBG6]Session Submission Form[/url]?[/b]: [${document.getElementById('sessionFormLogged').value}]
+${document.getElementById('sessionFormLogged').value==="NO"?('If no, provide details: '+document.getElementById('sessionFormLoggedNotes').value):''}
 [/divbox]
 
 [lspdfooter][/lspdfooter]`;
 
-    bbcodeOutput.value = FTSReportBBCode.trim();
-    bbcodeOutput.select();
-
+    const outputArea = document.getElementById('lspdCadetSessionBBOutput');
+    outputArea.value = bbcode.trim();
+    outputArea.focus();
+    outputArea.select();
     try {
-      navigator.clipboard.writeText(FTSReportBBCode).then(() => {
-        successMsg.textContent = 'Copied to clipboard!';
+      navigator.clipboard.writeText(bbcode).then(() => {
+        msg.textContent = 'Copied to clipboard!';
       }, () => {
-        successMsg.textContent = 'Failed to copy automatically. Please copy manually.';
+        msg.textContent = 'Failed to copy automatically. Please copy manually.';
       });
     } catch {
-      successMsg.textContent = 'Clipboard API not supported. Please copy manually.';
+      msg.textContent = 'Clipboard API not supported. Please copy manually.';
     }
-  });
-})();
+});
 </script>
+
 
 <!-- ------------------------------------------------------- -->
 
@@ -5275,6 +5673,63 @@ Los Santos Police Department
     }
     if (targetId) showSection(targetId, null);
   });
+</script>
+
+<script>
+function sectionIdFromPath(path) {
+  // e.g. "/Mugshot" => "MUGSHOT"
+  return path.replace(/^\//, '').toUpperCase();
+}
+function pathFromSectionId(id) {
+  return '/' + id.charAt(0).toUpperCase() + id.slice(1).toLowerCase();
+}
+// Called when the user clicks a sidebar link/button, with target section id
+function showSection(id, btn, updateUrl = true) {
+  document.querySelectorAll('.sidebar .btn').forEach(el => el.classList.remove('btn-success'));
+  if (btn) btn.classList.add('btn-success');
+
+  document.querySelectorAll('.main-content .myHideableSection').forEach(s => s.classList.remove('active'));
+  let match = document.getElementById(id);
+  if (match) {
+    match.classList.add('active');
+    match.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    localStorage.setItem('lastSection', id);
+
+    // Update the URL (if required)
+    if (updateUrl) {
+      window.history.pushState({section: id}, "", pathFromSectionId(id));
+    }
+  }
+}
+
+// Hijack all sidebar button clicks to call showSection(..., ..., true) as above
+// (as in your code, already done)
+
+// Handle browser back/forward
+window.addEventListener('popstate', function(event) {
+  let section = event.state && event.state.section;
+  if (!section) {
+    // Check URL directly, fallback to root/default
+    section = sectionIdFromPath(window.location.pathname) || document.querySelector('.myHideableSection')?.id;
+  }
+  if (section && document.getElementById(section)) showSection(section, null, false);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  // On load, check the URL
+  let urlSection = sectionIdFromPath(window.location.pathname);
+  if (urlSection && document.getElementById(urlSection)) {
+    showSection(urlSection, null, false);
+  } else {
+    // Fallback to last used or first section
+    const lastSectionId = localStorage.getItem('lastSection');
+    let targetId = lastSectionId;
+    if (!targetId || !document.getElementById(targetId)) {
+      targetId = document.querySelector('.myHideableSection')?.id;
+    }
+    if (targetId) showSection(targetId, null, false);
+  }
+});
 </script>
 
 
